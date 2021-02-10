@@ -233,7 +233,8 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <!-- Add icons to the links using the .nav-icon class
                   with font-awesome or any other icon font library -->
-              <li class="nav-item has-treeview">
+
+              <!-- <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
@@ -261,17 +262,32 @@
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> -->
+
+              <?php
+                // $id_level = $this->session->userdata('fn_idlevel');
+                $id_level = '1';
+                $menu = $this->db->join('td_privilage a', 'a.fn_idstatus = b.fn_idstatus')
+                            ->where('a.fn_idlevel', $id_level)
+                            ->where('a.r = 1')
+                            ->order_by('a.id', 'ASC')
+                            ->get('tm_status b')
+                            ->result();
+              
+              foreach($menu as $mn) { 
+              ?>
               <li class="nav-item">
-                <a href="../widgets.html" class="nav-link">
+                <a href="<?php echo base_url($mn->fc_param) ?>" class="nav-link">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
-                    Widgets
-                    <span class="right badge badge-danger">New</span>
+                    <?php echo $mn->fv_name_sts; ?>
+                    <!-- <span class="right badge badge-danger">New</span> -->
                   </p>
                 </a>
               </li>
-              <li class="nav-item has-treeview">
+              <?php } ?>
+
+              <!-- <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-copy"></i>
                   <p>
@@ -756,7 +772,7 @@
                   <i class="nav-icon far fa-circle text-info"></i>
                   <p>Informational</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </nav>
           <!-- /.sidebar-menu -->
