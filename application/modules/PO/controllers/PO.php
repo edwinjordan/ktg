@@ -131,7 +131,11 @@ class PO extends MY_Admin {
 
     public function update_status_po($idpo) {
 
-        $this->po->update_status_po($idpo);
+        $data = array(
+            'fn_status_po' => '1'
+        );
+
+        $this->po->update_status_po($idpo, $data);
         redirect('PO/list_po');
     }
 
@@ -163,6 +167,15 @@ class PO extends MY_Admin {
     }
 
     // Penawaran Harga oleh Ekspedisi
+    public function list_offer_po () {
+        $status1 = '2';
+        $status2 = '3';
+        $data['list_offer_po'] = $this->po->get_offer_po_data($status1, $status2);
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('PO/vw_list_offer_po', $data);
+        $this->template->render();
+    }
 
     public function penawaran_harga($id_po) {
         $data['po_data'] = $this->po->get_po_data_by_id($id_po);
@@ -170,6 +183,83 @@ class PO extends MY_Admin {
 
         $this->template->set_layout('Template/view_admin');
         $this->template->set_content('PO/vw_penawaran_harga', $data);
+        $this->template->render();
+    }
+
+    public function add_penawaran_harga($idpo) {
+        $hargaPenawaran = $this->input->post('harga_penawaran');
+
+        $data = array(
+            'fn_idpo'		=>	$idpo,
+            'fn_idekspedisi'   => $this->session->userdata('id_ekspedisi'),
+            'fm_harga_ekspedisi'        => $hargaPenawaran,
+            'fd_tgl_penawaran'      => date('y-m-d H:i:s'),
+            'fn_status_penawaran'     => '0'
+        );
+
+        $this->po->insert_penawaran_harga($data);
+        redirect('PO/list_offer_po');
+    }
+
+    //PILIH EKSPEDISI
+    public function pilih_ekspedisi ($idpo) {
+        $data['pilih_ekspedisi'] = $this->po->get_penawaran_ekspedisi($idpo);
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('PO/vw_pilih_ekspedisi', $data);
+        $this->template->render();
+    }
+
+    public function approve_penawaran($idpo, $id_penawaran) {
+
+        $data1 = array(
+            'fn_status_po'     => '3'
+        );
+
+        $data2 = array(
+            'fn_status_penawaran'   => '1'
+        );
+
+        $this->po->update_approve_penawaran($idpo, $id_penawaran, $data1, $data2);
+        redirect('PO/list_po');
+    }
+
+    // Konfirmasi Order PO
+    public function konfirmasi_po($id_po) {
+        $data['po_data'] = $this->po->get_po_data_by_id($id_po);
+        $data['barang_po'] = $this->po->get_barang_po_by_id($id_po);
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('PO/vw_konfirmasi_po', $data);
+        $this->template->render();
+    }
+
+    public function deal_konfirmasi_po($idpo) {
+
+        $data = array(
+            'fn_status_po'     => '4'
+        );
+
+        $this->po->update_status_po($idpo, $data);
+        redirect('PO/list_offer_po');
+    }
+
+    public function gagal_konfirmasi_po($idpo) {
+
+        $data = array(
+            'fn_status_po'     => '2'
+        );
+
+        $this->po->update_status_po($idpo, $data);
+        redirect('PO/list_offer_po');
+    }
+
+    //PROSES LOADING
+    public function proses_loading($idpo) {
+        $data['po_data'] = $this->po->get_po_data_by_id($idpo);
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('PO/vw_proses_loading', $data);
         $this->template->render();
     }
       

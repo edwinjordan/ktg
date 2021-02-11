@@ -170,15 +170,54 @@
               <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
             </div>
           </li>
+
           <!-- Notifications Dropdown Menu -->
+
+          <?php 
+            $cek_offer_po = $this->db->get_where('tm_po', 'fn_status_po = 2')->num_rows(); 
+            $cek_konfirmasi_po = $this->db->get_where('tm_po', 'fn_status_po = 3')->num_rows();
+            $total_cek = $cek_offer_po + $cek_konfirmasi_po;
+            $get_po = $this->db->get_where('tm_po', 'fn_status_po = 2')->row();
+          ?>
+          <?php if($this->session->userdata('level_user') == '3') { ?>
           <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
               <i class="far fa-bell"></i>
-              <span class="badge badge-warning navbar-badge">15</span>
+              <?php if($total_cek > 0) { ?>
+                <span class="badge badge-warning navbar-badge"><?= $total_cek; ?></span>
+              <?php } else { ?>
+
+              <?php } ?>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <span class="dropdown-item dropdown-header">15 Notifications</span>
+              <span class="dropdown-item dropdown-header"><?= $cek_offer_po; ?> Notifications</span>
               <div class="dropdown-divider"></div>
+              <a href="<?php echo base_url('PO/list_offer_po') ?>" class="dropdown-item">
+                <i class="fas fa-file mr-2"></i><?= $cek_offer_po; ?> Offer Available
+                <?php if($cek_offer_po > 0) { ?>
+                <!-- <span class="float-right text-muted text-sm"><?= $get_po->fd_tglpo; ?></span> -->
+                <?php } else { }?>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="<?php echo base_url('PO/list_offer_po') ?>" class="dropdown-item">
+                <i class="fas fa-file mr-2"></i><?= $cek_konfirmasi_po; ?> Confirmation Available
+                <?php if($cek_offer_po > 0) { ?>
+                <!-- <span class="float-right text-muted text-sm"><?= $get_po->fd_tglpo; ?></span> -->
+                <?php } else { }?>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+            </div>
+          </li>
+          <?php } elseif($this->session->userdata('level_user') == '1') { ?>
+            <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-bell"></i>
+              <!-- <span class="badge badge-warning navbar-badge">0</span> -->
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <span class="dropdown-item dropdown-header">0 Notifications</span>
+              <!-- <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item">
                 <i class="fas fa-envelope mr-2"></i> 4 new messages
                 <span class="float-right text-muted text-sm">3 mins</span>
@@ -187,20 +226,29 @@
               <a href="#" class="dropdown-item">
                 <i class="fas fa-users mr-2"></i> 8 friend requests
                 <span class="float-right text-muted text-sm">12 hours</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-file mr-2"></i> 3 new reports
-                <span class="float-right text-muted text-sm">2 days</span>
-              </a>
+              </a> -->
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
           </li>
+          <?php } ?>
           <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+          <?php if($this->session->userdata('level_user') == '1') { ?>
+            <a class="nav-link" href="<?= base_url('Auth/logout_ktg') ?>">
               <i class="fas fa-th-large"></i>
             </a>
+          <?php } elseif($this->session->userdata('level_user') == '2') { ?>
+            <a class="nav-link" href="<?= base_url('Auth/logout_customer') ?>">
+              <i class="fas fa-th-large"></i>
+            </a>
+          <?php } elseif($this->session->userdata('level_user') == '3') {?>
+            <a class="nav-link" href="<?= base_url('Auth/logout_ekspedisi') ?>">
+              <i class="fas fa-th-large"></i>
+            </a>
+          <?php } ?>
+            <!-- <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="<?= base_url('Auth/logout_ekspedisi') ?>">
+              <i class="fas fa-th-large"></i>
+            </a> -->
           </li>
         </ul>
       </nav>
@@ -270,7 +318,7 @@
                 $menu = $this->db->join('td_privilage a', 'a.fn_idstatus = b.fn_idstatus')
                             ->where('a.fn_idlevel', $id_level)
                             ->where('a.r = 1')
-                            ->order_by('a.id', 'ASC')
+                            ->order_by('a.fn_idstatus', 'ASC')
                             ->get('tm_status b')
                             ->result();
               
