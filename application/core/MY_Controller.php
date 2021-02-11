@@ -7,6 +7,7 @@
 		public function __construct(){
 			parent:: __construct();
 			$this->load->library('template');
+            $this->load->library('cart');
         	$this->template->set_platform('public');
         	$this->template->set_theme('admin-lte');  
 			// if($this->session->userdata("admin_username") == FALSE){
