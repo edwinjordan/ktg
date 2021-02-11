@@ -21,7 +21,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Offer Ekspedisi</h3>
+          <h3 class="card-title">Penawaran Harga Ekspedisi</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -30,7 +30,7 @@
               <i class="fas fa-times"></i></button>
           </div>
         </div>
-        <form action="<?php echo site_url('PO/add_offer_ekspedisi/'.$po_data->fn_idpo) ?>" method="post" enctype="multipart/form">
+        <form action="<?php echo site_url('PO/add_penawaran_harga/'.$po_data->fn_idpo) ?>" method="post" enctype="multipart/form">
         <div class="card-body">
                 <table class="table">
                     <div class="row">
@@ -54,11 +54,11 @@
                         </div>
                         <div class="input-group mb-3 col-sm-6">
                             Jenis Angkutan
-                            <input type="text" name="jenis_angkutan" class="form-control" placeholder="Jenis Angkutan Yang Dibutuhkan" required>
+                            <input type="text" name="jenis_angkutan" class="form-control" placeholder="Jenis Angkutan Yang Dibutuhkan" value="<?php echo $po_data->fv_jns_angkutan ?>" required disabled>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
                             Jaminan Ekspedisi
-                            <input type="text" name="jaminan_ekspedisi" class="form-control" placeholder="Jaminan Ekspedisi" required>
+                            <input type="text" name="jaminan_ekspedisi" class="form-control" placeholder="Jaminan Ekspedisi" value="<?php echo $po_data->fv_jmn_ekspedisi ?>" required disabled>
                         </div>
                     </div>
                     <thead>
@@ -84,7 +84,11 @@
                 </table>
                   <div class="input-group mb-3">
                     Persyaratan Ekspedisi
-                    <textarea type="text" name="persyaratan_ekspedisi" class="form-control" placeholder="Persyaratan Ekspedisi Yang Harus Di Penuhi" required></textarea>
+                    <textarea type="text" name="persyaratan_ekspedisi" class="form-control" placeholder="Persyaratan Ekspedisi Yang Harus Di Penuhi" required disabled><?php echo $po_data->fv_syarat_ekspedisi ?></textarea>
+                  </div>
+                  <div class="input-group mb-3 col-sm-6 float-sm-right">
+                    Harga Penawaran
+                    <input type="text" name="harga_penawaran" class="form-control" placeholder="Masukkan Harga" required>
                   </div>
             
         </div>

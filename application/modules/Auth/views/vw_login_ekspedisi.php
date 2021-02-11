@@ -1,13 +1,13 @@
 
   <div class="login-logo">
-    <b>KTG</b>
+    <b>Ekspedisi</b>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="<?php echo base_url('Auth/login_ktg') ?>" method="post">
+      <form action="<?php echo base_url('Auth/login_ekspedisi') ?>" method="post">
         <div class="input-group mb-3">
           <input type="text" name="username" class="form-control" placeholder="Username">
           <div class="input-group-append">

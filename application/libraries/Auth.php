@@ -49,21 +49,37 @@ class Auth{
          return false;
       }
    }
+   function login_ktg($user,$pass)
+   {  
+      $cek=$this->CI->db->where('fv_username', $user)
+                        ->where('fv_password', $pass)
+                        ->get('tm_ktg')
+                        ->row();
+      $row=$this->CI->db->where('fv_username', $user)
+                        ->where('fv_password', $pass)
+                        ->get('tm_ktg')
+                        ->num_rows();
+      if ($row==1) {
+         return $cek;
+      } else {
+         return false;
+      }
+   }
    // untuk validasi di setiap halaman yang mengharuskan authentikasi
    function restrict()
    {
-   $data=$this->CI->session->userdata('admin_username');      
+   $data=$this->CI->session->userdata('fv_username');      
    if(!empty($data))
          {
-            $user=$this->CI->session->userdata('admin_username');
-            $pass=$this->CI->session->userdata('admin_view_password');
-            $cek_login=$this->log_admin($user,$pass);
+            $user=$this->CI->session->userdata('fv_username');
+            $pass=$this->CI->session->userdata('fv_password');
+            $cek_login=$this->login_ktg($user,$pass);
             
             if ($cek_login==false) {
-               echo "<script>alert('Anda telah keluar dari sistem'); window.location='".base_url()."login';</script>";
+               echo "<script>alert('Anda telah keluar dari sistem'); window.location='".base_url()."Auth';</script>";
             }
          } else {
-               echo "<script>alert('Anda harus login terlebih dahulu'); window.location='".base_url()."login';</script>";
+               echo "<script>alert('Anda harus login terlebih dahulu'); window.location='".base_url()."Auth';</script>";
          }
       }
    }

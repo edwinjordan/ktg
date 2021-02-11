@@ -11,6 +11,10 @@ class PO extends MY_Admin {
         parent::__construct();
         $this->load->library('cart');
         $this->load->model('M_PO', 'po');
+
+        if($this->session->userdata('status') != "login"){
+            redirect(base_url("Auth"));
+        }
     }
 
 	public function index()
@@ -141,9 +145,8 @@ class PO extends MY_Admin {
         $this->template->render();
     }
 
-    public function add_offer_ekspedisi() {
-     
-        $idpo = $this->input->post('idpo');
+    public function add_offer_ekspedisi($idpo) {
+    
         $jenisAngkutan = $this->input->post('jenis_angkutan');
         $jaminanEkspedisi = $this->input->post('jaminan_ekspedisi');
         $persyaratan = $this->input->post('persyaratan_ekspedisi');
@@ -157,6 +160,17 @@ class PO extends MY_Admin {
 
         $this->po->insert_offer_ekspedisi($idpo, $data);
         redirect('PO/list_po');
+    }
+
+    // Penawaran Harga oleh Ekspedisi
+
+    public function penawaran_harga($id_po) {
+        $data['po_data'] = $this->po->get_po_data_by_id($id_po);
+        $data['barang_po'] = $this->po->get_barang_po_by_id($id_po);
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('PO/vw_penawaran_harga', $data);
+        $this->template->render();
     }
       
 }	

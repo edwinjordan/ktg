@@ -266,7 +266,7 @@
 
               <?php
                 // $id_level = $this->session->userdata('fn_idlevel');
-                $id_level = '1';
+                $id_level = $this->session->userdata('level_user');
                 $menu = $this->db->join('td_privilage a', 'a.fn_idstatus = b.fn_idstatus')
                             ->where('a.fn_idlevel', $id_level)
                             ->where('a.r = 1')

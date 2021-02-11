@@ -60,6 +60,11 @@
                                 <th style="text-align:center;">
                                     <a href="<?php echo site_url('PO/offer/'.$items->fn_idpo); ?>" class="btn btn-primary">Offer Ekspedisi</a>
                                 </th>
+                            <?php } elseif($items->fn_status_po == '2') { ?>
+                                <th style="text-align:center;">Offer Ke Ekspedisi</th>
+                                <th style="text-align:center;">
+                                    <a href="<?php echo site_url('PO/pilih_ekspedisi/'.$items->fn_idpo); ?>" class="btn btn-primary">Pilih Ekspedisi</a>
+                                </th>
                             <?php } ?>
                         </tr>
                         <?php $i++; ?>
