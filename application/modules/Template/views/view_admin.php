@@ -175,7 +175,13 @@
 
           <?php 
             $cek_offer_po = $this->db->get_where('tm_po', 'fn_status_po = 2')->num_rows(); 
-            $cek_konfirmasi_po = $this->db->get_where('tm_po', 'fn_status_po = 3')->num_rows();
+            $cek_konfirmasi_po = $this->db->select('*')
+                                          ->from('tm_po a')
+                                          ->join('td_po_ekspedisi b', 'a.fn_idpo=b.fn_idpo')
+                                          ->where('a.fn_idpo=3')
+                                          ->where('b.fn_status_penawaran=1')
+                                          ->where('b.fn_idekspedisi', $this->session->userdata('id_ekspedisi'))
+                                          ->get()->num_rows();
             $total_cek = $cek_offer_po + $cek_konfirmasi_po;
             $get_po = $this->db->get_where('tm_po', 'fn_status_po = 2')->row();
           ?>
@@ -199,7 +205,7 @@
                 <?php } else { }?>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="<?php echo base_url('PO/list_offer_po') ?>" class="dropdown-item">
+              <a href="<?php echo base_url('PO/list_confirmation_po') ?>" class="dropdown-item">
                 <i class="fas fa-file mr-2"></i><?= $cek_konfirmasi_po; ?> Confirmation Available
                 <?php if($cek_offer_po > 0) { ?>
                 <!-- <span class="float-right text-muted text-sm"><?= $get_po->fd_tglpo; ?></span> -->

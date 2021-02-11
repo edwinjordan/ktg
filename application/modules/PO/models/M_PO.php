@@ -16,7 +16,7 @@ class M_PO extends CI_Model {
 
     public function simpan_po($NoPO, $NoSJ, $tglPO, $tglKirim, $alamatKirim) {
 
-        $this->db->query("INSERT INTO tm_po (fn_idpo, fc_kdpo, fd_tglpo, fc_kdsj, fd_target_tglkirim, fv_alamat_kirim, 'fn_status_po') VALUES ('', '$NoPO', '$tglPO', '$NoSJ', '$tglKirim', '$alamatKirim', '0')");
+        $this->db->query("INSERT INTO tm_po (fn_idpo, fc_kdpo, fd_tglpo, fc_kdsj, fd_target_tglkirim, fv_alamat_kirim, fn_status_po) VALUES ('', '$NoPO', '$tglPO', '$NoSJ', '$tglKirim', '$alamatKirim', '0')");
 
         $latest_id = $this->db->insert_id();
 
@@ -36,7 +36,7 @@ class M_PO extends CI_Model {
     }
 
     public function get_all_po_data() {
-        return $this->db->get('tm_po')->result();
+        return $this->db->get_where('tm_po', 'fn_status_po < 6')->result();
     }
 
     public function get_po_data_by_id($id_po) {
@@ -67,12 +67,11 @@ class M_PO extends CI_Model {
     }
 
     //Penawaran Harga Ekspedisi
-    public function get_offer_po_data($status1, $status2) {
+    public function get_offer_po_data($status) {
         $this->db->select('*');
         $this->db->from('tm_po');
-        $this->db->where('fn_status_po', $status1);
-        $this->db->or_where('fn_status_po', $status2);
-        return $this->db->get()->result();
+        $this->db->where('fn_status_po', $status);
+        return $this->db->get();
     }
 
     public function insert_penawaran_harga($data) {
@@ -81,7 +80,6 @@ class M_PO extends CI_Model {
     }
 
     //Pilih Ekspedisi
-
     public function get_penawaran_ekspedisi($idpo) {
 
         $this->db->select('*');
@@ -90,7 +88,7 @@ class M_PO extends CI_Model {
         $this->db->where('a.fn_status_penawaran=0');
         $this->db->where('a.fn_idpo', $idpo);
         $this->db->order_by('a.fd_tgl_penawaran', 'ASC');
-        return $this->db->get()->result();
+        return $this->db->get();
     }
 
     public function update_approve_penawaran($idpo, $id_penawaran, $data1, $data2) {
@@ -100,6 +98,17 @@ class M_PO extends CI_Model {
 
         $this->db->where('fn_idpo_ekspedisi', $id_penawaran);
         return $this->db->update('td_po_ekspedisi', $data2);
+    }
+
+    //Konfirmasi Offer PO
+    public function get_confirmation_po_data($status1, $status2, $id_ekspedisi) {
+        $this->db->select('*');
+        $this->db->from('tm_po a');
+        $this->db->join('td_po_ekspedisi b', 'a.fn_idpo=b.fn_idpo');
+        $this->db->where('a.fn_status_po', $status1);
+        $this->db->where('b.fn_status_penawaran', $status2);
+        $this->db->where('b.fn_idekspedisi', $id_ekspedisi);
+        return $this->db->get();
     }
       
 }	

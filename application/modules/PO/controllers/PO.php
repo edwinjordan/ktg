@@ -100,7 +100,7 @@ class PO extends MY_Admin {
                 $this->session->unset_userdata('nosj');
                 $this->session->unset_userdata('alamat_kirim');
                 echo $this->session->set_flashdata('msg', '<label class="label label-success">PO Berhasil di Tambahkan</label>');
-                redirect('PO');
+                redirect('PO/list_po');
             } else {
                 redirect('PO');
             }
@@ -168,9 +168,9 @@ class PO extends MY_Admin {
 
     // Penawaran Harga oleh Ekspedisi
     public function list_offer_po () {
-        $status1 = '2';
-        $status2 = '3';
-        $data['list_offer_po'] = $this->po->get_offer_po_data($status1, $status2);
+        $status = '2';
+        
+        $data['list_offer_po'] = $this->po->get_offer_po_data($status)->result();
 
         $this->template->set_layout('Template/view_admin');
         $this->template->set_content('PO/vw_list_offer_po', $data);
@@ -203,7 +203,8 @@ class PO extends MY_Admin {
 
     //PILIH EKSPEDISI
     public function pilih_ekspedisi ($idpo) {
-        $data['pilih_ekspedisi'] = $this->po->get_penawaran_ekspedisi($idpo);
+        
+        $data['pilih_ekspedisi'] = $this->po->get_penawaran_ekspedisi($idpo)->result();
 
         $this->template->set_layout('Template/view_admin');
         $this->template->set_content('PO/vw_pilih_ekspedisi', $data);
@@ -225,6 +226,18 @@ class PO extends MY_Admin {
     }
 
     // Konfirmasi Order PO
+    public function list_confirmation_po () {
+        $status1 = '3';
+        $status2 = '1';
+        $id_ekspedisi = $this->session->userdata('id_ekspedisi');
+        
+        $data['list_confirmation_po'] = $this->po->get_confirmation_po_data($status1, $status2, $id_ekspedisi)->result();
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('PO/vw_list_confirmation_po', $data);
+        $this->template->render();
+    }
+
     public function konfirmasi_po($id_po) {
         $data['po_data'] = $this->po->get_po_data_by_id($id_po);
         $data['barang_po'] = $this->po->get_barang_po_by_id($id_po);

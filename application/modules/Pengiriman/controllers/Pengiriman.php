@@ -19,8 +19,11 @@ class Pengiriman extends MY_Admin {
 
 	public function index()
 	{
+                $id_ekspedisi = $this->session->userdata('id_ekspedisi');
+                $data['list_pengiriman_po'] = $this->Pengiriman->get_ekspedisi_pengiriman_data($id_ekspedisi);
+
                 $this->template->set_layout('Template/view_admin');
-                $this->template->set_content('Pengiriman/vw_list_pengiriman');
+                $this->template->set_content('Pengiriman/vw_list_pengiriman', $data);
                 $this->template->render();
         }
 
@@ -79,4 +82,43 @@ class Pengiriman extends MY_Admin {
                 $this->po->update_status_po($idpo, $data);
                 redirect('PO/list_po');
         }
+
+        //Proses Unloading
+        public function proses_unloading($idpo) {
+                $data['po_data'] = $this->po->get_po_data_by_id($idpo);
+
+                $this->template->set_layout('Template/view_admin');
+                $this->template->set_content('Pengiriman/vw_proses_unloading', $data);
+                $this->template->render();
+        }
+
+        public function update_proses_unloading($idpo) {
+
+                $data = array(
+                        'fn_status_po'  => '7'
+                );
+
+                $this->po->update_status_po($idpo, $data);
+                redirect('Pengiriman');
+        }
+
+        //Proses Barang Diterima
+        public function proses_barang_diterima($idpo) {
+                $data['po_data'] = $this->po->get_po_data_by_id($idpo);
+
+                $this->template->set_layout('Template/view_admin');
+                $this->template->set_content('Pengiriman/vw_proses_barang_diterima', $data);
+                $this->template->render();
+        }
+
+        public function update_proses_barang_diterima($idpo) {
+
+                $data = array(
+                        'fn_status_po'  => '8'
+                );
+
+                $this->po->update_status_po($idpo, $data);
+                redirect('Pengiriman');
+        }
+
 }	

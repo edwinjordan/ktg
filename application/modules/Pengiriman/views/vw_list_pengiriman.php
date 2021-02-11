@@ -21,7 +21,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">List PO</h3>
+          <h3 class="card-title">List Pengiriman Barang</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -31,7 +31,6 @@
           </div>
         </div>
         <div class="card-body">
-        <a href="<?php echo site_url('PO'); ?>" class="btn btn-primary m-2">Tambah PO</a>
             <table class="table">
                 <thead>
                     <tr>
@@ -45,41 +44,29 @@
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($list_po as $items) : ?>
+                    <?php foreach ($list_pengiriman_po as $items) : ?>
                         <tr>
                             <th style="text-align:center;"><?= $items->fc_kdpo; ?></th>
                             <th style="text-align:center;"><?= $items->fc_kdsj; ?></th>
                             <th style="text-align:center;"><?= $items->fd_tglpo; ?></th>
                             <th style="text-align:center;"><?= $items->fd_target_tglkirim; ?></th>
-                            <?php if($items->fn_status_po == '0') { ?>
-                                <th style="text-align:center;">PO Konfirm</th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('PO/proses_produksi/'.$items->fn_idpo); ?>" class="btn btn-primary">Produksi</a>
-                                </th>
-                            <?php } elseif($items->fn_status_po == '1') { ?>
-                                <th style="text-align:center;">Mulai Produksi</th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('PO/offer/'.$items->fn_idpo); ?>" class="btn btn-primary">Offer Ekspedisi</a>
-                                </th>
-                            <?php } elseif($items->fn_status_po == '2') { ?>
-                                <th style="text-align:center;">Offer Ke Ekspedisi</th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('PO/pilih_ekspedisi/'.$items->fn_idpo); ?>" class="btn btn-primary">Pilih Ekspedisi</a>
-                                </th>
-                            <?php } elseif($items->fn_status_po == '3') { ?>
-                                <th style="text-align:center;">Menunggu Konfirmasi Ekspedisi</th>
-                            <?php } elseif($items->fn_status_po == '4') { ?>
-                                <th style="text-align:center;">Konfirmasi Diterima</th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('PO/proses_loading/'.$items->fn_idpo); ?>" class="btn btn-primary">Proses Loading</a>
-                                </th>
-                            <?php } elseif($items->fn_status_po == '5') { ?>
+                            <?php if($items->fn_status_po == '5') { ?>
                                 <th style="text-align:center;">Proses Loading</th>
                                 <th style="text-align:center;">
                                     <a href="<?php echo site_url('Pengiriman/proses_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-primary">Proses Pengiriman</a>
                                 </th>
                             <?php } elseif($items->fn_status_po == '6') { ?>
                                 <th style="text-align:center;">Proses Pengiriman</th>
+                                <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/proses_unloading/'.$items->fn_idpo); ?>" class="btn btn-primary">Proses Unloading</a>
+                                </th>
+                            <?php } elseif($items->fn_status_po == '7') { ?>
+                                <th style="text-align:center;">Barang Sampai di Kota Tujuan</th>
+                                <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/proses_barang_diterima/'.$items->fn_idpo); ?>" class="btn btn-primary">Barang Diterima</a>
+                                </th>
+                            <?php } elseif($items->fn_status_po == '8') { ?>
+                                <th style="text-align:center;">Barang Telah Diterima Customer</th>
                             <?php } ?>
                         </tr>
                         <?php $i++; ?>
