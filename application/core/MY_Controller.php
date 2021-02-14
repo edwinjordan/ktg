@@ -35,7 +35,10 @@
         $this->template->set_css(base_url().'assets/public/themes/admin-lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css','remote'); 
 
         $this->template->set_css(base_url().'assets/public/themes/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css','remote');  
-        $this->template->set_css(base_url().'assets/public/themes/admin-lte/plugins/jqvmap/jqvmap.min.css','remote'); 
+        $this->template->set_css(base_url().'assets/public/themes/admin-lte/plugins/jqvmap/jqvmap.min.css','remote');
+        // $this->template->set_css(base_url().'assets/public/themes/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css','remote'); 
+        $this->template->set_css('https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css','remote'); 
+        $this->template->set_css('https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css','remote'); 
         $this->template->set_css(base_url().'assets/public/themes/admin-lte/dist/css/adminlte.min.css','remote');  
 
         $this->template->set_css(base_url().'assets/public/themes/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css','remote'); 
@@ -56,6 +59,10 @@
         $this->template->set_js(base_url().'assets/public/themes/admin-lte/plugins/jquery-ui/jquery-ui.min.js','footer', 'remote');
 
         $this->template->set_js(base_url().'assets/public/themes/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js','footer', 'remote');
+        // $this->template->set_js(base_url().'assets/public/themes/admin-lte/plugins/datatables/jquery.dataTables.js','footer', 'remote');
+        // $this->template->set_js(base_url().'assets/public/themes/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js','footer', 'remote');
+        $this->template->set_js('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js','footer', 'remote');
+        $this->template->set_js('https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js','footer', 'remote');
         $this->template->set_js(base_url().'assets/public/themes/admin-lte/plugins/chart.js/Chart.min.js','footer', 'remote');
 
         $this->template->set_js(base_url().'assets/public/themes/admin-lte/plugins/sparklines/sparkline.js','footer', 'remote');

@@ -12,9 +12,9 @@ class PO extends MY_Admin {
         $this->load->library('cart');
         $this->load->model('M_PO', 'po');
 
-        if($this->session->userdata('status') != "login"){
-            redirect(base_url("Auth"));
-        }
+        // if($this->session->userdata('status') != "login"){
+        //     redirect(base_url("Auth"));
+        // }
     }
 
 	public function index()
