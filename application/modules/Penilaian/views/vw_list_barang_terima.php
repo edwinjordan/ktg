@@ -56,9 +56,18 @@
                                     <a href="<?php echo site_url('Penilaian/konfirmasi_terima_barang/'.$items->fn_idpo); ?>" class="btn btn-primary">Konfirmasi Barang Diterima</a>
                                 </th>
                             <?php } elseif($items->fn_status_po == '9') { ?>
+
+                            <?php $cek_penilaian = $this->db->where('fc_kdpo', $items->fc_kdpo)
+                                                            ->where('fn_id_customer', $this->session->userdata('id_customer'))
+                                                            ->get('tm_penilaian_pengiriman')->num_rows(); ?>
+
                                 <th style="text-align:center;">Barang Diterima</th>
                                 <th style="text-align:center;">
+                                  <?php if($cek_penilaian > 0) { ?>
+
+                                  <?php } else { ?>
                                     <a href="<?php echo site_url('Penilaian/penilaian_pengiriman/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Beri Penilaian</a>
+                                  <?php } ?>
                                     <a href="<?php echo site_url('Keluhan/pelaporan_keluhan/'.$items->fn_idpo); ?>" class="btn btn-danger">Laporkan Keluhan</a>
                                 </th>
                             <?php } ?>

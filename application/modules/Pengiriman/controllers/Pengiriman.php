@@ -139,11 +139,31 @@ class Pengiriman extends MY_Admin {
         }
 
         //Proses Transit
-        
+        public function proses_transit($idpo) {
+                $data['po_data'] = $this->po->get_po_data_by_id($idpo);
+                $data['barang_po'] = $this->po->get_barang_po_by_id($idpo);
+
+                $this->template->set_layout('Template/view_admin');
+                $this->template->set_content('Pengiriman/vw_proses_transit', $data);
+                $this->template->render();
+        }
+
+        public function update_proses_transit($idpo) {
+
+                $transit = $this->input->post('transit');
+
+                $data = array(
+                        'fv_transit'  => $transit 
+                );
+
+                $this->po->update_status_po($idpo, $data);
+                redirect('PO/list_po');
+        }
 
         //Proses Unloading
         public function proses_unloading($idpo) {
                 $data['po_data'] = $this->po->get_po_data_by_id($idpo);
+                $data['barang_po'] = $this->po->get_barang_po_by_id($idpo);
 
                 $this->template->set_layout('Template/view_admin');
                 $this->template->set_content('Pengiriman/vw_proses_unloading', $data);
@@ -153,6 +173,7 @@ class Pengiriman extends MY_Admin {
         public function update_proses_unloading($idpo) {
 
                 $data = array(
+                        'fd_target_tglsampai'   => date('Y-m-d'),
                         'fn_status_po'  => '7'
                 );
 
@@ -163,6 +184,7 @@ class Pengiriman extends MY_Admin {
         //Proses Barang Diterima
         public function proses_barang_diterima($idpo) {
                 $data['po_data'] = $this->po->get_po_data_by_id($idpo);
+                $data['barang_po'] = $this->po->get_barang_po_by_id($idpo);
 
                 $this->template->set_layout('Template/view_admin');
                 $this->template->set_content('Pengiriman/vw_proses_barang_diterima', $data);

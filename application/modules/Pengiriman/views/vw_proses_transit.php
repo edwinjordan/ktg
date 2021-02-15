@@ -47,7 +47,7 @@ input[type="file"] {
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Proses Loading (Muat)</h3>
+          <h3 class="card-title">Proses Transit</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -56,6 +56,9 @@ input[type="file"] {
               <i class="fas fa-times"></i></button>
           </div>
         </div>
+
+        <?php echo form_open_multipart('Pengiriman/update_proses_transit/'.$po_data->fn_idpo);?>
+        <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
         <div class="card-body">
           <div class="card" style="width: 50%; margin: auto; border-radius: 15px">
             <div class="card-body">
@@ -71,12 +74,17 @@ input[type="file"] {
                 <label class="col-sm-1"><?php echo $bp->fn_qty ?> X</label><label class="col-sm-9"><?php echo $bp->fv_nmbarang ?></label><label class="col-sm-2"><?php echo $bp->fn_qty_kg ?> Kg</label>
               </div>
               <?php } ?>
+              <div class="input-group col-sm-10 mb-4">
+                  <label class="col-sm-3 mt-1">Transit</label>
+                  <input class="form-control" name="transit" placeholder="Transit Location" required/>
+              </div>
               <div class="button-wrap">
-                <a href="<?php echo base_url('Pengiriman/update_proses_unloading/'.$po_data->fn_idpo) ?>" class="btn btn-primary" style="width: 80%">Proses Unloading</a>
+                <button type="submit" class="btn btn-primary" style="width: 80%">Transit</button>
               </div>
             </div>
           </div>
         </div>
+        <?php echo form_close(); ?>
         <!-- /.card-body -->
         <div class="card-footer">
           Footer

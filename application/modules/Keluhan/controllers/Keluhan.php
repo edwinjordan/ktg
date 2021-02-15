@@ -50,22 +50,55 @@ class Keluhan extends MY_Admin {
         $jenisKeluhan = $this->input->post('jns_keluhan');
         $jabatanPelapor = $this->input->post('jabatan_pelapor');
 
-        $data = array(
-            'fc_kdpo'   => $kodePO,
-            'fc_kdsj'   => $kdsj,
-            'fc_kdkeluhan'  => uniqid(),
-            'fc_kdbarang'   => $kodeBarang,
-            'fn_jml_rusak'  => $jumlahRusak,
-            'fv_jenis_keluhan'  => $jenisKeluhan,
-            'fd_tgl_keluhan'    => $tglKeluhan,
-            'fv_foto_rusak'     => '0',
-            'fv_foto_spk'   => '0',
-            'fv_indikasi_penyebab'  => $indikasiPenyebab,
-            'fn_id_customer'    => $this->session->userdata('id_customer'),
-            'fv_nmpelapor'  => $namaPelapor,
-            'fv_jabatan_pelapor'    => $jabatanPelapor,
-            'fc_approval'   => '0'
-        );
+        $config['upload_path'] = realpath('assets/public/themes/admin-lte/img-barang-cacat/');
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size'] = '2000000';
+        $config['max_width'] = '2024';
+        $config['max_height']= '1468';
+                
+        $new_name = 'fotoLoading_'.time();
+        $config['file_name'] = $new_name;
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if(!$this->upload->do_upload('foto_barang')){
+            $data = array(
+                'fc_kdpo'   => $kodePO,
+                'fc_kdsj'   => $kdsj,
+                'fc_kdkeluhan'  => uniqid(),
+                'fc_kdbarang'   => $kodeBarang,
+                'fn_jml_rusak'  => $jumlahRusak,
+                'fv_jenis_keluhan'  => $jenisKeluhan,
+                'fd_tgl_keluhan'    => $tglKeluhan,
+                'fv_foto_rusak'     => '0',
+                'fv_foto_spk'   => '0',
+                'fv_indikasi_penyebab'  => $indikasiPenyebab,
+                'fn_id_customer'    => $this->session->userdata('id_customer'),
+                'fv_nmpelapor'  => $namaPelapor,
+                'fv_jabatan_pelapor'    => $jabatanPelapor,
+                'fc_approval'   => '0'
+            );
+        } else{
+            $get_name = $this->upload->data();
+            $nama_foto = $get_name['file_name'];
+            $gambar1 = $nama_foto;
+            $data = array(
+                'fc_kdpo'   => $kodePO,
+                'fc_kdsj'   => $kdsj,
+                'fc_kdkeluhan'  => uniqid(),
+                'fc_kdbarang'   => $kodeBarang,
+                'fn_jml_rusak'  => $jumlahRusak,
+                'fv_jenis_keluhan'  => $jenisKeluhan,
+                'fd_tgl_keluhan'    => $tglKeluhan,
+                'fv_foto_rusak'     => $gambar1,
+                'fv_foto_spk'   => '0',
+                'fv_indikasi_penyebab'  => $indikasiPenyebab,
+                'fn_id_customer'    => $this->session->userdata('id_customer'),
+                'fv_nmpelapor'  => $namaPelapor,
+                'fv_jabatan_pelapor'    => $jabatanPelapor,
+                'fc_approval'   => '0'
+            );
+        }
 
         $this->keluhan->insert_keluhan($data);
         redirect('Penilaian');

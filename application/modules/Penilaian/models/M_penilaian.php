@@ -25,7 +25,7 @@ class M_penilaian extends CI_Model {
         return $this->db->get_where('tm_kriteria', 'fn_idkriteria > 4');
     }
 
-    public function insert_penilaian_pengiriman($data1, $data2, $data3, $data4, $data5) {
+    public function insert_penilaian_pengiriman($kdpo, $data1, $data2, $data3, $data4, $data5, $data6) {
 
         $this->db->insert('tm_penilaian_pengiriman', $data1);
 
@@ -36,6 +36,9 @@ class M_penilaian extends CI_Model {
         $this->db->insert('tm_penilaian_pengiriman', $data4);
 
         $this->db->insert('tm_penilaian_pengiriman', $data5);
+
+        $this->db->where('fc_kdpo', $kdpo);
+        $this->db->update('tm_po', $data6);
 
         return true;
     }

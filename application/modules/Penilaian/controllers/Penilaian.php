@@ -25,6 +25,7 @@ class Penilaian extends MY_Admin {
     public function konfirmasi_terima_barang($idpo) {
 
         $data = array(
+            'fd_tgl_konfirmasi_terima_barang'   => date('Y-m-d'),
             'fn_status_po' => '9'
         );
 
@@ -116,7 +117,12 @@ class Penilaian extends MY_Admin {
             'fv_saran'   => $kritik_saran
         );
 
-        $this->penilaian->insert_penilaian_pengiriman($data1, $data2, $data3, $data4, $data5);
+        $data6 = array(
+            'fd_tgl_penilaian'      => date('Y-m-d'),
+            'fv_nm_penilai'         => $this->session->userdata('nama_customer'),
+        );
+
+        $this->penilaian->insert_penilaian_pengiriman($kdpo, $data1, $data2, $data3, $data4, $data5, $data6);
         redirect('Penilaian');
     }
 
