@@ -174,13 +174,14 @@
           <!-- Notifications Dropdown Menu -->
 
           <?php 
+            $id_ekspedisi = $this->session->userdata('id_ekspedisi');
             $cek_offer_po = $this->db->get_where('tm_po', 'fn_status_po = 2')->num_rows(); 
             $cek_konfirmasi_po = $this->db->select('*')
                                           ->from('tm_po a')
                                           ->join('td_po_ekspedisi b', 'a.fn_idpo=b.fn_idpo')
                                           ->where('a.fn_idpo=3')
                                           ->where('b.fn_status_penawaran=1')
-                                          ->where('b.fn_idekspedisi', $this->session->userdata('id_ekspedisi'))
+                                          ->where('b.fn_idekspedisi', $id_ekspedisi)
                                           ->get()->num_rows();
             $total_cek = $cek_offer_po + $cek_konfirmasi_po;
             $get_po = $this->db->get_where('tm_po', 'fn_status_po = 2')->row();

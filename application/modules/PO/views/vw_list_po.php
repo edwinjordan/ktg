@@ -62,10 +62,20 @@
                                     <a href="<?php echo site_url('PO/offer/'.$items->fn_idpo); ?>" class="btn btn-primary">Offer Ekspedisi</a>
                                 </th>
                             <?php } elseif($items->fn_status_po == '2') { ?>
+
+                            <?php $cek_ekspedisi = $this->db->where('fn_idpo', $items->fn_idpo)
+                                                            ->get('td_po_ekspedisi')->num_rows(); ?>
+
                                 <th style="text-align:center;">Offer Ke Ekspedisi</th>
+                                
+                                <?php if($cek_ekspedisi > 0) { ?>
                                 <th style="text-align:center;">
                                     <a href="<?php echo site_url('PO/pilih_ekspedisi/'.$items->fn_idpo); ?>" class="btn btn-primary">Pilih Ekspedisi</a>
                                 </th>
+                                <?php } else {
+
+                                } ?>
+                                
                             <?php } elseif($items->fn_status_po == '3') { ?>
                                 <th style="text-align:center;">Menunggu Konfirmasi Ekspedisi</th>
                             <?php } elseif($items->fn_status_po == '4') { ?>

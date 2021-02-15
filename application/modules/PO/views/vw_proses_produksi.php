@@ -34,21 +34,20 @@
             <table class="table">
                     <div class="row">
                         <div class="input-group mb-3 col-sm-6">
-                            No. PO 
+                            <label class="col-sm-4 mt-2">No. PO & No. SJ</label>
                             <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?php echo $po_data->fc_kdpo ?>" required disabled>
-                            No. SJ
                             <input type="text" name="nosj" class="form-control" placeholder="No. SJ" value="<?php echo $po_data->fc_kdsj ?>" required disabled>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Target Tanggal Kirim
+                            <label class="col-sm-4 mt-2">Target Tanggal Kirim</label>
                             <input type="date" name="tgl_kirim" class="form-control" placeholder="Target Tanggal Kirim" value="<?php echo $po_data->fd_target_tglkirim ?>" required disabled>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Tanggal PO
+                            <label class="col-sm-4 mt-2">Tanggal PO</label>
                             <input type="date" name="tgl_po" class="form-control" placeholder="Tgl. PO" value="<?php echo $po_data->fd_tglpo ?>" required disabled>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Alamat Pengiriman
+                            <label class="col-sm-4 mt-2">Alamat Pengiriman</label>
                             <input type="text" name="alamat_kirim" class="form-control" placeholder="Alamat Pengiriman" value="<?php echo $po_data->fv_alamat_kirim ?>" required disabled>
                         </div>
                     </div>

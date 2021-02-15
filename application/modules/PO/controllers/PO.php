@@ -213,8 +213,12 @@ class PO extends MY_Admin {
 
     public function approve_penawaran($idpo, $id_penawaran) {
 
+        $harga = $this->po->get_harga_penawaran($id_penawaran)->row();
+
         $data1 = array(
-            'fn_status_po'     => '3'
+            'fd_tglsj'              => date('Y-m-d'),
+            'fm_harga_ekspedisi'    => $harga->fm_harga_ekspedisi,
+            'fn_status_po'          => '3'
         );
 
         $data2 = array(

@@ -21,7 +21,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">List Offer PO</h3>
+          <h3 class="card-title">List Barang Terima</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -34,53 +34,32 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col" style="text-align:center;">No. PO</th>
-                        <th scope="col" style="text-align:center;">No. SJ</th>
+                        <th scope="col" style="text-align:center;">Kode PO</th>
+                        <th scope="col" style="text-align:center;">Kode SJ</th>
                         <th scope="col" style="text-align:center;">Tanggal PO</th>
                         <th scope="col" style="text-align:center;">Target Tanggal Kirim</th>
-                        <th scope="col" style="text-align:center;">Alamat Kirim</th>
-                        <th scope="col" style="text-align:center;">Jenis Angkutan</th>
-                        <th scope="col" style="text-align:center;">Jaminan</th>
                         <th scope="col" style="text-align:center;">Status</th>
                         <th scope="col" style="text-align:center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($list_offer_po as $items) : ?>
+                    <?php foreach ($list_barang_terima as $items) : ?>
                         <tr>
                             <th style="text-align:center;"><?= $items->fc_kdpo; ?></th>
                             <th style="text-align:center;"><?= $items->fc_kdsj; ?></th>
                             <th style="text-align:center;"><?= $items->fd_tglpo; ?></th>
                             <th style="text-align:center;"><?= $items->fd_target_tglkirim; ?></th>
-                            <th style="text-align:center;"><?= $items->fv_alamat_kirim; ?></th>
-                            <th style="text-align:center;"><?= $items->fv_jns_angkutan; ?></th>
-                            <th style="text-align:center;"><?= $items->fv_jmn_ekspedisi; ?></th>
-                            <?php if($items->fn_status_po == '2') { ?>
-
-                            <?php $cek_offer = $this->db->where('fn_idpo', $items->fn_idpo)
-                                                        ->where('fn_idekspedisi', $this->session->userdata('id_ekspedisi'))
-                                                        ->get('td_po_ekspedisi')->num_rows(); ?>
-
-                              <?php if($cek_offer > 0) { ?>
+                            <?php if($items->fn_status_po == '8') { ?>
+                                <th style="text-align:center;">Barang Sampai</th>
                                 <th style="text-align:center;">
-                                  Menunggu Penentuan dari KTG
+                                    <a href="<?php echo site_url('Penilaian/konfirmasi_terima_barang/'.$items->fn_idpo); ?>" class="btn btn-primary">Konfirmasi Barang Diterima</a>
                                 </th>
-                              <?php } else { ?>
+                            <?php } elseif($items->fn_status_po == '9') { ?>
+                                <th style="text-align:center;">Barang Diterima</th>
                                 <th style="text-align:center;">
-                                  Offer Tersedia
-                                </th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('PO/penawaran_harga/'.$items->fn_idpo); ?>" class="btn btn-primary">Detail</a>
-                                </th>
-                              <?php } ?>
-                              
-                            <?php } elseif($items->fn_status_po == '3') { ?>
-                                <th style="text-align:center;">
-                                  Menunggu Konfirmasi
-                                </th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('PO/konfirmasi_po/'.$items->fn_idpo); ?>" class="btn btn-primary">Konfirmasi</a>
+                                    <a href="<?php echo site_url('Penilaian/penilaian_pengiriman/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Beri Penilaian</a>
+                                    <a href="<?php echo site_url('Keluhan/pelaporan_keluhan/'.$items->fn_idpo); ?>" class="btn btn-danger">Laporkan Keluhan</a>
                                 </th>
                             <?php } ?>
                         </tr>

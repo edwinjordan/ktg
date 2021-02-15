@@ -21,7 +21,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Penawaran Harga Ekspedisi</h3>
+          <h3 class="card-title">Detail PO</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -30,38 +30,58 @@
               <i class="fas fa-times"></i></button>
           </div>
         </div>
-        <?php echo form_open_multipart('PO/add_penawaran_harga/'.$po_data->fn_idpo);?>
+        <?php echo form_open_multipart('Keluhan/submit_keluhan/'.$po_data->fc_kdpo.'/'.$po_data->fc_kdsj);?>
           <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
         <div class="card-body">
                 <table class="table">
                     <div class="row">
                         <div class="input-group mb-3 col-sm-6">
-                            <label class="col-sm-4 mt-2"> No. PO & No. SJ</label>
-                            <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?php echo $po_data->fc_kdpo ?>" required disabled>
-                            <input type="text" name="nosj" class="form-control" placeholder="No. SJ" value="<?php echo $po_data->fc_kdsj ?>" required disabled>
+                            No. PO
+                            <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?php echo $po_data->fc_kdpo ?>" required readonly>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            <label class="col-sm-4 mt-2">Target Tanggal Kirim</label>
-                            <input type="date" name="tgl_kirim" class="form-control" placeholder="Target Tanggal Kirim" value="<?php echo $po_data->fd_target_tglkirim ?>" required disabled>
+                            Foto Barang Cacat
+                            <input type="file" name="foto_barang" class="form-control" placeholder="Foto Barang Cacat" required>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            <label class="col-sm-4 mt-2">Tanggal PO</label>
-                            <input type="date" name="tgl_po" class="form-control" placeholder="Tgl. PO" value="<?php echo $po_data->fd_tglpo ?>" required disabled>
+                            Tanggal Keluhan
+                            <input type="date" name="tgl_keluhan" class="form-control" placeholder="Tanggal Keluhan" required>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            <label class="col-sm-4 mt-2">Alamat Pengiriman</label>
-                            <input type="text" name="alamat_kirim" class="form-control" placeholder="Alamat Pengiriman" value="<?php echo $po_data->fv_alamat_kirim ?>" required disabled>
+                            Foto No. SPK Barang
+                            <input type="file" name="foto_spk" class="form-control" placeholder="Foto No. SPK Barang" required>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            <label class="col-sm-4 mt-2">Jenis Angkutan</label>
-                            <input type="text" name="jenis_angkutan" class="form-control" placeholder="Jenis Angkutan Yang Dibutuhkan" value="<?php echo $po_data->fv_jns_angkutan ?>" required disabled>
+                            Nama Barang
+                              <select name="kode_barang" class="form-control" required>
+                                <option disabled selected style="display: none">Pilih Barang</option>
+                                <?php foreach($barang_po as $items) { ?>
+                                  <option value="<?= $items->fc_kdbarang ?>"><?= $items->fv_nmbarang ?></option>
+                                <?php } ?>
+                              </select>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            <label class="col-sm-4 mt-2">Jaminan Ekspedisi</label>
-                            <input type="text" name="jaminan_ekspedisi" class="form-control" placeholder="Jaminan Ekspedisi" value="<?php echo $po_data->fv_jmn_ekspedisi ?>" required disabled>
+                            Indikasi Penyebab
+                            <input type="text" name="indikasi_penyebab" class="form-control" placeholder="Indikasi Penyebab" required>
+                        </div>
+                        <div class="input-group mb-3 col-sm-6">
+                            Jumlah Rusak
+                            <input type="text" name="jml_rusak" class="form-control" placeholder="Jumlah Yang Rusak" required>
+                        </div>
+                        <div class="input-group mb-3 col-sm-6">
+                            Nama Pelapor
+                            <input type="text" name="nama_pelapor" class="form-control" placeholder="Nama Pelapor" required>
+                        </div>
+                        <div class="input-group mb-3 col-sm-6">
+                            Jenis Keluhan
+                            <input type="text" name="jns_keluhan" class="form-control" placeholder="Jenis Keluhan" required>
+                        </div>
+                        <div class="input-group mb-3 col-sm-6">
+                            Jabatan Pelapor
+                            <input type="text" name="jabatan_pelapor" class="form-control" placeholder="Jabatan Pelapor" required>
                         </div>
                     </div>
-                    <thead>
+                    <!-- <thead>
                         <tr>
                             <th scope="col" style="text-align:center;">No</th>
                             <th scope="col" style="text-align:center;">Nama Barang</th>
@@ -80,21 +100,13 @@
                             </tr>
                             <?php $i++; ?>
                         <?php endforeach; ?>
-                    </tbody>
+                    </tbody> -->
                 </table>
-                  <div class="input-group mb-3 mt-3">
-                    <label class="col-sm-2 mt-3">Persyaratan Ekspedisi</label>
-                    <textarea type="text" name="persyaratan_ekspedisi" class="form-control" placeholder="Persyaratan Ekspedisi Yang Harus Di Penuhi" required disabled><?php echo $po_data->fv_syarat_ekspedisi ?></textarea>
-                  </div>
-                  <div class="input-group mb-3 col-sm-6 float-sm-right">
-                    <label class="col-sm-4 mt-2">Harga Penawaran</label>
-                    <input type="text" name="harga_penawaran" class="form-control" placeholder="Masukkan Harga" required>
-                  </div>
             
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          <button type="submit" class="btn btn-success">Simpan</a>
+          <button type="submit" class="btn btn-success">Laporkan Keluhan</a>
         </div>
       <?php echo form_close(); ?>
         <!-- /.card-footer-->

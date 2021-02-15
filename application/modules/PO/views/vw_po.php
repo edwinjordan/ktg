@@ -38,24 +38,24 @@
         </div>
         <div class="card-body">
             <table class="table">
-                <form action="<?php echo site_url('PO/barang_cart'); ?>" method="post" enctype="multipart/form-data">
+                <?php echo form_open_multipart('PO/barang_cart');?>
+                    <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
                     <div class="row">
                         <div class="input-group mb-3 col-sm-6">
-                            No. PO 
+                          <label class="col-sm-4 mt-2">No. PO & No. SJ</label>
                             <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?php echo $this->session->userdata('nopo'); ?>" required>
-                            No. SJ
                             <input type="text" name="nosj" class="form-control" placeholder="No. SJ" value="<?php echo $this->session->userdata('nosj'); ?>" required>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Target Tanggal Kirim
+                            <label class="col-sm-4 mt-2">Target Tanggal Kirim</label>
                             <input type="date" name="tgl_kirim" class="form-control" placeholder="Target Tanggal Kirim" value="<?php echo $this->session->userdata('tgl_kirim'); ?>" required>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Tanggal PO
+                            <label class="col-sm-4 mt-2">Tanggal PO</label>
                             <input type="date" name="tgl_po" class="form-control" placeholder="Tgl. PO" value="<?php echo $this->session->userdata('tgl_po'); ?>" required>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Alamat Pengiriman
+                            <label class="col-sm-4 mt-2">Alamat Pengiriman</label>
                             <input type="text" name="alamat_kirim" class="form-control" placeholder="Alamat Pengiriman" value="<?php echo $this->session->userdata('alamat_kirim'); ?>" required>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                             <th style="width: 10%"><input type="text" name="qty_kg" class="form-control" placeholder="Qty (Kg)"></th>
                             <th style="text-align: center; width: 10%"><button type="submit" class="btn btn-primary">[+] Tambah</button></th>
                         </tr>
-                </form>
+                <?php echo form_close(); ?>
 
                         <?php $i = 1; ?>
                         <?php foreach ($this->cart->contents() as $items) : ?>

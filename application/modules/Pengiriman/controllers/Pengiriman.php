@@ -12,9 +12,9 @@ class Pengiriman extends MY_Admin {
                 $this->load->model('M_pengiriman', 'Pengiriman');
                 $this->load->model('PO/M_PO', 'po');
 
-                if($this->session->userdata('status') != "login"){
-		        redirect(base_url("Auth"));
-		}
+                // if($this->session->userdata('status') != "login"){
+		//         redirect(base_url("Auth"));
+		// }
         }
 
 	public function index()
@@ -29,10 +29,34 @@ class Pengiriman extends MY_Admin {
 
         public function loading_po($idpo) {
 
-                $data = array (
-                        'fv_img_load'   => $this->input->post('img_loading'),
-                        'fn_status_po'  => '5'
-                );
+                $config['upload_path'] = realpath('assets/public/themes/admin-lte/img-proses-loading/');
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['max_size'] = '2000000';
+                $config['max_width'] = '2024';
+                $config['max_height']= '1468';
+                // $config['file_name'] = $nama_file;	
+                
+                $new_name = 'fotoLoading_'.time();
+                $config['file_name'] = $new_name;
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                if(!$this->upload->do_upload('img-loading')){
+                        $data = array (
+                                'fd_tglmuat'    => date('Y-m-d'),
+                                'fv_img_load'   => $this->input->post('img_loading'),
+                                'fn_status_po'  => '5'
+                        );
+                } else{
+                        $get_name = $this->upload->data();
+                        $nama_foto = $get_name['file_name'];
+                        $gambar1 = $nama_foto;
+                        $data = array (
+                                'fd_tglmuat'    => date('Y-m-d'),
+                                'fv_img_load'   => $gambar1,
+                                'fn_status_po'  => '5'
+                        );
+                }
 
                 $this->Pengiriman->update_load_po($idpo, $data);
                 redirect(base_url('PO/list_po'));
@@ -67,6 +91,7 @@ class Pengiriman extends MY_Admin {
         //Proses Pengiriman
         public function proses_pengiriman($idpo) {
                 $data['po_data'] = $this->po->get_po_data_by_id($idpo);
+                $data['barang_po'] = $this->po->get_barang_po_by_id($idpo);
 
                 $this->template->set_layout('Template/view_admin');
                 $this->template->set_content('Pengiriman/vw_proses_pengiriman', $data);
@@ -82,6 +107,39 @@ class Pengiriman extends MY_Admin {
                 $this->po->update_status_po($idpo, $data);
                 redirect('PO/list_po');
         }
+
+        //Proses Hold
+        public function proses_hold($idpo) {
+                $data['po_data'] = $this->po->get_po_data_by_id($idpo);
+                $data['barang_po'] = $this->po->get_barang_po_by_id($idpo);
+
+                $this->template->set_layout('Template/view_admin');
+                $this->template->set_content('Pengiriman/vw_proses_hold', $data);
+                $this->template->render();
+        }
+
+        public function update_proses_hold($idpo) {
+
+                $data = array(
+                        'fn_status_po'  => '10'
+                );
+
+                $this->po->update_status_po($idpo, $data);
+                redirect('PO/list_po');
+        }
+
+        //Proses Unhold
+        public function proses_unhold($idpo) {
+                $data['po_data'] = $this->po->get_po_data_by_id($idpo);
+                $data['barang_po'] = $this->po->get_barang_po_by_id($idpo);
+
+                $this->template->set_layout('Template/view_admin');
+                $this->template->set_content('Pengiriman/vw_proses_unhold', $data);
+                $this->template->render();
+        }
+
+        //Proses Transit
+        
 
         //Proses Unloading
         public function proses_unloading($idpo) {

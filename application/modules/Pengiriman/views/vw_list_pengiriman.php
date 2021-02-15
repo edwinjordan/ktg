@@ -58,7 +58,9 @@
                             <?php } elseif($items->fn_status_po == '6') { ?>
                                 <th style="text-align:center;">Proses Pengiriman</th>
                                 <th style="text-align:center;">
-                                    <a href="<?php echo site_url('Pengiriman/proses_unloading/'.$items->fn_idpo); ?>" class="btn btn-primary">Proses Unloading</a>
+                                    <a href="<?php echo site_url('Pengiriman/proses_hold/'.$items->fn_idpo); ?>" class="btn btn-danger">Hold</a>
+                                    <a href="<?php echo site_url('Pengiriman/proses_transit/'.$items->fn_idpo); ?>" class="btn btn-warning">Transit</a>
+                                    <a href="<?php echo site_url('Pengiriman/proses_unloading/'.$items->fn_idpo); ?>" class="btn btn-primary">Unloading</a>
                                 </th>
                             <?php } elseif($items->fn_status_po == '7') { ?>
                                 <th style="text-align:center;">Barang Sampai di Kota Tujuan</th>
@@ -67,6 +69,11 @@
                                 </th>
                             <?php } elseif($items->fn_status_po == '8') { ?>
                                 <th style="text-align:center;">Barang Telah Diterima Customer</th>
+                            <?php } elseif($items->fn_status_po == '10') { ?>
+                                <th style="text-align:center;">Pengiriman di Hold</th>
+                                <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/proses_unhold/'.$items->fn_idpo); ?>" class="btn btn-success">Unhold</a>
+                                </th>
                             <?php } ?>
                         </tr>
                         <?php $i++; ?>

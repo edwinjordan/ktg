@@ -63,6 +63,14 @@ input[type="file"] {
                 <h3 style="margin: 10px"><?php echo $po_data->fc_kdpo ?></h3>
                 <p style="margin: 10px"><?php echo $po_data->fv_alamat_kirim ?></p>
               </div>
+              <i class="fas fa-map-marker-alt fa-lg ml-5 mt-4 mb-4" aria-hidden="true"></i> KTG -----><i class="fa fa-check-circle" aria-hidden="true"></i> <?php echo $po_data->fv_alamat_kirim ?><br/>
+              <textarea class="form-control" readonly></textarea>
+              <p>Ringkasan Pesanan</p>
+              <?php foreach($barang_po as $bp) { ?>
+              <div class="col-sm-12 mb-4">
+                <label class="col-sm-1"><?php echo $bp->fn_qty ?> X</label><label class="col-sm-9"><?php echo $bp->fv_nmbarang ?></label><label class="col-sm-2"><?php echo $bp->fn_qty_kg ?> Kg</label>
+              </div>
+              <?php } ?>
               <div class="button-wrap">
                 <a href="<?php echo base_url('Pengiriman/update_proses_pengiriman/'.$po_data->fn_idpo) ?>" class="btn btn-primary" style="width: 80%">Proses Pengiriman</a>
               </div>

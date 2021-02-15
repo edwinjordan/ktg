@@ -8,6 +8,7 @@
       <p class="login-box-msg">Sign in to start your session</p>
 
       <form action="<?php echo base_url('Auth/login_ktg') ?>" method="post">
+        <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
         <div class="input-group mb-3">
           <input type="text" name="username" class="form-control" placeholder="Username">
           <div class="input-group-append">

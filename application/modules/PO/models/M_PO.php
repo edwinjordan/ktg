@@ -16,7 +16,7 @@ class M_PO extends CI_Model {
 
     public function simpan_po($NoPO, $NoSJ, $tglPO, $tglKirim, $alamatKirim) {
 
-        $this->db->query("INSERT INTO tm_po (fn_idpo, fc_kdpo, fd_tglpo, fc_kdsj, fd_target_tglkirim, fv_alamat_kirim, fn_status_po) VALUES ('', '$NoPO', '$tglPO', '$NoSJ', '$tglKirim', '$alamatKirim', '0')");
+        $this->db->query("INSERT INTO tm_po (fn_idpo, fc_kdpo, fd_tglpo, fc_kdsj, fd_target_tglkirim, fn_id_customer, fv_alamat_kirim, fn_status_po) VALUES ('', '$NoPO', '$tglPO', '$NoSJ', '$tglKirim', '1', '$alamatKirim', '0')");
 
         $latest_id = $this->db->insert_id();
 
@@ -25,6 +25,7 @@ class M_PO extends CI_Model {
 				'fn_idpo' 		=>	$latest_id,
 				'fc_kdpo'	=>	$NoPO,
 				'fc_kdsj'		=>	$NoSJ,
+                'fn_id_barang'   => $items['id'],
                 'fv_nmbarang'   => $items['name'],
                 'fn_qty'        => $items['qty_etc'],
                 'fn_qty_kg'     => $items['qty']
@@ -88,6 +89,13 @@ class M_PO extends CI_Model {
         $this->db->where('a.fn_status_penawaran=0');
         $this->db->where('a.fn_idpo', $idpo);
         $this->db->order_by('a.fd_tgl_penawaran', 'ASC');
+        return $this->db->get();
+    }
+
+    public function get_harga_penawaran($id_penawaran) {
+        $this->db->select('fm_harga_ekspedisi');
+        $this->db->from('td_po_ekspedisi');
+        $this->db->where('fn_idpo_ekspedisi', $id_penawaran);
         return $this->db->get();
     }
 
