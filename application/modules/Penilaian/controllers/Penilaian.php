@@ -44,6 +44,19 @@ class Penilaian extends MY_Admin {
         $this->template->render();
     }
 
+    public function lihat_penilaian_pengiriman($kdpo, $kdsj)
+	{
+        $data['kriteria'] = $this->penilaian->get_list_kriteria_pengiriman()->result();
+        $data['nilai_pengiriman'] = $this->penilaian->get_nilai_pengiriman($kdpo, $kdsj)->result();
+        $data['saran_pengiriman'] = $this->penilaian->get_nilai_pengiriman($kdpo, $kdsj)->row();
+        $data['kdpo'] = $kdpo;
+        $data['kdsj'] = $kdsj;
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('Penilaian/vw_lihat_penilaian_pengiriman', $data);
+        $this->template->render();
+    }
+
     public function insert_penilaian_pengiriman($kdpo, $kdsj) {
 
         $rating1 = $this->input->post('rating1');

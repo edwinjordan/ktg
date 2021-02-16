@@ -69,6 +69,22 @@
                                 </th>
                             <?php } elseif($items->fn_status_po == '8') { ?>
                                 <th style="text-align:center;">Barang Telah Diterima Customer</th>
+                            <?php } elseif($items->fn_status_po == '9') { ?>
+
+                              <?php $cek_penilaian = $this->db->where('fc_kdpo', $items->fc_kdpo)
+                                                            ->get('tm_penilaian_pengiriman')->num_rows(); ?>
+
+                                
+                                <th style="text-align:center;">Barang Telah Diterima Customer</th>
+
+                                <?php if($cek_penilaian > 0) { ?>
+                                  <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Penilaian/lihat_penilaian_pengiriman/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Lihat Penilaian</a>
+                                  </th>
+                                <?php } else { ?>
+                                  
+                                <?php } ?>
+
                             <?php } elseif($items->fn_status_po == '10') { ?>
                                 <th style="text-align:center;">Pengiriman di Hold</th>
                                 <th style="text-align:center;">

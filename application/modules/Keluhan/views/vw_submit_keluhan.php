@@ -56,7 +56,7 @@
                               <select name="kode_barang" class="form-control" required>
                                 <option disabled selected style="display: none">Pilih Barang</option>
                                 <?php foreach($barang_po as $items) { ?>
-                                  <option value="<?= $items->fc_kdbarang ?>"><?= $items->fv_nmbarang ?></option>
+                                  <option value="<?= $items->fn_id_barang ?>"><?= $items->fv_nmbarang ?></option>
                                 <?php } ?>
                               </select>
                         </div>

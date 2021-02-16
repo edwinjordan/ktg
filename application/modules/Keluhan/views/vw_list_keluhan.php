@@ -50,31 +50,56 @@
                             <th style="text-align:center;"><?= $items->fc_kdbarang; ?></th>
                             <th style="text-align:center;"><?= $items->fn_jml_rusak; ?></th>
                             <th style="text-align:center;"><?= $items->fd_tgl_keluhan; ?></th>
-                            <?php if($items->fc_approval == '0') { ?>
-                                <th style="text-align:center;">Laporan Diproses</th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('Keluhan/investigasi_keluhan/'.$items->fc_kdkeluhan); ?>" class="btn btn-primary">Investigasi Keluhan</a>
-                                </th>
-                            <?php } elseif($items->fc_approval == '1') { ?>
-                                <th style="text-align:center;">Keluhan Di Investigasi</th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('Keluhan/approval_keluhan/'.$items->fc_kdkeluhan); ?>" class="btn btn-primary">Approve Keluhan</a>
-                                </th>
-                            <?php } elseif($items->fc_approval == '2') { ?>
-                                <th style="text-align:center;">Proses Perbaikan</th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('Keluhan/proses_perbaikan/'.$items->fc_kdkeluhan); ?>" class="btn btn-primary">Proses Perbaikan</a>
-                                </th>
-                            <?php } elseif($items->fc_approval == '3') { ?>
-                                <th style="text-align:center;">Perbaikan Selesai</th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('Keluhan/respon_pelanggan/'.$items->fc_kdkeluhan); ?>" class="btn btn-primary">Respon ke Pelanggan</a>
-                                </th>
-                            <?php } elseif($items->fc_approval == '4') { ?>
-                                <th style="text-align:center;">Selesai</th>
-                                <th style="text-align:center;">
-                                    <a href="<?php echo site_url('Penilaian/penilaian_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Beri Nilai</a>
-                                </th>
+
+                            <?php if($this->session->userdata('level_user') == '1') { ?>
+                              <?php if($items->fc_approval == '0') { ?>
+                                  <th style="text-align:center;">Laporan Diproses</th>
+                                  <th style="text-align:center;">
+                                      <a href="<?php echo site_url('Keluhan/investigasi_keluhan/'.$items->fc_kdkeluhan); ?>" class="btn btn-primary">Investigasi Keluhan</a>
+                                  </th>
+                              <?php } elseif($items->fc_approval == '1') { ?>
+                                  <th style="text-align:center;">Keluhan Di Investigasi</th>
+                                  <th style="text-align:center;">
+                                      <a href="<?php echo site_url('Keluhan/approval_keluhan/'.$items->fc_kdkeluhan); ?>" class="btn btn-primary">Approve Keluhan</a>
+                                  </th>
+                              <?php } elseif($items->fc_approval == '2') { ?>
+                                  <th style="text-align:center;">Proses Perbaikan</th>
+                                  <th style="text-align:center;">
+                                      <a href="<?php echo site_url('Keluhan/proses_perbaikan/'.$items->fc_kdkeluhan); ?>" class="btn btn-primary">Proses Perbaikan</a>
+                                  </th>
+                              <?php } elseif($items->fc_approval == '3') { ?>
+                                  <th style="text-align:center;">Perbaikan Selesai</th>
+                                  <th style="text-align:center;">
+                                      <a href="<?php echo site_url('Keluhan/respon_pelanggan/'.$items->fc_kdkeluhan); ?>" class="btn btn-primary">Respon ke Pelanggan</a>
+                                  </th>
+                              <?php } elseif($items->fc_approval == '4') { ?>
+                                  <th style="text-align:center;">Selesai</th>
+                              <?php } ?>
+                            <?php } elseif($this->session->userdata('level_user') == '2') { ?>
+                              <?php if($items->fc_approval == '0') { ?>
+                                  <th style="text-align:center;">Laporan Diproses</th>
+                              <?php } elseif($items->fc_approval == '1') { ?>
+                                  <th style="text-align:center;">Keluhan Di Investigasi</th>
+                              <?php } elseif($items->fc_approval == '2') { ?>
+                                  <th style="text-align:center;">Proses Perbaikan</th>
+                              <?php } elseif($items->fc_approval == '3') { ?>
+                                  <th style="text-align:center;">Perbaikan Selesai</th>
+                              <?php } elseif($items->fc_approval == '4') { ?>
+                                  <th style="text-align:center;">Selesai</th>
+
+                                  <?php $cek_penilaian = $this->db->where('fc_kdpo', $items->fc_kdpo)
+                                                                  ->where('fc_kdsj', $items->fc_kdsj)
+                                                                  ->where('fn_id_customer', $this->session->userdata('id_customer'))
+                                                                  ->get('tm_penilaian_keluhan')->num_rows(); ?>
+
+                                  <th style="text-align:center;">
+                                  <?php if($cek_penilaian > 0) { ?>
+
+                                  <?php } else { ?>
+                                      <a href="<?php echo site_url('Penilaian/penilaian_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Beri Nilai</a>
+                                  <?php } ?>
+                                  </th>
+                              <?php } ?>
                             <?php } ?>
                         </tr>
                         <?php $i++; ?>

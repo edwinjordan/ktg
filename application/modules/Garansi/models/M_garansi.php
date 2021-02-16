@@ -9,6 +9,7 @@ class M_garansi extends CI_Model {
         $this->db->join('tm_po c', 'a.fn_idpo=c.fn_idpo');
         $this->db->where('b.fn_garansi=1');
         $this->db->where('c.fn_id_customer', $id_customer);
+        $this->db->where('c.fn_status_po > 8');
         return $this->db->get();
     }
 

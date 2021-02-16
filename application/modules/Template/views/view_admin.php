@@ -208,7 +208,7 @@
               <div class="dropdown-divider"></div>
               <a href="<?php echo base_url('PO/list_confirmation_po') ?>" class="dropdown-item">
                 <i class="fas fa-file mr-2"></i><?= $cek_konfirmasi_po; ?> Confirmation Available
-                <?php if($cek_offer_po > 0) { ?>
+                <?php if($cek_konfirmasi_po > 0) { ?>
                 <!-- <span class="float-right text-muted text-sm"><?= $get_po->fd_tglpo; ?></span> -->
                 <?php } else { }?>
               </a>

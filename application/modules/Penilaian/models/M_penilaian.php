@@ -51,4 +51,10 @@ class M_penilaian extends CI_Model {
 
         return true;
     }
+
+    public function get_nilai_pengiriman($kdpo, $kdsj) {
+        $this->db->where('fc_kdpo', $kdpo);
+        $this->db->where('fc_kdsj', $kdsj);
+        return $this->db->get('tm_penilaian_pengiriman');
+    }
 }

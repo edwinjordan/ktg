@@ -35,25 +35,25 @@
         <div class="card-body">
                     <div class="row">
                         <div class="input-group mb-3 col-sm-6">
-                            PIC Internal KTG
+                            <label class="col-sm-4 mt-2">PIC Internal KTG</label>
                               <select name="pic_ktg" class="form-control" required readonly>
                                   <option value="<?= $investigasi_keluhan->fn_iddepartment ?>"><?= $investigasi_keluhan->fv_nmdepartment ?></option>
                               </select>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Analisa Akar Masalah
+                            <label class="col-sm-4 mt-2">Analisa Akar Masalah</label>
                             <input type="text" name="analisa_masalah" value='<?php echo $investigasi_keluhan->fv_analisa_akar_masalah; ?>' class="form-control" placeholder="Analisa Akar Masalah" required readonly>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Rencana Perbaikan
+                            <label class="col-sm-4 mt-2">Rencana Perbaikan</label>
                             <input type="text" name="rencana_perbaikan" class="form-control" placeholder="Rencana Perbaikan" value='<?php echo $investigasi_keluhan->fv_rencana_perbaikan; ?>' required readonly>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Due Date
+                            <label class="col-sm-4 mt-2">Due Date</label>
                             <input type="date" name="due_date" class="form-control" placeholder="Due Date" value='<?php echo $investigasi_keluhan->fd_due_date; ?>' required readonly>
                         </div>
                         <div class="input-group mb-3">
-                            Feedback
+                            <label class="col-sm-2 mt-2">Feedback</label>
                             <textarea name="feedback" class="form-control" placeholder="Rekomendasi Feedback" required readonly><?php echo $investigasi_keluhan->fv_feedback; ?></textarea>
                         </div>
                     </div>
