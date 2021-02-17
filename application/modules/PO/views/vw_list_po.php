@@ -3,12 +3,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Daftar PO</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url('PO/list_po') ?>">Home</a></li>
+              <li class="breadcrumb-item active">List PO</li>
             </ol>
           </div>
         </div>
@@ -23,16 +23,16 @@
         <div class="card-header">
           <h3 class="card-title">List PO</h3>
 
-          <div class="card-tools">
+          <!-- <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fas fa-minus"></i></button>
             <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
               <i class="fas fa-times"></i></button>
-          </div>
+          </div> -->
         </div>
         <div class="card-body">
-        <a href="<?php echo site_url('PO'); ?>" class="btn btn-primary m-2">Tambah PO</a>
-            <table class="table">
+        <a href="<?php echo site_url('PO'); ?>" class="btn btn-primary m-2 mb-4"><i class="fa fa-plus fa-sm" aria-hidden="true"></i> Tambah PO</a>
+            <table id="table1" class="table display">
                 <thead>
                     <tr>
                         <th scope="col" style="text-align:center;">Kode PO</th>
@@ -72,12 +72,13 @@
                                 <th style="text-align:center;">
                                     <a href="<?php echo site_url('PO/pilih_ekspedisi/'.$items->fn_idpo); ?>" class="btn btn-primary">Pilih Ekspedisi</a>
                                 </th>
-                                <?php } else {
-
-                                } ?>
+                                <?php } else { ?>
+                                    <th style="text-align:center;">Belum Ada Penawaran</th>
+                                <?php } ?>
                                 
                             <?php } elseif($items->fn_status_po == '3') { ?>
                                 <th style="text-align:center;">Menunggu Konfirmasi Ekspedisi</th>
+                                <th style="text-align:center;"></th>
                             <?php } elseif($items->fn_status_po == '4') { ?>
                                 <th style="text-align:center;">Konfirmasi Diterima</th>
                                 <th style="text-align:center;">
@@ -98,12 +99,18 @@
             </table>
         </div>
         <!-- /.card-body -->
-        <div class="card-footer">
+        <!-- <div class="card-footer">
           Footer
-        </div>
+        </div> -->
         <!-- /.card-footer-->
       </div>
       <!-- /.card -->
 
 </section>
 <!-- /.content -->
+
+<script>
+$(document).ready(function() {
+    $('#table1').DataTable();
+} );
+</script>

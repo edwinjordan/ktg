@@ -35,25 +35,25 @@
         <div class="card-body">
                     <div class="row">
                         <div class="input-group mb-3 col-sm-6">
-                            PIC Internal KTG
+                            <label class="col-sm-3 mt-2">PIC Internal KTG</label>
                               <select name="pic_ktg" class="form-control" required readonly>
                                   <option value="<?= $investigasi_garansi->fn_iddepartment ?>"><?= $investigasi_garansi->fv_nmdepartment ?></option>
                               </select>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Analisa Akar Masalah
+                            <label class="col-sm-3">Analisa Akar Masalah</label>
                             <input type="text" name="analisa_masalah" value='<?php echo $investigasi_garansi->f_analisa_masalah; ?>' class="form-control" placeholder="Analisa Akar Masalah" required readonly>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Rencana Penggantian
+                            <label class="col-sm-3">Rencana Penggantian</label>
                             <input type="text" name="rencana_penggantian" class="form-control" placeholder="Rencana Penggantian" value='<?php echo $investigasi_garansi->fv_rencana_penggantian; ?>' required readonly>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
-                            Due Date
+                            <label class="col-sm-3 mt-2">Due Date</label>
                             <input type="date" name="due_date" class="form-control" placeholder="Due Date" value='<?php echo $investigasi_garansi->fd_due_date; ?>' required readonly>
                         </div>
                         <div class="input-group mb-3">
-                            Catatan
+                            <label class="col-sm-1 mt-2">Catatan</label>
                             <textarea name="Catatan" class="form-control" placeholder="Catatan" required readonly><?php echo $investigasi_garansi->fv_catatan; ?></textarea>
                         </div>
                     </div>

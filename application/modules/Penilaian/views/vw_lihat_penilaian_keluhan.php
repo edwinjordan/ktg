@@ -60,7 +60,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Penilaian Respon Keluhan</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -78,7 +78,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Penilaian Pengiriman</h3>
+          <h3 class="card-title">Penilaian Respon Keluhan</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -99,24 +99,18 @@
               </div>
               <div class="col-sm-3">
               <legend>Rating Penilaian :</legend>
-                <?php foreach($nilai_pengiriman as $np) { ?>
-                  <h4 class="mt-4"><?php echo $np->fn_poin ?></h4>
+                <?php foreach($nilai_keluhan as $np) { ?>
+                  <h4 class="mt-4"><?php echo $np->fn_point ?></h4>
                 <?php } ?>
               </div>
               <div class="col-sm-3">
-              <legend>Bobot Ekspedisi :</legend>
-                <?php foreach($nilai_pengiriman as $np) { ?>
-                  <h4 class="mt-4"><?php echo $np->fn_bobot_ekspedisi ?></h4>
-                <?php } ?>
-              </div>
-              <div class="col-sm-3">
-              <legend>Bobot KTG :</legend>
-                <?php foreach($nilai_pengiriman as $np) { ?>
-                  <h4 class="mt-4"><?php echo $np->fn_bobot_ktg ?></h4>
+              <legend>Bobot :</legend>
+                <?php foreach($nilai_keluhan as $np) { ?>
+                  <h4 class="mt-4"><?php echo $np->fn_bobot ?></h4>
                 <?php } ?>
               </div>
               <div class="input-group col-sm-12">
-                <textarea type="text" name="kritik_saran" class="form-control" placeholder="Kritik dan Saran" required readonly><?php echo $saran_pengiriman->fv_saran ?></textarea>
+                <textarea type="text" name="kritik_saran" class="form-control" placeholder="Kritik dan Saran" required readonly><?php echo $saran_keluhan->fv_kritik_saran ?></textarea>
               </div>
             </div>
           </div>

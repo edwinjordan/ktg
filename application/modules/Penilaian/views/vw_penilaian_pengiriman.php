@@ -60,12 +60,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Penilaian Pengiriman</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="<?= base_url('Penilaian') ?>">List Terima Barang</a></li>
+              <li class="breadcrumb-item active">Penilaian Pengiriman</li>
             </ol>
           </div>
         </div>
@@ -87,7 +87,7 @@
               <i class="fas fa-times"></i></button>
           </div>
         </div>
-        <?php echo form_open_multipart('Penilaian/insert_penilaian_pengiriman/'.$kdpo.'/'.$kdsj);?>
+        <?php echo form_open_multipart('Penilaian/insert_penilaian_pengiriman/'.$idpo.'/'.$kdpo.'/'.$kdsj);?>
           <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
           <div class="card-body">
             <div class="row">

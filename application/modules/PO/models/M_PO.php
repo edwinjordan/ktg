@@ -28,6 +28,7 @@ class M_PO extends CI_Model {
                 'fn_id_barang'   => $items['id'],
                 'fv_nmbarang'   => $items['name'],
                 'fn_qty'        => $items['qty_etc'],
+                'fv_satuan'        => $items['satuan'],
                 'fn_qty_kg'     => $items['qty']
 			);
             $this->db->insert('td_po', $data);
@@ -37,7 +38,7 @@ class M_PO extends CI_Model {
     }
 
     public function get_all_po_data() {
-        return $this->db->get_where('tm_po', 'fn_status_po < 6')->result();
+        return $this->db->get_where('tm_po', 'fn_status_po < 5')->result();
     }
 
     public function get_po_data_by_id($id_po) {
@@ -117,6 +118,16 @@ class M_PO extends CI_Model {
         $this->db->where('b.fn_status_penawaran', $status2);
         $this->db->where('b.fn_idekspedisi', $id_ekspedisi);
         return $this->db->get();
+    }
+
+    public function update_status_po_penawaran_gagal($idpo, $data1, $data2) {
+
+        $this->db->where('fn_idpo', $idpo);
+        $this->db->update('tm_po', $data1);
+
+        $this->db->where('fn_idpo', $idpo);
+        $this->db->where('fn_idekspedisi', $this->session->userdata('id_ekspedisi'));
+        $this->db->update('td_po_ekspedisi', $data2);
     }
       
 }	

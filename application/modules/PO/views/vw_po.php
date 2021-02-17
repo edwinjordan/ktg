@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>PO</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url('PO/list_po') ?>">List PO</a></li>
+              <li class="breadcrumb-item active">PO</li>
             </ol>
           </div>
         </div>
@@ -44,7 +44,7 @@
                         <div class="input-group mb-3 col-sm-6">
                           <label class="col-sm-4 mt-2">No. PO & No. SJ</label>
                             <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?php echo $this->session->userdata('nopo'); ?>" required>
-                            <input type="text" name="nosj" class="form-control" placeholder="No. SJ" value="<?php echo $this->session->userdata('nosj'); ?>" required>
+                            <input type="text" name="nosj" class="form-control" placeholder="No. SJ" value="<?php echo $this->session->userdata('nosj'); ?>">
                         </div>
                         <div class="input-group mb-3 col-sm-6">
                             <label class="col-sm-4 mt-2">Target Tanggal Kirim</label>
@@ -64,6 +64,7 @@
                             <th scope="col" style="text-align:center;">No</th>
                             <th scope="col" style="text-align:center;">Nama Barang</th>
                             <th scope="col" style="text-align:center;">Qty</th>
+                            <th scope="col" style="text-align:center;">Satuan</th>
                             <th scope="col" style="text-align:center;">Qty (Kg)</th>
                             <th scope="col" style="text-align:center;">Aksi</th>
                         </tr>
@@ -78,6 +79,7 @@
                               <input type="hidden" name="id_barang" class="form-control" placeholder="Id Barang">  
                             </th>
                             <th style="width: 10%"><input type="text" name="qty" class="form-control" placeholder="Qty"></th>
+                            <th style="width: 10%"><input type="text" name="satuan" class="form-control" placeholder="Satuan"></th>
                             <th style="width: 10%"><input type="text" name="qty_kg" class="form-control" placeholder="Qty (Kg)"></th>
                             <th style="text-align: center; width: 10%"><button type="submit" class="btn btn-primary">[+] Tambah</button></th>
                         </tr>
@@ -91,6 +93,7 @@
                                 <th style="text-align:center;"><?php echo $i; ?></th>
                                 <th style="text-align:center;"><?= $items['name']; ?></th>
                                 <th style="text-align:center;"><?php echo $items['qty_etc']; ?></th>
+                                <th style="text-align:center;"><?php echo $items['satuan']; ?></th>
                                 <th style="text-align:center;"><?php echo number_format($items['qty']); ?></th>
                                 <th style="text-align:center;"><a href="<?php echo site_url('PO/barang_cart_delete/' . $items['rowid']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-close"></span>[-] Hapus</a></th>
                             </tr>

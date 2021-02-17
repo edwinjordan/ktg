@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="card-body">
-            <table class="table">
+            <table id="table1" class="display table">
                 <thead>
                     <tr>
                         <th scope="col" style="text-align:center;">No</th>
@@ -52,7 +52,7 @@
                         <tr>
                             <th style="text-align:center;"><?= $i; ?></th>
                             <th style="text-align:center;"><?= $items->fc_kdgaransi; ?></th>
-                            <th style="text-align:center;"><?= $items->f_foto_kerusakan; ?></th>
+                            <th style="text-align:center;"><img style="width: 40%" src="<?= base_url("assets/public/themes/admin-lte/img-barang-rusak/".$items->f_foto_kerusakan) ?>" ></th>
                             <th style="text-align:center;"><?= $items->fd_tgl_kerusakan; ?></th>
                             <th style="text-align:center;"><?= $items->fv_luasan_kerusakan; ?></th>
                             <th style="text-align:center;"><?= $items->fv_indikasi_kerusakan; ?></th>
@@ -62,14 +62,17 @@
 
                             <?php if($items->fc_sts == '0') { ?>
                               <th style="text-align:center;">
+                                <a href="<?php echo site_url('Garansi/detail_garansi/'.$items->fc_kdgaransi.'/'.$items->fn_idpo); ?>" class="btn btn-primary mb-1">Detail</a>    
                                 <a href="<?php echo site_url('Garansi/investigasi_garansi/'.$items->fc_kdgaransi); ?>" class="btn btn-success">Investigasi</a>
                               </th>
                             <?php } elseif($items->fc_sts == '1') { ?>
                               <th style="text-align:center;">
-                                <a href="<?php echo site_url('Garansi/approval_garansi/'.$items->fc_kdgaransi); ?>" class="btn btn-success">Approval</a>
+                                <a href="<?php echo site_url('Garansi/approval_garansi/'.$items->fc_kdgaransi); ?>" class="btn btn-primary">Approval</a>
+                                <a href="<?php echo site_url('Garansi/detail_garansi/'.$items->fc_kdgaransi.'/'.$items->fn_idpo); ?>" class="btn btn-success mb-1">Detail</a>    
                               </th>
                             <?php } elseif($items->fc_sts == '2') { ?>
                               <th style="text-align:center;">
+                              <a href="<?php echo site_url('Garansi/detail_garansi/'.$items->fc_kdgaransi.'/'.$items->fn_idpo); ?>" class="btn btn-primary mb-1">Detail</a>    
                                 <a href="<?php echo site_url('PO'); ?>" class="btn btn-success">Proses Ganti</a>
                               </th>
                             <?php } ?>
@@ -89,3 +92,9 @@
 
 </section>
 <!-- /.content -->
+
+<script>
+$(document).ready(function() {
+    $('#table1').DataTable();
+} );
+</script>

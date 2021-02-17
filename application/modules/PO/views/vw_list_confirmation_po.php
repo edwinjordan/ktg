@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="card-body">
-            <table class="table">
+            <table id="table1" class="display table">
                 <thead>
                     <tr>
                         <th scope="col" style="text-align:center;">No. PO</th>
@@ -80,3 +80,9 @@
 
 </section>
 <!-- /.content -->
+
+<script>
+$(document).ready(function() {
+    $('#table1').DataTable();
+} );
+</script>

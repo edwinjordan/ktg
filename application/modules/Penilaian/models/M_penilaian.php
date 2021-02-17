@@ -25,7 +25,7 @@ class M_penilaian extends CI_Model {
         return $this->db->get_where('tm_kriteria', 'fn_idkriteria > 4');
     }
 
-    public function insert_penilaian_pengiriman($kdpo, $data1, $data2, $data3, $data4, $data5, $data6) {
+    public function insert_penilaian_pengiriman($idpo, $data1, $data2, $data3, $data4, $data5, $data6) {
 
         $this->db->insert('tm_penilaian_pengiriman', $data1);
 
@@ -37,7 +37,7 @@ class M_penilaian extends CI_Model {
 
         $this->db->insert('tm_penilaian_pengiriman', $data5);
 
-        $this->db->where('fc_kdpo', $kdpo);
+        $this->db->where('fn_idpo', $idpo);
         $this->db->update('tm_po', $data6);
 
         return true;
@@ -52,9 +52,28 @@ class M_penilaian extends CI_Model {
         return true;
     }
 
-    public function get_nilai_pengiriman($kdpo, $kdsj) {
+    public function get_nilai_pengiriman($idpo, $kdpo, $kdsj = '') {
+        
+        $this->db->where('fn_idpo', $idpo);
         $this->db->where('fc_kdpo', $kdpo);
-        $this->db->where('fc_kdsj', $kdsj);
+        
+        if($kdsj) {
+            $this->db->where('fc_kdsj', $kdsj);
+        }
+        
         return $this->db->get('tm_penilaian_pengiriman');
+    }
+
+    public function get_nilai_keluhan($kdkeluhan, $idpo, $kdpo, $kdsj = '') {
+        
+        $this->db->where('fc_kdkeluhan', $kdkeluhan);
+        $this->db->where('fn_idpo', $idpo);
+        $this->db->where('fc_kdpo', $kdpo);
+        
+        if($kdsj) {
+            $this->db->where('fc_kdsj', $kdsj);
+        }
+        
+        return $this->db->get('tm_penilaian_keluhan');
     }
 }

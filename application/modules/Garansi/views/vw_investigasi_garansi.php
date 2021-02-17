@@ -55,8 +55,9 @@
                             <label class="col-sm-3 mt-2">Due Date</label>
                             <input type="date" name="due_date" class="form-control" placeholder="Due Date" required>
 
-                            <label class="col-sm-2 mt-2">Qty</label>
+                            <label class="col-sm-1 mt-2">Qty</label>
                             <input type="text" name="qty" class="form-control" placeholder="Quantity" required>
+                            <input type="text" name="satuan" class="form-control" placeholder="Satuan" required>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
                           <label class="col-sm-3 mt-2">Catatan</label>

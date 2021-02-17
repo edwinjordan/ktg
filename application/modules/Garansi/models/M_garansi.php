@@ -18,8 +18,13 @@ class M_garansi extends CI_Model {
         return $this->db->get('tm_barang');
     }
 
-    public function get_barang_garansi_by_kdpo($kdpo) {
-        $this->db->where('fc_kdpo', $kdpo);
+    public function get_data_po_by_id($idpo) {
+        $this->db->where('fn_idpo', $idpo);
+        return $this->db->get('tm_po');
+    }
+
+    public function get_barang_garansi_by_idpo($idpo) {
+        $this->db->where('fn_idpo', $idpo);
         return $this->db->get('tm_garansi');
     }
 
@@ -59,5 +64,15 @@ class M_garansi extends CI_Model {
     public function update_status_garansi($kdgaransi, $data) {
         $this->db->where('fc_kdgaransi', $kdgaransi);
         return $this->db->update('tm_garansi', $data);
+    }
+
+    public function get_garansi_data_by_id($kdgaransi, $idpo) {
+        $this->db->select('*');
+        $this->db->from('tm_garansi a');
+        $this->db->join('td_klaim_garansi b', 'a.fc_kdgaransi=b.fc_kdgaransi');
+        $this->db->join('tm_po c', 'a.fn_idpo=c.fn_idpo');
+        $this->db->where('a.fc_kdgaransi', $kdgaransi);
+        $this->db->where('c.fn_idpo', $idpo);
+        return $this->db->get();
     }
 }

@@ -3,7 +3,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>List Laporan Keluhan</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -21,7 +21,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">List PO</h3>
+          <h3 class="card-title">List Laporan Keluhan</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="card-body">
-            <table class="table">
+            <table id="table1" class="display table">
                 <thead>
                     <tr>
                         <th scope="col" style="text-align:center;">Kode Keluhan</th>
@@ -50,6 +50,9 @@
                             <th style="text-align:center;"><?= $items->fc_kdbarang; ?></th>
                             <th style="text-align:center;"><?= $items->fn_jml_rusak; ?></th>
                             <th style="text-align:center;"><?= $items->fd_tgl_keluhan; ?></th>
+
+                            <?php $cek_penilaian = $this->db->where('fn_idpo', $items->fn_idpo)
+                                                                  ->get('tm_penilaian_keluhan')->num_rows(); ?>
 
                             <?php if($this->session->userdata('level_user') == '1') { ?>
                               <?php if($items->fc_approval == '0') { ?>
@@ -74,29 +77,42 @@
                                   </th>
                               <?php } elseif($items->fc_approval == '4') { ?>
                                   <th style="text-align:center;">Selesai</th>
+                                  
+                                  <th style="text-align:center;">
+                                  <?php if($cek_penilaian > 0) { ?>
+                                      <a href="<?php echo site_url('Penilaian/lihat_penilaian_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Lihat Penilaian</a>
+                                      <a href="<?php echo site_url('Keluhan/detail_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                  <?php } else { ?>
+                                    <th style="text-align:center;">
+                                        Belum Dinilai
+                                        <a href="<?php echo site_url('Keluhan/detail_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>    
+                                    </th>
+                                  <?php } ?>
+
                               <?php } ?>
                             <?php } elseif($this->session->userdata('level_user') == '2') { ?>
                               <?php if($items->fc_approval == '0') { ?>
                                   <th style="text-align:center;">Laporan Diproses</th>
+                                  <th style="text-align:center;"></th>
                               <?php } elseif($items->fc_approval == '1') { ?>
                                   <th style="text-align:center;">Keluhan Di Investigasi</th>
+                                  <th style="text-align:center;"></th>
                               <?php } elseif($items->fc_approval == '2') { ?>
                                   <th style="text-align:center;">Proses Perbaikan</th>
+                                  <th style="text-align:center;"></th>
                               <?php } elseif($items->fc_approval == '3') { ?>
                                   <th style="text-align:center;">Perbaikan Selesai</th>
+                                  <th style="text-align:center;"></th>
                               <?php } elseif($items->fc_approval == '4') { ?>
                                   <th style="text-align:center;">Selesai</th>
 
-                                  <?php $cek_penilaian = $this->db->where('fc_kdpo', $items->fc_kdpo)
-                                                                  ->where('fc_kdsj', $items->fc_kdsj)
-                                                                  ->where('fn_id_customer', $this->session->userdata('id_customer'))
-                                                                  ->get('tm_penilaian_keluhan')->num_rows(); ?>
-
                                   <th style="text-align:center;">
                                   <?php if($cek_penilaian > 0) { ?>
-
+                                      <a href="<?php echo site_url('Penilaian/lihat_penilaian_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Lihat Penilaian</a>
+                                      <a href="<?php echo site_url('Keluhan/detail_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
                                   <?php } else { ?>
-                                      <a href="<?php echo site_url('Penilaian/penilaian_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Beri Nilai</a>
+                                      <a href="<?php echo site_url('Penilaian/penilaian_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Beri Nilai</a>
+                                      <a href="<?php echo site_url('Keluhan/detail_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
                                   <?php } ?>
                                   </th>
                               <?php } ?>
@@ -117,3 +133,9 @@
 
 </section>
 <!-- /.content -->
+
+<script>
+$(document).ready(function() {
+    $('#table1').DataTable();
+} );
+</script>

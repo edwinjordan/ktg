@@ -46,7 +46,7 @@ class Auth extends MY_Admin {
  
 			$this->session->set_userdata($data_session);
  
-			redirect(base_url("Dashboard"));
+			redirect(base_url("PO/list_po"));
  
 		}else{
 			echo "Username dan password salah !";
@@ -92,7 +92,7 @@ class Auth extends MY_Admin {
  
 			$this->session->set_userdata($data_session);
  
-			redirect(base_url("Dashboard"));
+			redirect(base_url("PO/list_offer_po"));
  
 		}else{
 			echo "Username dan password salah !";
@@ -138,7 +138,7 @@ class Auth extends MY_Admin {
  
 			$this->session->set_userdata($data_session);
  
-			redirect(base_url("Dashboard"));
+			redirect(base_url("Penilaian"));
  
 		}else{
 			echo "Username dan password salah !";

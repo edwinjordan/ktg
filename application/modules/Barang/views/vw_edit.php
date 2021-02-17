@@ -39,11 +39,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="garansi" class="form-label">Garansi</label>
-                        <input type="text" class="form-control" name="garansi" id="garansi" value="<?php echo $b['fn_garansi']; ?>">
+                        <select class="form-control" name="garansi" id="garansi" required>
+                            <option style="display: none" disabled selected>Pilih Garansi</option>
+                            <option value="0">Tidak Bergaransi</option>
+                            <option value="1">Bergaransi</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="detail-garansi" class="form-label">Detail Garansi</label>
-                        <input type="text" class="form-control" name="detail-garansi" id="detail-garansi" value="<?php echo $b['fv_garansi_detail']; ?>">
+                        <textarea type="text" class="form-control" name="detail-garansi" id="detail-garansi"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="masa-garansi" class="form-label">Masa Garansi</label>

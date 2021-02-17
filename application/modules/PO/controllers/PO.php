@@ -56,6 +56,7 @@ class PO extends MY_Admin {
         $nama_barang = $this->input->post('nama_barang');
 
         $qty = $this->input->post('qty');
+        $satuan = $this->input->post('satuan');
         $qty_kg = $this->input->post('qty_kg');
 
         $data = array(
@@ -63,7 +64,8 @@ class PO extends MY_Admin {
             'name'      => $nama_barang,
             'price'     => '0',
             'qty'       => $qty_kg,
-            'qty_etc'   => $qty
+            'qty_etc'   => $qty,
+            'satuan'   => $satuan
         );
 
         $this->cart->insert($data);
@@ -90,7 +92,7 @@ class PO extends MY_Admin {
 
         // print_r($NoPO, $NoSJ);
 
-        if (!empty($tglKirim) && !empty($NoPO) && !empty($tglPO) && !empty($NoSJ) && !empty($alamatKirim)) {
+        if (!empty($tglKirim) && !empty($NoPO) && !empty($tglPO) && !empty($alamatKirim)) {
             $simpan = $this->po->simpan_po($NoPO, $NoSJ, $tglPO, $tglKirim, $alamatKirim);
             if ($simpan) {
                 $this->cart->destroy();
@@ -263,11 +265,15 @@ class PO extends MY_Admin {
 
     public function gagal_konfirmasi_po($idpo) {
 
-        $data = array(
+        $data1 = array(
             'fn_status_po'     => '2'
         );
 
-        $this->po->update_status_po($idpo, $data);
+        $data2 = array(
+            'fn_status_penawaran'     => '0'
+        );
+
+        $this->po->update_status_po_penawaran_gagal($idpo, $data1, $data2);
         redirect('PO/list_offer_po');
     }
 

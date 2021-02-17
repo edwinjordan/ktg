@@ -50,4 +50,14 @@ class M_keluhan extends CI_Model {
 
         $this->update_status_keluhan($kdkeluhan, $data1);
     }
+
+    public function get_keluhan_data_by_id($kdkeluhan, $idpo) {
+        $this->db->select('*');
+        $this->db->from('tm_keluhan a');
+        $this->db->join('tm_po b', 'a.fn_idpo=b.fn_idpo');
+        $this->db->join('tm_barang c', 'a.fc_kdbarang=c.fn_id_barang');
+        $this->db->where('a.fc_kdkeluhan', $kdkeluhan);
+        $this->db->where('a.fn_idpo', $idpo);
+        return $this->db->get();
+    }
 }

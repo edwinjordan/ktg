@@ -20,8 +20,13 @@ class Pengiriman extends MY_Admin {
 	public function index()
 	{
                 $id_ekspedisi = $this->session->userdata('id_ekspedisi');
-                $data['list_pengiriman_po'] = $this->Pengiriman->get_ekspedisi_pengiriman_data($id_ekspedisi);
 
+                if($id_ekspedisi) {
+                        $data['list_pengiriman_po'] = $this->Pengiriman->get_ekspedisi_pengiriman_data($id_ekspedisi);
+                } else {
+                        $data['list_pengiriman_po'] = $this->Pengiriman->get_ekspedisi_pengiriman_data();
+                }
+                
                 $this->template->set_layout('Template/view_admin');
                 $this->template->set_content('Pengiriman/vw_list_pengiriman', $data);
                 $this->template->render();
@@ -105,7 +110,7 @@ class Pengiriman extends MY_Admin {
                 );
 
                 $this->po->update_status_po($idpo, $data);
-                redirect('PO/list_po');
+                redirect('Pengiriman');
         }
 
         //Proses Hold
@@ -125,7 +130,7 @@ class Pengiriman extends MY_Admin {
                 );
 
                 $this->po->update_status_po($idpo, $data);
-                redirect('PO/list_po');
+                redirect('Pengiriman');
         }
 
         //Proses Unhold
@@ -157,7 +162,7 @@ class Pengiriman extends MY_Admin {
                 );
 
                 $this->po->update_status_po($idpo, $data);
-                redirect('PO/list_po');
+                redirect('Pengiriman');
         }
 
         //Proses Unloading
@@ -200,5 +205,22 @@ class Pengiriman extends MY_Admin {
                 $this->po->update_status_po($idpo, $data);
                 redirect('Pengiriman');
         }
+
+        //Detail Pengiriman
+
+        public function Detail_pengiriman($idpo) {
+                $data['po_data'] = $this->Pengiriman->get_po_data_by_id($idpo);
+                $data['barang_po'] = $this->po->get_barang_po_by_id($idpo);
+
+                $this->template->set_layout('Template/view_admin');
+                $this->template->set_content('Pengiriman/vw_detail_pengiriman', $data);
+                $this->template->render();
+        }
+
+        function download_img_load($idpo)
+	{
+		$data = $this->db->get_where('tm_po',['fn_idpo'=>$idpo])->row();
+		force_download('assets/public/themes/admin-lte/img-proses-loading/'.$data->fv_img_load, NULL);
+	}
 
 }	

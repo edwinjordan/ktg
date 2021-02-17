@@ -39,7 +39,7 @@ class Keluhan extends MY_Admin {
         $this->template->render();
     }
 
-    public function submit_keluhan($kdpo, $kdsj) {
+    public function submit_keluhan($idpo, $kdpo, $kdsj = '') {
 
         $kodePO = $this->input->post('nopo');
         $tglKeluhan = $this->input->post('tgl_keluhan');
@@ -63,6 +63,7 @@ class Keluhan extends MY_Admin {
 
         if(!$this->upload->do_upload('foto_barang')){
             $data = array(
+                'fn_idpo'   => $idpo,
                 'fc_kdpo'   => $kodePO,
                 'fc_kdsj'   => $kdsj,
                 'fc_kdkeluhan'  => uniqid(),
@@ -82,22 +83,47 @@ class Keluhan extends MY_Admin {
             $get_name = $this->upload->data();
             $nama_foto = $get_name['file_name'];
             $gambar1 = $nama_foto;
-            $data = array(
-                'fc_kdpo'   => $kodePO,
-                'fc_kdsj'   => $kdsj,
-                'fc_kdkeluhan'  => uniqid(),
-                'fc_kdbarang'   => $kodeBarang,
-                'fn_jml_rusak'  => $jumlahRusak,
-                'fv_jenis_keluhan'  => $jenisKeluhan,
-                'fd_tgl_keluhan'    => $tglKeluhan,
-                'fv_foto_rusak'     => $gambar1,
-                'fv_foto_spk'   => '0',
-                'fv_indikasi_penyebab'  => $indikasiPenyebab,
-                'fn_id_customer'    => $this->session->userdata('id_customer'),
-                'fv_nmpelapor'  => $namaPelapor,
-                'fv_jabatan_pelapor'    => $jabatanPelapor,
-                'fc_approval'   => '0'
-            );
+
+            if(!$this->upload->do_upload('foto_spk')){
+                $data = array(
+                    'fn_idpo'   => $idpo,
+                    'fc_kdpo'   => $kodePO,
+                    'fc_kdsj'   => $kdsj,
+                    'fc_kdkeluhan'  => uniqid(),
+                    'fc_kdbarang'   => $kodeBarang,
+                    'fn_jml_rusak'  => $jumlahRusak,
+                    'fv_jenis_keluhan'  => $jenisKeluhan,
+                    'fd_tgl_keluhan'    => $tglKeluhan,
+                    'fv_foto_rusak'     => $gambar1,
+                    'fv_foto_spk'   => '0',
+                    'fv_indikasi_penyebab'  => $indikasiPenyebab,
+                    'fn_id_customer'    => $this->session->userdata('id_customer'),
+                    'fv_nmpelapor'  => $namaPelapor,
+                    'fv_jabatan_pelapor'    => $jabatanPelapor,
+                    'fc_approval'   => '0'
+                );
+            } else {
+                $get_name = $this->upload->data();
+                $nama_foto = $get_name['file_name'];
+                $gambar2 = $nama_foto;
+                $data = array(
+                    'fn_idpo'   => $idpo,
+                    'fc_kdpo'   => $kodePO,
+                    'fc_kdsj'   => $kdsj,
+                    'fc_kdkeluhan'  => uniqid(),
+                    'fc_kdbarang'   => $kodeBarang,
+                    'fn_jml_rusak'  => $jumlahRusak,
+                    'fv_jenis_keluhan'  => $jenisKeluhan,
+                    'fd_tgl_keluhan'    => $tglKeluhan,
+                    'fv_foto_rusak'     => $gambar1,
+                    'fv_foto_spk'   => $gambar2,
+                    'fv_indikasi_penyebab'  => $indikasiPenyebab,
+                    'fn_id_customer'    => $this->session->userdata('id_customer'),
+                    'fv_nmpelapor'  => $namaPelapor,
+                    'fv_jabatan_pelapor'    => $jabatanPelapor,
+                    'fc_approval'   => '0'
+                );
+            }
         }
 
         $this->keluhan->insert_keluhan($data);
@@ -200,5 +226,28 @@ class Keluhan extends MY_Admin {
 
         $this->keluhan->update_respon_pelanggan($kdkeluhan, $data1, $data2);
         redirect('Keluhan');
+    }
+
+    //Detail Keluhan
+    public function detail_keluhan($kdkeluhan, $idpo) {
+        $data['keluhan_data'] = $this->keluhan->get_keluhan_data_by_id($kdkeluhan, $idpo)->row();
+        $data['investigasi_keluhan'] = $this->keluhan->get_investigasi_keluhan($kdkeluhan)->row();
+        $data['barang_po'] = $this->po->get_barang_po_by_id($idpo);
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('Keluhan/vw_detail_keluhan', $data);
+        $this->template->render();
+    }
+
+    function download_img_rusak($kdkeluhan)
+    {
+        $data = $this->db->get_where('tm_keluhan',['fc_kdkeluhan'=>$kdkeluhan])->row();
+        force_download('assets/public/themes/admin-lte/img-barang-cacat/'.$data->fv_foto_rusak, NULL);
+    }
+
+    function download_img_spk($kdkeluhan)
+    {
+        $data = $this->db->get_where('tm_keluhan',['fc_kdkeluhan'=>$kdkeluhan])->row();
+        force_download('assets/public/themes/admin-lte/img-barang-cacat/'.$data->fv_foto_spk, NULL);
     }
 }

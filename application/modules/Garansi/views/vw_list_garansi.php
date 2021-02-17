@@ -3,7 +3,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>List Barang Bergaransi</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="card-body">
-            <table class="table">
+            <table id="table1" class="display table">
                 <thead>
                     <tr>
                         <th scope="col" style="text-align:center;">No</th>
@@ -54,16 +54,16 @@
                             <th style="text-align:center;"><?= $items->fn_qty_kg; ?></th>
                             <th style="text-align:center;"><?= $items->f_dimensi; ?></th>
 
-                            <?php $cek = $this->db->where('fc_kdpo', $items->fc_kdpo)
+                            <?php $cek = $this->db->where('fn_idpo', $items->fn_idpo)
                                                   ->get('tm_garansi')->num_rows(); ?>
                             
                             <?php if($cek > 0) { ?>
                                 <th style="text-align:center;">
-                                    <a href="<?php echo site_url('Garansi/klaim_garansi/'.$items->fc_kdpo); ?>" class="btn btn-success">Klaim Garansi</a>
+                                    <a href="<?php echo site_url('Garansi/klaim_garansi/'.$items->fn_idpo); ?>" class="btn btn-success">Klaim Garansi</a>
                                 </th>
                             <?php } else{ ?>
                                 <th style="text-align:center;">
-                                    <a href="<?php echo site_url('Garansi/submit_garansi/'.$items->fn_id_barang.'/'.$items->fc_kdpo); ?>" class="btn btn-primary">Submit Garansi</a>
+                                    <a href="<?php echo site_url('Garansi/submit_garansi/'.$items->fn_id_barang.'/'.$items->fn_idpo); ?>" class="btn btn-primary">Submit Garansi</a>
                                 </th>
                             <?php } ?>
                         </tr>
@@ -82,3 +82,9 @@
 
 </section>
 <!-- /.content -->
+
+<script>
+$(document).ready(function() {
+    $('#table1').DataTable();
+} );
+</script>

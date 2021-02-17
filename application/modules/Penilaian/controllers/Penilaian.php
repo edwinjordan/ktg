@@ -33,9 +33,10 @@ class Penilaian extends MY_Admin {
         redirect('Penilaian');
     }
 
-    public function penilaian_pengiriman($kdpo, $kdsj)
+    public function penilaian_pengiriman($idpo, $kdpo, $kdsj = '')
 	{
         $data['kriteria'] = $this->penilaian->get_list_kriteria_pengiriman()->result();
+        $data['idpo'] = $idpo;
         $data['kdpo'] = $kdpo;
         $data['kdsj'] = $kdsj;
 
@@ -44,11 +45,12 @@ class Penilaian extends MY_Admin {
         $this->template->render();
     }
 
-    public function lihat_penilaian_pengiriman($kdpo, $kdsj)
+    public function lihat_penilaian_pengiriman($idpo, $kdpo, $kdsj = '')
 	{
         $data['kriteria'] = $this->penilaian->get_list_kriteria_pengiriman()->result();
-        $data['nilai_pengiriman'] = $this->penilaian->get_nilai_pengiriman($kdpo, $kdsj)->result();
-        $data['saran_pengiriman'] = $this->penilaian->get_nilai_pengiriman($kdpo, $kdsj)->row();
+        $data['nilai_pengiriman'] = $this->penilaian->get_nilai_pengiriman($idpo, $kdpo, $kdsj)->result();
+        $data['saran_pengiriman'] = $this->penilaian->get_nilai_pengiriman($idpo, $kdpo, $kdsj)->row();
+        $data['idpo'] = $idpo;
         $data['kdpo'] = $kdpo;
         $data['kdsj'] = $kdsj;
 
@@ -57,7 +59,7 @@ class Penilaian extends MY_Admin {
         $this->template->render();
     }
 
-    public function insert_penilaian_pengiriman($kdpo, $kdsj) {
+    public function insert_penilaian_pengiriman($idpo, $kdpo, $kdsj = '') {
 
         $rating1 = $this->input->post('rating1');
         $rating2 = $this->input->post('rating2');
@@ -76,6 +78,7 @@ class Penilaian extends MY_Admin {
         // print_r($bobot1);
 
         $data1 = array(
+            'fn_idpo'		=>	$idpo,
             'fc_kdpo'		=>	$kdpo,
             'fc_kdsj'		=>	$kdsj,
             'fn_id_customer'   => $this->session->userdata('id_customer'),
@@ -87,6 +90,7 @@ class Penilaian extends MY_Admin {
         );
 
         $data2 = array(
+            'fn_idpo'		=>	$idpo,
             'fc_kdpo'		=>	$kdpo,
             'fc_kdsj'		=>	$kdsj,
             'fn_id_customer'   => $this->session->userdata('id_customer'),
@@ -98,6 +102,7 @@ class Penilaian extends MY_Admin {
         );
 
         $data3 = array(
+            'fn_idpo'		=>	$idpo,
             'fc_kdpo'		=>	$kdpo,
             'fc_kdsj'		=>	$kdsj,
             'fn_id_customer'   => $this->session->userdata('id_customer'),
@@ -109,6 +114,7 @@ class Penilaian extends MY_Admin {
         );
 
         $data4 = array(
+            'fn_idpo'		=>	$idpo,
             'fc_kdpo'		=>	$kdpo,
             'fc_kdsj'		=>	$kdsj,
             'fn_id_customer'   => $this->session->userdata('id_customer'),
@@ -120,6 +126,7 @@ class Penilaian extends MY_Admin {
         );
 
         $data5 = array(
+            'fn_idpo'		=>	$idpo,
             'fc_kdpo'		=>	$kdpo,
             'fc_kdsj'		=>	$kdsj,
             'fn_id_customer'   => $this->session->userdata('id_customer'),
@@ -135,16 +142,17 @@ class Penilaian extends MY_Admin {
             'fv_nm_penilai'         => $this->session->userdata('nama_customer'),
         );
 
-        $this->penilaian->insert_penilaian_pengiriman($kdpo, $data1, $data2, $data3, $data4, $data5, $data6);
+        $this->penilaian->insert_penilaian_pengiriman($idpo, $data1, $data2, $data3, $data4, $data5, $data6);
         redirect('Penilaian');
     }
 
     //PENILAIAN KELUHAN
 
-    public function penilaian_keluhan($kdkeluhan, $kdpo, $kdsj)
+    public function penilaian_keluhan($kdkeluhan, $idpo, $kdpo, $kdsj = '')
 	{
         $data['kriteria'] = $this->penilaian->get_list_kriteria_keluhan()->result();
         $data['kdkeluhan'] = $kdkeluhan;
+        $data['idpo'] = $idpo;
         $data['kdpo'] = $kdpo;
         $data['kdsj'] = $kdsj;
 
@@ -153,7 +161,21 @@ class Penilaian extends MY_Admin {
         $this->template->render();
     }
 
-    public function insert_penilaian_keluhan($kdkeluhan, $kdpo, $kdsj) {
+    public function lihat_penilaian_keluhan($kdkeluhan, $idpo, $kdpo, $kdsj = '')
+	{
+        $data['kriteria'] = $this->penilaian->get_list_kriteria_keluhan()->result();
+        $data['nilai_keluhan'] = $this->penilaian->get_nilai_keluhan($kdkeluhan, $idpo, $kdpo, $kdsj)->result();
+        $data['saran_keluhan'] = $this->penilaian->get_nilai_keluhan($kdkeluhan, $idpo, $kdpo, $kdsj)->row();
+        $data['idpo'] = $idpo;
+        $data['kdpo'] = $kdpo;
+        $data['kdsj'] = $kdsj;
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('Penilaian/vw_lihat_penilaian_keluhan', $data);
+        $this->template->render();
+    }
+
+    public function insert_penilaian_keluhan($kdkeluhan, $idpo, $kdpo, $kdsj = '') {
 
         $rating1 = $this->input->post('rating1');
         $rating2 = $this->input->post('rating2');
@@ -163,6 +185,7 @@ class Penilaian extends MY_Admin {
         $bobotKTG2 = $rating2*10;
 
         $data1 = array(
+            'fn_idpo'		=>	$idpo,
             'fc_kdpo'		=>	$kdpo,
             'fc_kdsj'		=>	$kdsj,
             'fc_kdkeluhan'		=>	$kdkeluhan,
@@ -175,6 +198,7 @@ class Penilaian extends MY_Admin {
         );
 
         $data2 = array(
+            'fn_idpo'		=>	$idpo,
             'fc_kdpo'		=>	$kdpo,
             'fc_kdsj'		=>	$kdsj,
             'fc_kdkeluhan'		=>	$kdkeluhan,

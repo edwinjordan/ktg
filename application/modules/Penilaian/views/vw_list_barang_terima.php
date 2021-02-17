@@ -3,12 +3,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>List Barang Terima</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="<?= base_url('Penilaian') ?>">List Barang Terima</a></li>
+              <li class="breadcrumb-item active">List Barang Terima</li>
             </ol>
           </div>
         </div>
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="card-body">
-            <table class="table">
+            <table id="table1" class="display">
                 <thead>
                     <tr>
                         <th scope="col" style="text-align:center;">Kode PO</th>
@@ -57,18 +57,29 @@
                                 </th>
                             <?php } elseif($items->fn_status_po == '9') { ?>
 
-                            <?php $cek_penilaian = $this->db->where('fc_kdpo', $items->fc_kdpo)
+                            <?php $cek_penilaian = $this->db->where('fn_idpo', $items->fn_idpo)
                                                             ->where('fn_id_customer', $this->session->userdata('id_customer'))
                                                             ->get('tm_penilaian_pengiriman')->num_rows(); ?>
 
+                            <?php $cek_batas_keluhan = $this->db->where('fn_idpo', $items->fn_idpo)
+                                                            ->where('fn_id_customer', $this->session->userdata('id_customer'))
+                                                            ->where('fd_target_tglsampai BETWEEN CURDATE()-5 AND CURDATE()')
+                                                            ->get('tm_po')->num_rows(); ?>
+
                                 <th style="text-align:center;">Barang Diterima</th>
                                 <th style="text-align:center;">
+                                <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>  
                                   <?php if($cek_penilaian > 0) { ?>
 
                                   <?php } else { ?>
-                                    <a href="<?php echo site_url('Penilaian/penilaian_pengiriman/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Beri Penilaian</a>
+                                    <a href="<?php echo site_url('Penilaian/penilaian_pengiriman/'.$items->fn_idpo.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Beri Penilaian</a>
                                   <?php } ?>
+
+                                  <?php if($cek_batas_keluhan > 0) { ?>
                                     <a href="<?php echo site_url('Keluhan/pelaporan_keluhan/'.$items->fn_idpo); ?>" class="btn btn-danger">Laporkan Keluhan</a>
+                                  <?php } else { ?>
+
+                                  <?php } ?>
                                 </th>
                             <?php } ?>
                         </tr>
@@ -87,3 +98,9 @@
 
 </section>
 <!-- /.content -->
+
+<script>
+$(document).ready(function() {
+    $('#table1').DataTable();
+} );
+</script>

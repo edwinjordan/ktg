@@ -3,7 +3,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Submit Garansi Barang</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -30,14 +30,14 @@
               <i class="fas fa-times"></i></button>
           </div>
         </div>
-        <?php echo form_open_multipart('Garansi/input_submit_garansi/');?>
+        <?php echo form_open_multipart('Garansi/input_submit_garansi/'.$idpo);?>
           <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
         <div class="card-body">
                     <div class="row">
                         <div class="input-group mb-3 col-sm-6">
                             <label class="col-sm-3 mt-2">No. PO & No. SJ</label>
-                            <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?= $kdpo ?>" required readonly>
-                            <input type="text" name="nosj" class="form-control" placeholder="No. SJ" required>
+                            <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?= $po_data->fc_kdpo ?>" required readonly>
+                            <input type="text" name="nosj" class="form-control" placeholder="No. SJ" value="<?= $po_data->fc_kdsj ?>" readonly>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
                           <label class="col-sm-3 mt-2">Contact Owner</label>
@@ -45,16 +45,16 @@
                         </div>
                         <div class="input-group mb-3 col-sm-6">
                           <label class="col-sm-3 mt-2">Tanggal Kirim KTG</label>
-                            <input type="date" name="tgl_kirim" class="form-control" placeholder="Tanggal Kirim KTG" required>
+                            <input type="date" name="tgl_kirim" class="form-control" placeholder="Tanggal Kirim KTG" value="<?= $po_data->fd_target_tglkirim ?>" required readonly>
+                        </div>
+                        <div class="input-group mb-3 col-sm-6">
+                          <label class="col-sm-3 mt-2">Tanggal Pemasangan</label>
+                            <input type="date" name="tgl_pasang" class="form-control" placeholder="Tanggal Pemasangan" required>
                         </div>
                         <div class="input-group mb-3 col-sm-6">
                             <label class="col-sm-3 mt-2">Lokasi Project</label>
                             <input type="text" name="lokasi_project" class="form-control" placeholder="Lokasi Project" required>
                         </div>
-                        <!-- <div class="input-group mb-3 col-sm-6">
-                            <label class="col-sm-3 mt-2">Customer</label>
-                            <input type="text" name="customer" class="form-control" placeholder="Customer" required>
-                        </div> -->
                         <div class="input-group mb-3 col-sm-6">
                           <label class="col-sm-3 mt-2">Jenis Project</label>
                             <input type="text" name="jns_project" class="form-control" placeholder="Jenis Project" required>

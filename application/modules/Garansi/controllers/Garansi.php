@@ -24,17 +24,18 @@ class Garansi extends MY_Admin {
     }
 
     //Submit Garansi
-    public function submit_garansi($id_barang, $kdpo) {
+    public function submit_garansi($id_barang, $idpo) {
 
         $data['barang'] = $this->garansi->get_barang_by_id($id_barang)->row();
-        $data['kdpo'] = $kdpo;
+        $data['po_data'] = $this->garansi->get_data_po_by_id($idpo)->row();
+        $data['idpo'] = $idpo;
 
         $this->template->set_layout('Template/view_admin');
         $this->template->set_content('Garansi/vw_submit_garansi', $data);
         $this->template->render();
     }
 
-    public function input_submit_garansi() {
+    public function input_submit_garansi($idpo) {
 
         $NoPO = $this->input->post('nopo');
         $NoSJ = $this->input->post('nosj');
@@ -50,33 +51,98 @@ class Garansi extends MY_Admin {
         $GambarPanel = $this->input->post('gmbr_panel');
         $NamaOwner = $this->input->post('nama_owner');
 
-        $data = array(
-            'fc_kdgaransi'          => uniqid(),
-            'fc_kdpo'               => $NoPO,
-            'fc_kdsj'               => $NoSJ,
-            'fd_tglkirim_ktg'       => $TglKirimKTG,
-            'fn_id_customer'        => $this->session->userdata('id_customer'),
-            'fc_kdbarang'           => $KodeBarang,
-            'fn_jml_barang'         => '0',
-            'fc_sjno_distributor'   => $NoSJDistributor,
-            'f_foto_distributor'    => $FotoSJ,
-            'fv_nmowner_project'    => $NamaOwner,
-            'fc_contact_owner'      => $ContactOwner,
-            'fv_lokasi_project'     => $LokasiProject,
-            'fv_jenis_project'      => $JnsProject,
-            'fv_luasan_project'     => $LuasanProject,
-            'f_gambar'              => $GambarPanel,
-            'fc_sts'                => '0'
-        );
+        $config['upload_path'] = realpath('assets/public/themes/admin-lte/img-pdf-garansi/');
+        $config['allowed_types']        = 'gif|jpg|png|jpeg|pdf';
+        $config['max_size'] = '2000000';
+        $config['max_width'] = '2024';
+        $config['max_height']= '1468';
+                
+        $new_name = 'fotoLoading_'.time();
+        $config['file_name'] = $new_name;
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if(!$this->upload->do_upload('foto_sj')){
+            $data = array(
+                'fc_kdgaransi'          => uniqid(),
+                'fn_idpo'               => $idpo,
+                'fc_kdpo'               => $NoPO,
+                'fc_kdsj'               => $NoSJ,
+                'fd_tglkirim_ktg'       => $TglKirimKTG,
+                'fn_id_customer'        => $this->session->userdata('id_customer'),
+                'fc_kdbarang'           => $KodeBarang,
+                'fn_jml_barang'         => '0',
+                'fc_sjno_distributor'   => $NoSJDistributor,
+                'f_foto_distributor'    => '0',
+                'fv_nmowner_project'    => $NamaOwner,
+                'fc_contact_owner'      => $ContactOwner,
+                'fv_lokasi_project'     => $LokasiProject,
+                'fv_jenis_project'      => $JnsProject,
+                'fv_luasan_project'     => $LuasanProject,
+                'f_gambar'              => '0',
+                'fc_sts'                => '0'
+            );
+        } else {
+            $get_name = $this->upload->data();
+            $nama_foto = $get_name['file_name'];
+            $gambar1 = $nama_foto;
+
+            if(!$this->upload->do_upload('gmbr_panel')){
+                $data = array(
+                    'fc_kdgaransi'          => uniqid(),
+                    'fn_idpo'               => $idpo,
+                    'fc_kdpo'               => $NoPO,
+                    'fc_kdsj'               => $NoSJ,
+                    'fd_tglkirim_ktg'       => $TglKirimKTG,
+                    'fn_id_customer'        => $this->session->userdata('id_customer'),
+                    'fc_kdbarang'           => $KodeBarang,
+                    'fn_jml_barang'         => '0',
+                    'fc_sjno_distributor'   => $NoSJDistributor,
+                    'f_foto_distributor'    => $gambar1,
+                    'fv_nmowner_project'    => $NamaOwner,
+                    'fc_contact_owner'      => $ContactOwner,
+                    'fv_lokasi_project'     => $LokasiProject,
+                    'fv_jenis_project'      => $JnsProject,
+                    'fv_luasan_project'     => $LuasanProject,
+                    'f_gambar'              => '0',
+                    'fc_sts'                => '0'
+                );
+            } else {
+                $get_name = $this->upload->data();
+                $nama_foto = $get_name['file_name'];
+                $gambar2 = $nama_foto;
+                $data = array(
+                    'fc_kdgaransi'          => uniqid(),
+                    'fn_idpo'               => $idpo,
+                    'fc_kdpo'               => $NoPO,
+                    'fc_kdsj'               => $NoSJ,
+                    'fd_tglkirim_ktg'       => $TglKirimKTG,
+                    'fn_id_customer'        => $this->session->userdata('id_customer'),
+                    'fc_kdbarang'           => $KodeBarang,
+                    'fn_jml_barang'         => '0',
+                    'fc_sjno_distributor'   => $NoSJDistributor,
+                    'f_foto_distributor'    => $gambar1,
+                    'fv_nmowner_project'    => $NamaOwner,
+                    'fc_contact_owner'      => $ContactOwner,
+                    'fv_lokasi_project'     => $LokasiProject,
+                    'fv_jenis_project'      => $JnsProject,
+                    'fv_luasan_project'     => $LuasanProject,
+                    'f_gambar'              => $gambar2,
+                    'fc_sts'                => '0'
+                );
+
+            }
+
+        }
 
         $this->garansi->input_submit_garansi($data);
         redirect('Garansi');
     }
 
     //Klaim Garansi
-    public function klaim_garansi($kdpo) {
+    public function klaim_garansi($idpo) {
 
-        $data['barang_garansi'] = $this->garansi->get_barang_garansi_by_kdpo($kdpo)->row();
+        $data['barang_garansi'] = $this->garansi->get_barang_garansi_by_idpo($idpo)->row();
 
         $this->template->set_layout('Template/view_admin');
         $this->template->set_content('Garansi/vw_klaim_garansi', $data);
@@ -94,16 +160,45 @@ class Garansi extends MY_Admin {
         $LuasanRusak = $this->input->post('luasan_rusak');
         $TglLapor = $this->input->post('tgl_lapor');
 
-        $data = array(
-            'fc_kdgaransi'          => $KodeGaransi,
-            'f_foto_kerusakan'      => $FotoRusak,
-            'fd_tgl_kerusakan'      => $TglRusak,
-            'fv_luasan_kerusakan'   => $LuasanRusak,
-            'fv_indikasi_kerusakan' => $IndikasiKerusakan,
-            'fv_nmpelapor'          => $NamaPelapor,
-            'fv_jabatan_pelapor'    => $JabatanPelapor,
-            'fd_tgl_lapor'          => $TglLapor
-        );
+        $config['upload_path'] = realpath('assets/public/themes/admin-lte/img-barang-rusak/');
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size'] = '2000000';
+        $config['max_width'] = '2024';
+        $config['max_height']= '1468';
+                // $config['file_name'] = $nama_file;	
+                
+        $new_name = 'fotoLoading_'.time();
+        $config['file_name'] = $new_name;
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if(!$this->upload->do_upload('foto_rusak')){
+
+            $data = array(
+                'fc_kdgaransi'          => $KodeGaransi,
+                'f_foto_kerusakan'      => $FotoRusak,
+                'fd_tgl_kerusakan'      => $TglRusak,
+                'fv_luasan_kerusakan'   => $LuasanRusak,
+                'fv_indikasi_kerusakan' => $IndikasiKerusakan,
+                'fv_nmpelapor'          => $NamaPelapor,
+                'fv_jabatan_pelapor'    => $JabatanPelapor,
+                'fd_tgl_lapor'          => $TglLapor
+            );
+        } else {
+            $get_name = $this->upload->data();
+            $nama_foto = $get_name['file_name'];
+            $gambar1 = $nama_foto;
+            $data = array(
+                'fc_kdgaransi'          => $KodeGaransi,
+                'f_foto_kerusakan'      => $gambar1,
+                'fd_tgl_kerusakan'      => $TglRusak,
+                'fv_luasan_kerusakan'   => $LuasanRusak,
+                'fv_indikasi_kerusakan' => $IndikasiKerusakan,
+                'fv_nmpelapor'          => $NamaPelapor,
+                'fv_jabatan_pelapor'    => $JabatanPelapor,
+                'fd_tgl_lapor'          => $TglLapor
+            );
+        }
 
         $this->garansi->insert_klaim_garansi($data);
         redirect('Garansi');
@@ -136,6 +231,7 @@ class Garansi extends MY_Admin {
         $rencanaPenggantian = $this->input->post('rencana_penggantian');
         $dueDate = $this->input->post('due_date');
         $qty = $this->input->post('qty');
+        $satuan = $this->input->post('satuan');
         $catatan = $this->input->post('catatan');
 
         $data1 = array(
@@ -143,6 +239,7 @@ class Garansi extends MY_Admin {
             'fn_iddepartment'   => $department,
             'f_analisa_masalah'   => $analisaMasalah,
             'fn_qty'   => $qty,
+            'fv_satuan'   => $satuan,
             'fd_due_date'   => $dueDate,
             'fv_rencana_penggantian'  => $rencanaPenggantian,
             'fv_catatan'   => $catatan
@@ -173,5 +270,33 @@ class Garansi extends MY_Admin {
 
         $this->garansi->update_status_garansi($kdgaransi, $data);
         redirect('Garansi/list_pengajuan_garansi');
+    }
+
+    //Detail Garansi
+    public function detail_garansi($kdgaransi, $idpo) {
+        $data['garansi_data'] = $this->garansi->get_garansi_data_by_id($kdgaransi, $idpo)->row();
+        $data['investigasi_garansi'] = $this->garansi->get_investigasi_garansi($kdgaransi)->row();
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('Garansi/vw_detail_garansi', $data);
+        $this->template->render();
+    }
+
+    function download_foto_sj($kdgaransi)
+    {
+        $data = $this->db->get_where('tm_garansi',['fc_kdgaransi'=>$kdgaransi])->row();
+        force_download('assets/public/themes/admin-lte/img-pdf-garansi/'.$data->f_foto_distributor, NULL);
+    }
+
+    function download_foto_panel($kdgaransi)
+    {
+        $data = $this->db->get_where('tm_garansi',['fc_kdgaransi'=>$kdgaransi])->row();
+        force_download('assets/public/themes/admin-lte/img-pdf-garansi/'.$data->f_gambar, NULL);
+    }
+
+    function download_foto_rusak($kdgaransi)
+    {
+        $data = $this->db->get_where('td_klaim_garansi',['fc_kdgaransi'=>$kdgaransi])->row();
+        force_download('assets/public/themes/admin-lte/img-barang-rusak/'.$data->f_foto_kerusakan, NULL);
     }
 }
