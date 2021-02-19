@@ -41,6 +41,9 @@
                 <?php echo form_open_multipart('PO/barang_cart');?>
                     <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
                     <div class="row">
+                        <div class="input-group mb-3 col-sm-12">
+                          <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" data-toggle="modal" data-target="#boostrapModal-1"><i class="fa fa-fw fa-upload"></i> Import Excel</button>
+                        </div>
                         <div class="input-group mb-3 col-sm-6">
                           <label class="col-sm-4 mt-2">No. PO & No. SJ</label>
                             <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?php echo $this->session->userdata('nopo'); ?>" required>
@@ -111,6 +114,32 @@
       <!-- /.card -->
 
 </section>
+<div class="modal fade" id="boostrapModal-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <!-- <h4 class="modal-title" id="myModalLabel">Import Excel</h4> -->
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info" role="alert"> <strong>Catatan !</strong> Sebelum import Excel kosongkan data terlebih dahulu ! </div>
+                        <form enctype="multipart/form-data" method="post" action="<?php echo base_url('PO/import_po')?>">
+                        <input type="hidden" class="txt_csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" readonly>
+                            <input accept=".xls,.xlsx" required name="file" id="file" type="file" 
+                            class="form-control margin-bottom-10  col-xs-5 margin-left-10">
+        
+        
+                        </div>
+                        <div class="modal-footer">
+                         <button type="submit" class="btn btn-success btn-xs waves-effect waves-light import" id="btnImport">
+                            <i class="fa fa-fw fa-check"></i> 
+                            Import
+                        </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>  
 <!-- /.content -->
 
 <script type="text/javascript">
@@ -124,6 +153,27 @@ $(document).ready(function(){
          $('[name="id_barang"]').val(ui.item.description); 
      }
  });
+
+ $('#import_form').submit(function(e) {
+	//	tinyMCE.triggerSave();
+		e.preventDefault(); 
+    var formData = new FormData($(this)[0]);
+  
+		$.ajax({
+			url: $(this).attr("action"), type: 'POST', dataType: 'json',
+      data: formData,
+      async: true,
+			beforeSend: function() { $('#btnImport').text('saving...'); $('#btnImport').attr('disabled',true); },
+			success: function(response) {
+        console.log('berhasil');
+				// if(response.status) { Batal(); reload_table(); swal_berhasil();
+				// } else { Batal(); reload_table(); swal_error(response.error); }
+			},
+			complete: function() { $('#btnImport').text('Import'); $('#btnImport').attr('disabled',false); },
+			cache: false, contentType: false, processData: false
+		});
+		return false;
+	});
 
 });
 </script>

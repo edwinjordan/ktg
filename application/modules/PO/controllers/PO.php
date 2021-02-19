@@ -11,6 +11,9 @@ class PO extends MY_Admin {
         parent::__construct();
         $this->load->library('cart');
         $this->load->model('M_PO', 'po');
+        // $this->load->library('PHPExcel');
+        //  $this->load->library('PHPExcel/IOFactory');
+        $this->load->library('excel');
 
         // if($this->session->userdata('status') != "login"){
         //     redirect(base_url("Auth"));
@@ -284,6 +287,101 @@ class PO extends MY_Admin {
         $this->template->set_layout('Template/view_admin');
         $this->template->set_content('PO/vw_proses_loading', $data);
         $this->template->render();
+    }
+
+    public function import_po()
+  {
+        $config['upload_path']   = './assets/export/';
+		$config['allowed_types'] = 'xls|xlsx|csv';
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+
+		if (!$this->upload->do_upload('file'))
+		{
+			$error = array('error' => $this->upload->display_errors());
+			print_r($error);
+
+		}
+		else
+		{
+            $file = $this->upload->data();
+            $name = $file["file_name"];
+        }
+    
+        $inputFileName = './assets/export/'.$name;
+
+		$inputFileType = IOFactory::identify($inputFileName);
+		$objReader = IOFactory::createReader($inputFileType);
+		$objPHPExcel = $objReader->load($inputFileName);
+
+		$sheet = $objPHPExcel->getSheet(0);
+        $highestRow = $sheet->getHighestRow();
+        $highestColumn = $sheet->getHighestColumn();
+   
+        for ($row=2; $row <= $highestRow ; $row++) {
+        $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+
+        // if($rowData[0][3]!=""){
+
+            // $UNIX_DATE = ($EXCEL_DATE - 25569) * 86400;
+            $no_po = $rowData[0][0];
+            $tgl_po = date('Y-m-d', PHPExcel_Shared_Date::ExcelToPHP(str_replace("/","-",$rowData[0][2])));
+            $tgl_kirim = date('Y-m-d', PHPExcel_Shared_Date::ExcelToPHP(str_replace("/","-",$rowData[0][3])));
+            $alamat_lokasi_kirim = $rowData[0][4];
+            $barang = $rowData[0][5];
+          //  $databarang = array();
+
+            //$check = $this->M_barang->checkBarang(@$kode_barang)->num_rows();
+            // print_r($this->db->last_query());
+            //if($check > 0){
+
+                $databarang = array(
+                //'id_barang'     => $this->input->post('id_barang'),
+                    'fc_kdpo'     =>  @$no_po,
+                    'fd_tglpo'     =>  $tgl_po,
+                    'fd_target_tglkirim'     =>  $tgl_kirim,
+                    'fv_alamat_kirim'     =>  @$alamat_lokasi_kirim
+                );
+                // //$where = ['kode_barcode_varian' => $barcode]; 
+
+                $this->db->insert('tm_po', $databarang);
+
+               $master_po = $this->po->checkMasterPO($no_po)->result_array();
+            //    print_r($this->db->last_query());
+                //for ($i=0; $i < sizeof($master_po); $i++) { 
+
+                    $data = explode('|', $barang);   
+                    foreach ($data as $key => $value) {
+                    $data2[$key] = explode(',', $value);
+        
+                    }
+                
+                
+                    $detail_po = array();
+                    for ($i=0; $i < count($data2); $i++) { 
+                    
+                        $detail_po[] = array(
+                            'fn_idpo'              => $master_po[0]['fn_idpo'],
+                            'fc_kdpo' => $no_po,
+                            'fn_id_barang'    => @$data2[$i][0],
+                            'fv_nmbarang'     => @$data2[$i][1],
+                            'fn_qty'     => @$data2[$i][2],
+                            'fv_satuan'     => @$data2[$i][3],
+                            'fn_qty_kg'     => @$data2[$i][4],
+                        );
+                    } 
+             //   }  
+
+                    $this->db->insert_batch('td_po', $detail_po); 
+          
+
+        
+        }  
+        redirect('PO/list_po','refresh');
+        // echo "<script>
+        // window.history.back();
+        // </script>"; 
     }
       
 }	

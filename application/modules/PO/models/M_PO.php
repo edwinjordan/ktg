@@ -129,5 +129,11 @@ class M_PO extends CI_Model {
         $this->db->where('fn_idekspedisi', $this->session->userdata('id_ekspedisi'));
         $this->db->update('td_po_ekspedisi', $data2);
     }
+
+    public function checkMasterPO($id){
+        $this->db->where(array('fc_kdpo' => $id));
+		//$this->db->group_by('id_varian_harga');
+		return $this->db->get('tm_po');
+    }
       
 }	
