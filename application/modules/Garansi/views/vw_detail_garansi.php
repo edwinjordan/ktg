@@ -61,11 +61,6 @@
                           <label class="col-sm-3 mt-2">Jenis Project</label>
                             <input type="text" name="jns_project" class="form-control" placeholder="Jenis Project" value="<?= $garansi_data->fv_jenis_project ?>" readonly>
                         </div>
-                        <!-- <div class="input-group mb-3 col-sm-6">
-                          <label class="col-sm-3 mt-2">Nama Barang</label>
-                            <input type="text" name="nama_barang" class="form-control" placeholder="Nama Barang" value="<?= $barang->fv_nmbarang ?>" required readonly>
-                            <input type="hidden" name="kode_barang" class="form-control" placeholder="Nama Barang" value="<?= $barang->fc_kdbarang ?>" required readonly>
-                        </div> -->
                         <div class="input-group mb-3 col-sm-6">
                           <label class="col-sm-3 mt-2">Luasan Project</label>
                             <input type="text" name="luasan_project" class="form-control" placeholder="Luasan Project" value="<?= $garansi_data->fv_luasan_project ?>" readonly>
@@ -114,7 +109,9 @@
                             <input type="date" name="tgl_lapor" class="form-control" placeholder="Tanggal Lapor" value="<?= $garansi_data->fd_tgl_lapor ?>" readonly>
                         </div>
 
+                        <?php if($investigasi_garansi == '') {
 
+                        } else { ?>
                         <div class="input-group mb-3 col-sm-6">
                             <label class="col-sm-3 mt-2">PIC Internal KTG</label>
                               <select name="pic_ktg" class="form-control" required readonly>
@@ -137,6 +134,7 @@
                             <label class="col-sm-1 mt-2">Catatan</label>
                             <textarea name="Catatan" class="form-control" placeholder="Catatan" required readonly><?php echo $investigasi_garansi->fv_catatan; ?></textarea>
                         </div>
+                        <?php } ?>
                     </div>
             
         </div>

@@ -41,6 +41,20 @@ class PO extends MY_Admin {
         }
     }
 
+    function search_customer_autocomplete(){
+        if (isset($_GET['term'])) {
+            $result = $this->po->search_customer_autocomplete($_GET['term']);
+            if (count($result) > 0) {
+                foreach ($result as $row)
+                    $arr_result[] = array(
+                        'label'     => $row->fv_nmcustomer,
+                        'description'   => $row->fn_id_customer,
+                 );
+                    echo json_encode($arr_result);
+            }
+        }
+    }
+
     public function barang_cart()
     {
         $NoPO = $this->input->post('nopo');
@@ -48,12 +62,16 @@ class PO extends MY_Admin {
         $tglKirim = $this->input->post('tgl_kirim');
         $tglPO = $this->input->post('tgl_po');
         $alamatKirim = $this->input->post('alamat_kirim');
+        $nmCustomer = $this->input->post('nama_customer');
+        $idCustomer = $this->input->post('id_customer');
 
         $this->session->set_userdata('nopo', $NoPO);
         $this->session->set_userdata('nosj', $NoSJ);
         $this->session->set_userdata('tgl_kirim', $tglKirim);
         $this->session->set_userdata('tgl_po', $tglPO);
         $this->session->set_userdata('alamat_kirim', $alamatKirim);
+        $this->session->set_userdata('nama_customer', $nmCustomer);
+        $this->session->set_userdata('id_customer', $idCustomer);
 
         $id_barang = $this->input->post('id_barang');
         $nama_barang = $this->input->post('nama_barang');
@@ -92,11 +110,13 @@ class PO extends MY_Admin {
         $tglKirim = $this->session->userdata('tgl_kirim');
         $tglPO = $this->session->userdata('tgl_po');
         $alamatKirim = $this->session->userdata('alamat_kirim');
+        $nmCustomer = $this->session->userdata('nama_customer');
+        $idCustomer = $this->session->userdata('id_customer');
 
         // print_r($NoPO, $NoSJ);
 
         if (!empty($tglKirim) && !empty($NoPO) && !empty($tglPO) && !empty($alamatKirim)) {
-            $simpan = $this->po->simpan_po($NoPO, $NoSJ, $tglPO, $tglKirim, $alamatKirim);
+            $simpan = $this->po->simpan_po($NoPO, $NoSJ, $tglPO, $tglKirim, $alamatKirim, $idCustomer);
             if ($simpan) {
                 $this->cart->destroy();
                 $this->session->unset_userdata('tgl_kirim');
@@ -104,6 +124,8 @@ class PO extends MY_Admin {
                 $this->session->unset_userdata('tgl_po');
                 $this->session->unset_userdata('nosj');
                 $this->session->unset_userdata('alamat_kirim');
+                $this->session->unset_userdata('nama_customer');
+                $this->session->unset_userdata('id_customer');
                 echo $this->session->set_flashdata('msg', '<label class="label label-success">PO Berhasil di Tambahkan</label>');
                 redirect('PO/list_po');
             } else {

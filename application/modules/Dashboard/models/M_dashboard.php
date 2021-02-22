@@ -3,7 +3,7 @@
 class M_dashboard extends CI_Model {
 
     public function total_outstanding_po() {
-        $this->db->select('SUM(b.fn_qty_kg) AS TotalOutstandingPO');
+        $this->db->select('COUNT(b.fn_idpo) AS TotalOutstandingPO');
         $this->db->from('tm_po a');
         $this->db->join('td_po b', 'a.fn_idpo=b.fn_idpo');
         $this->db->where('a.fn_status_po=0');
@@ -11,7 +11,7 @@ class M_dashboard extends CI_Model {
     }
 
     public function total_po_progress() {
-        $this->db->select('SUM(b.fn_qty_kg) AS TotalPOProgress');
+        $this->db->select('COUNT(b.fn_idpo) AS TotalPOProgress');
         $this->db->from('tm_po a');
         $this->db->join('td_po b', 'a.fn_idpo=b.fn_idpo');
         $this->db->where('a.fn_status_po=1');

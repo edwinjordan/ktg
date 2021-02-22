@@ -14,9 +14,16 @@ class M_PO extends CI_Model {
         return $this->db->get('tm_barang')->result();
     }
 
-    public function simpan_po($NoPO, $NoSJ, $tglPO, $tglKirim, $alamatKirim) {
+    function search_customer_autocomplete($search){
+        $this->db->like('fv_nmcustomer', $search , 'both');
+        $this->db->order_by('fv_nmcustomer', 'ASC');
+        $this->db->limit(10);
+        return $this->db->get('tm_customer')->result();
+    }
 
-        $this->db->query("INSERT INTO tm_po (fn_idpo, fc_kdpo, fd_tglpo, fc_kdsj, fd_target_tglkirim, fn_id_customer, fv_alamat_kirim, fn_status_po) VALUES ('', '$NoPO', '$tglPO', '$NoSJ', '$tglKirim', '1', '$alamatKirim', '0')");
+    public function simpan_po($NoPO, $NoSJ, $tglPO, $tglKirim, $alamatKirim, $idCustomer) {
+
+        $this->db->query("INSERT INTO tm_po (fn_idpo, fc_kdpo, fd_tglpo, fc_kdsj, fd_target_tglkirim, fn_id_customer, fv_alamat_kirim, fn_status_po) VALUES ('', '$NoPO', '$tglPO', '$NoSJ', '$tglKirim', '$idCustomer', '$alamatKirim', '0')");
 
         $latest_id = $this->db->insert_id();
 

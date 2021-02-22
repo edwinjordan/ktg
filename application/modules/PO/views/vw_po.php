@@ -66,6 +66,11 @@
                             <label class="col-sm-4 mt-2">Alamat Pengiriman</label>
                             <input type="text" name="alamat_kirim" class="form-control" placeholder="Alamat Pengiriman" value="<?php echo $this->session->userdata('alamat_kirim'); ?>" required>
                         </div>
+                        <div class="input-group mb-3 col-sm-6">
+                            <label class="col-sm-4 mt-2">Customer</label>
+                            <input type="text" id="search-customer" name="nama_customer" class="form-control" value="<?php echo $this->session->userdata('nama_customer'); ?>" placeholder="Nama Customer">
+                            <input type="hidden" name="id_customer" class="form-control" value="<?php echo $this->session->userdata('id_customer'); ?>" placeholder="Id Customer">  
+                        </div>
                     </div>
                     <thead>
                         <tr>
@@ -156,6 +161,15 @@ $(document).ready(function(){
      select: function (event, ui) {
          $('[name="nama_barang"]').val(ui.item.label); 
          $('[name="id_barang"]').val(ui.item.description); 
+     }
+ });
+
+ $('#search-customer').autocomplete({
+     source: "<?php echo site_url('PO/search_customer_autocomplete');?>",
+
+     select: function (event, ui) {
+         $('[name="nama_customer"]').val(ui.item.label); 
+         $('[name="id_customer"]').val(ui.item.description); 
      }
  });
 

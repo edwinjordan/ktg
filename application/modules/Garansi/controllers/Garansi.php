@@ -276,6 +276,15 @@ class Garansi extends MY_Admin {
         redirect('Garansi/list_pengajuan_garansi');
     }
 
+    public function approval_ditolak($kdgaransi) {
+        $data = array(
+            'fc_sts'    => '3'
+        );
+
+        $this->garansi->update_status_garansi($kdgaransi, $data);
+        redirect('Garansi/list_pengajuan_garansi');
+    }
+
     //Detail Garansi
     public function detail_garansi($kdgaransi, $idpo) {
         $data['garansi_data'] = $this->garansi->get_garansi_data_by_id($kdgaransi, $idpo)->row();

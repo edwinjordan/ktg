@@ -218,6 +218,7 @@ class Penilaian extends MY_Admin {
     public function penilaian_garansi($idpo, $kdpo)
 	{
         $data['kriteria'] = $this->penilaian->get_list_kriteria_keluhan()->result();
+        $data['kdgaransi'] = $this->penilaian->get_kdgaransi($idpo, $kdpo)->row();
         $data['idpo'] = $idpo;
         $data['kdpo'] = $kdpo;
 
@@ -226,7 +227,19 @@ class Penilaian extends MY_Admin {
         $this->template->render();
     }
 
-    public function insert_penilaian_garansi($idpo, $kdpo) {
+    public function lihat_penilaian_garansi($kdgaransi, $idpo)
+	{
+        $data['kriteria'] = $this->penilaian->get_list_kriteria_keluhan()->result();
+        $data['nilai_garansi'] = $this->penilaian->get_nilai_garansi($kdgaransi, $idpo)->result();
+        $data['saran_garansi'] = $this->penilaian->get_nilai_garansi($kdgaransi, $idpo)->row();
+        $data['idpo'] = $idpo;
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('Penilaian/vw_lihat_penilaian_garansi', $data);
+        $this->template->render();
+    }
+
+    public function insert_penilaian_garansi($kdgaransi, $idpo, $kdpo) {
 
         $rating1 = $this->input->post('rating1');
         $rating2 = $this->input->post('rating2');
@@ -239,7 +252,7 @@ class Penilaian extends MY_Admin {
             'fn_idpo'		=>	$idpo,
             'fc_kdpo'		=>	$kdpo,
             'fc_kdsj'		=>	'',
-            'fc_kdgaransi'		=>	'',
+            'fc_kdgaransi'		=>	$kdgaransi,
             'fn_id_customer'   => $this->session->userdata('id_customer'),
             'fn_idkriteria'        => '1',
             'fn_point'     => $rating1,
@@ -252,7 +265,7 @@ class Penilaian extends MY_Admin {
             'fn_idpo'		=>	$idpo,
             'fc_kdpo'		=>	$kdpo,
             'fc_kdsj'		=>	'',
-            'fc_kdgaransi'		=>	'',
+            'fc_kdgaransi'		=>	$kdgaransi,
             'fn_id_customer'   => $this->session->userdata('id_customer'),
             'fn_idkriteria'        => '2',
             'fn_point'     => $rating2,

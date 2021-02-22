@@ -88,7 +88,7 @@
           </div> -->
         </div>
         <div class="card-body">
-          <div class="row">
+          <div class="row mb-4">
             <div class="col-sm-3">
               <div class="card-body" style="background: #2f74b5; color: white; text-align: center; border-radius: 5px">
                 <legend style="font-size: 60px"><?= $total_outstanding_po->TotalOutstandingPO ?></legend>
@@ -115,7 +115,7 @@
             </div>
           </div>
 
-          <table class="table mt-5">
+          <table id="table1" class="display table">
             <thead>
               <tr>
                 <th style="text-align:center;">No</th>
@@ -133,7 +133,7 @@
                 foreach($data_po_dashboard as $dpd) {
               ?>
                 <tr>
-                  <th style="text-align:center;"><?= $i ?></th>
+                  <th style="text-align:center;"><?= $i++ ?></th>
                   <th style="text-align:center;"><?= $dpd->fc_kdpo ?></th>
                   <th style="text-align:center;"><?= $dpd->fc_kdsj ?></th>
                   <th style="text-align:center;"><?= $dpd->fd_target_tglkirim ?></th>
@@ -163,3 +163,9 @@
 
 </section>
 <!-- /.content -->
+
+<script>
+$(document).ready(function() {
+    $('#table1').DataTable();
+} );
+</script>

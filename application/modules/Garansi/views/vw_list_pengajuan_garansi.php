@@ -60,6 +60,10 @@
                             <th style="text-align:center;"><?= $items->fv_jabatan_pelapor; ?></th>
                             <th style="text-align:center;"><?= $items->fd_tgl_lapor; ?></th>
 
+
+                            <?php $cek = $this->db->where('fn_idpo', $items->fn_idpo)
+                                                  ->get('tm_penilaian_garansi')->num_rows(); ?>
+
                             <?php if($items->fc_sts == '0') { ?>
                               <th style="text-align:center;">
                                 <a href="<?php echo site_url('Garansi/detail_garansi/'.$items->fc_kdgaransi.'/'.$items->fn_idpo); ?>" class="btn btn-primary mb-1">Detail</a>    
@@ -72,8 +76,15 @@
                               </th>
                             <?php } elseif($items->fc_sts == '2') { ?>
                               <th style="text-align:center;">
-                              <a href="<?php echo site_url('Garansi/detail_garansi/'.$items->fc_kdgaransi.'/'.$items->fn_idpo); ?>" class="btn btn-primary mb-1">Detail</a>    
-                                <a href="<?php echo site_url('PO'); ?>" class="btn btn-success">Proses Ganti</a>
+                                <a href="<?php echo site_url('Garansi/detail_garansi/'.$items->fc_kdgaransi.'/'.$items->fn_idpo); ?>" class="btn btn-primary mb-1">Detail</a>    
+                                <a href="<?php echo site_url('PO'); ?>" class="btn btn-success mb-1">Proses Ganti</a>
+                                <?php if($cek > 0) { ?>
+                                  <a href="<?php echo site_url('Penilaian/lihat_penilaian_garansi/'.$items->fc_kdgaransi.'/'.$items->fn_idpo); ?>" class="btn btn-primary">Lihat Penilaian</a>
+                                <?php } else {} ?>
+                              </th>
+                            <?php } else { ?>
+                              <th>
+                                Pengajuan Garansi Ditolak
                               </th>
                             <?php } ?>
                         </tr>

@@ -62,7 +62,7 @@
         <!-- /.card-body -->
         <div class="card-footer">
           <button type="submit" class="btn btn-success">YA</button>
-          <a href="" class="btn btn-danger float-sm-right">TIDAK</a>
+          <a href="<?php echo base_url('Garansi/approval_ditolak/'.$kdgaransi) ?>" class="btn btn-danger float-sm-right">TIDAK</a>
         </div>
       <?php echo form_close(); ?>
         <!-- /.card-footer-->

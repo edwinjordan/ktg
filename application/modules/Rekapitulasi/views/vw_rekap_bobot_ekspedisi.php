@@ -21,7 +21,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Rekapitulasi Bobot Ekspedisi Bulan <?php echo date('F'); ?></h3>
+          <h3 class="card-title">Rekapitulasi Bobot Ekspedisi Bulan <?php echo date('F', STRTOTIME($monthYear)); ?></h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -31,6 +31,10 @@
           </div>
         </div>
         <div class="card-body">
+        <?php echo form_open_multipart('Rekapitulasi/pilih_bulan');?>
+            <input name="monthYear" id="month" type="month" value="<?php echo $monthYear ?>">
+            <button type="submit" class="btn btn-primary btn-sm" style="margin-right: 5px;">Submit</button>
+          <?php echo form_close(); ?>
             <table class="table">
                 <thead>
                     <tr>

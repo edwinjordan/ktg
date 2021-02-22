@@ -78,6 +78,12 @@ class M_penilaian extends CI_Model {
     }
 
     //PENILAIAN GARANSI
+    public function get_kdgaransi($idpo, $kdpo) {
+        $this->db->where('fn_idpo', $idpo);
+        $this->db->where('fc_kdpo', $kdpo);
+        return $this->db->get('tm_garansi');
+    }
+
     public function insert_penilaian_garansi($data1, $data2) {
 
         $this->db->insert('tm_penilaian_garansi', $data1);
@@ -85,5 +91,13 @@ class M_penilaian extends CI_Model {
         $this->db->insert('tm_penilaian_garansi', $data2);
 
         return true;
-    }    
+    }
+
+    public function get_nilai_garansi($kdgaransi, $idpo) {
+        
+        $this->db->where('fc_kdgaransi', $kdgaransi);
+        $this->db->where('fn_idpo', $idpo);
+        
+        return $this->db->get('tm_penilaian_garansi');
+    }
 }
