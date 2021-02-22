@@ -104,16 +104,55 @@
                 <?php } ?>
               </div>
               <div class="col-sm-3">
-              <legend>Bobot Ekspedisi :</legend>
-                <?php foreach($nilai_pengiriman as $np) { ?>
-                  <h4 class="mt-4"><?php echo $np->fn_bobot_ekspedisi ?></h4>
-                <?php } ?>
+                <legend>Bobot Ekspedisi :</legend>
+                <?php 
+                  $bobot_ekspedisi = 0;
+                  foreach($nilai_pengiriman as $np) { 
+                ?>
+                
+                  <h4 class="mt-4" style="text-align: right"><?php echo $np->fn_bobot_ekspedisi ?></h4>
+
+                <?php
+                  $bobot_ekspedisi = $bobot_ekspedisi + $np->fn_bobot_ekspedisi; 
+                } ?>
               </div>
               <div class="col-sm-3">
-              <legend>Bobot KTG :</legend>
-                <?php foreach($nilai_pengiriman as $np) { ?>
-                  <h4 class="mt-4"><?php echo $np->fn_bobot_ktg ?></h4>
-                <?php } ?>
+                <legend>Bobot KTG :</legend>
+                <?php 
+                  $bobot_ktg = 0;
+                  foreach($nilai_pengiriman as $np) { 
+                ?>
+
+                  <h4 class="mt-4" style="text-align: right"><?php echo $np->fn_bobot_ktg ?></h4>
+                  
+                <?php
+                  $bobot_ktg = $bobot_ktg + $np->fn_bobot_ktg; 
+                } ?>
+              </div>
+              <div class="col-sm-6">
+                  <!-- Kosong -->
+              </div>
+              <div class="col-sm-3">
+                <hr style="border-top: 1px solid"></hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                      <h4>Summary :</h4>
+                    </div>
+                    <div class="col-sm-6">
+                      <h4 style="text-align: right"><?php echo $bobot_ekspedisi; ?></h4>
+                    </div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <hr style="border-top: 1px solid"></hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                      <h4>Summary :</h4>
+                    </div>
+                    <div class="col-sm-6">
+                      <h4 style="text-align: right"><?php echo $bobot_ktg; ?></h4>
+                    </div>
+                </div>
               </div>
               <div class="input-group col-sm-12">
                 <textarea type="text" name="kritik_saran" class="form-control" placeholder="Kritik dan Saran" required readonly><?php echo $saran_pengiriman->fv_saran ?></textarea>

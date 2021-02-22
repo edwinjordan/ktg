@@ -60,12 +60,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Penilaian Respon Keluhan</h1>
+            <h1>Penilaian Respon Garansi</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="#">List Barang Garansi</a></li>
+              <li class="breadcrumb-item active">Penilaian Respon Garansi</li>
             </ol>
           </div>
         </div>
@@ -78,16 +78,10 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Penilaian Respon Keluhan</h3>
+          <h3 class="card-title">Penilaian Respon Garansi</h3>
 
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button>
-          </div>
         </div>
-        <?php echo form_open_multipart('Penilaian/insert_penilaian_pengiriman/'.$kdpo.'/'.$kdsj);?>
+        <?php echo form_open_multipart('Penilaian/insert_penilaian_garansi/'.$idpo.'/'.$kdpo);?>
           <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
           <div class="card-body">
             <div class="row">
@@ -98,47 +92,30 @@
                 <?php } ?>
               </div>
               <div class="col-sm-3">
-              <legend>Rating Penilaian :</legend>
-                <?php foreach($nilai_keluhan as $np) { ?>
-                  <h4 class="mt-4"><?php echo $np->fn_point ?></h4>
-                <?php } ?>
-              </div>
-              <div class="col-sm-3">
-              <legend>Bobot :</legend>
-                <?php 
-                  $bobot = 0 ;
-                  foreach($nilai_keluhan as $np) { 
-                ?>
-                  <h4 class="mt-4" style="text-align: right"><?php echo $np->fn_bobot ?></h4>
-
-                  <?php
-                    $bobot = $bobot + $np->fn_bobot;
-                  ?>
-
-                <?php } ?>
-              </div>
-              <div class="col-sm-6">
-                  <!-- Kosong -->
-              </div>
-              <div class="col-sm-3">
-                <hr style="border-top: 1px solid"></hr>
-                <div class="row">
-                    <div class="col-sm-6">
-                      <h4>Summary :</h4>
-                    </div>
-                    <div class="col-sm-6">
-                      <h4 style="text-align: right"><?php echo $bobot; ?></h4>
-                    </div>
-                </div>
+                <fieldset class="rating">
+                    <legend>Rating Penilaian :</legend>
+                    <input type="radio" id="star5-1" name="rating1" value="5" /><label for="star5-1" title="Rocks!">5 stars</label>
+                    <input type="radio" id="star4-1" name="rating1" value="4" /><label for="star4-1" title="Pretty good">4 stars</label>
+                    <input type="radio" id="star3-1" name="rating1" value="3" /><label for="star3-1" title="Meh">3 stars</label>
+                    <input type="radio" id="star2-1" name="rating1" value="2" /><label for="star2-1" title="Kinda bad">2 stars</label>
+                    <input type="radio" id="star1-1" name="rating1" value="1" /><label for="star1-1" title="Sucks big time">1 star</label>
+                </fieldset>
+                <fieldset class="rating">
+                    <input type="radio" id="star5-2" name="rating2" value="5" /><label for="star5-2" title="Rocks!">5 stars</label>
+                    <input type="radio" id="star4-2" name="rating2" value="4" /><label for="star4-2" title="Pretty good">4 stars</label>
+                    <input type="radio" id="star3-2" name="rating2" value="3" /><label for="star3-2" title="Meh">3 stars</label>
+                    <input type="radio" id="star2-2" name="rating2" value="2" /><label for="star2-2" title="Kinda bad">2 stars</label>
+                    <input type="radio" id="star1-2" name="rating2" value="1" /><label for="star1-2" title="Sucks big time">1 star</label>
+                </fieldset>
               </div>
               <div class="input-group col-sm-12">
-                <textarea type="text" name="kritik_saran" class="form-control" placeholder="Kritik dan Saran" required readonly><?php echo $saran_keluhan->fv_kritik_saran ?></textarea>
+                <textarea type="text" name="kritik_saran" class="form-control" placeholder="Kritik dan Saran" required></textarea>
               </div>
             </div>
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            <!-- <button type="submit" class="btn btn-success"> Kirim</button> -->
+            <button type="submit" class="btn btn-success"> Kirim</button>
           </div>
           <!-- /.card-footer-->
         <?php echo form_close(); ?>

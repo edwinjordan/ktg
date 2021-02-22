@@ -56,10 +56,19 @@
 
                             <?php $cek = $this->db->where('fn_idpo', $items->fn_idpo)
                                                   ->get('tm_garansi')->num_rows(); ?>
+
+                            <?php $cek_sts_penilaian = $this->db->select('*') 
+                                                            ->where('fn_idpo', $items->fn_idpo)
+                                                            ->where('fc_sts=2')
+                                                            ->get('tm_garansi')->num_rows() ?>
                             
                             <?php if($cek > 0) { ?>
                                 <th style="text-align:center;">
                                     <a href="<?php echo site_url('Garansi/klaim_garansi/'.$items->fn_idpo); ?>" class="btn btn-success">Klaim Garansi</a>
+
+                                    <?php if($cek_sts_penilaian > 0) { ?>
+                                      <a href="<?php echo site_url('Penilaian/penilaian_garansi/'.$items->fn_idpo.'/'.$items->fc_kdpo); ?>" class="btn btn-primary">Beri Nilai</a>
+                                    <?php } else {} ?>
                                 </th>
                             <?php } else{ ?>
                                 <th style="text-align:center;">

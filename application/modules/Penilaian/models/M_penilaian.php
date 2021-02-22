@@ -76,4 +76,14 @@ class M_penilaian extends CI_Model {
         
         return $this->db->get('tm_penilaian_keluhan');
     }
+
+    //PENILAIAN GARANSI
+    public function insert_penilaian_garansi($data1, $data2) {
+
+        $this->db->insert('tm_penilaian_garansi', $data1);
+
+        $this->db->insert('tm_penilaian_garansi', $data2);
+
+        return true;
+    }    
 }

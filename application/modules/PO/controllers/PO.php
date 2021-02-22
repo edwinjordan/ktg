@@ -12,8 +12,8 @@ class PO extends MY_Admin {
         $this->load->library('cart');
         $this->load->model('M_PO', 'po');
         // $this->load->library('PHPExcel');
-        //  $this->load->library('PHPExcel/IOFactory');
-        $this->load->library('excel');
+        // $this->load->library('PHPExcel/IOFactory');
+        // $this->load->library('excel');
 
         // if($this->session->userdata('status') != "login"){
         //     redirect(base_url("Auth"));

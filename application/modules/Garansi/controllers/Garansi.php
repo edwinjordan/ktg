@@ -41,6 +41,7 @@ class Garansi extends MY_Admin {
         $NoSJ = $this->input->post('nosj');
         $ContactOwner = $this->input->post('contact_owner');
         $TglKirimKTG = $this->input->post('tgl_kirim');
+        $TglPasang = $this->input->post('tgl_pasang');
         $LokasiProject = $this->input->post('lokasi_project');
         $Customer = $this->input->post('customer');
         $JnsProject = $this->input->post('jns_project');
@@ -69,6 +70,7 @@ class Garansi extends MY_Admin {
                 'fc_kdpo'               => $NoPO,
                 'fc_kdsj'               => $NoSJ,
                 'fd_tglkirim_ktg'       => $TglKirimKTG,
+                'fd_tgl_pemasangan'     => $TglPasang,
                 'fn_id_customer'        => $this->session->userdata('id_customer'),
                 'fc_kdbarang'           => $KodeBarang,
                 'fn_jml_barang'         => '0',
@@ -94,6 +96,7 @@ class Garansi extends MY_Admin {
                     'fc_kdpo'               => $NoPO,
                     'fc_kdsj'               => $NoSJ,
                     'fd_tglkirim_ktg'       => $TglKirimKTG,
+                    'fd_tgl_pemasangan'     => $TglPasang,
                     'fn_id_customer'        => $this->session->userdata('id_customer'),
                     'fc_kdbarang'           => $KodeBarang,
                     'fn_jml_barang'         => '0',
@@ -117,6 +120,7 @@ class Garansi extends MY_Admin {
                     'fc_kdpo'               => $NoPO,
                     'fc_kdsj'               => $NoSJ,
                     'fd_tglkirim_ktg'       => $TglKirimKTG,
+                    'fd_tgl_pemasangan'     => $TglPasang,
                     'fn_id_customer'        => $this->session->userdata('id_customer'),
                     'fc_kdbarang'           => $KodeBarang,
                     'fn_jml_barang'         => '0',

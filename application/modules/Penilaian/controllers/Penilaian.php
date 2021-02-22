@@ -213,5 +213,56 @@ class Penilaian extends MY_Admin {
         $this->penilaian->insert_penilaian_keluhan($data1, $data2);
         redirect('Keluhan');
     }
+
+    //PENILAIAN RESPON GARANSI
+    public function penilaian_garansi($idpo, $kdpo)
+	{
+        $data['kriteria'] = $this->penilaian->get_list_kriteria_keluhan()->result();
+        $data['idpo'] = $idpo;
+        $data['kdpo'] = $kdpo;
+
+        $this->template->set_layout('Template/view_admin');
+        $this->template->set_content('Penilaian/vw_penilaian_garansi', $data);
+        $this->template->render();
+    }
+
+    public function insert_penilaian_garansi($idpo, $kdpo) {
+
+        $rating1 = $this->input->post('rating1');
+        $rating2 = $this->input->post('rating2');
+        $kritik_saran = $this->input->post('kritik_saran');
+
+        $bobotKTG1 = $rating1*10;
+        $bobotKTG2 = $rating2*10;
+
+        $data1 = array(
+            'fn_idpo'		=>	$idpo,
+            'fc_kdpo'		=>	$kdpo,
+            'fc_kdsj'		=>	'',
+            'fc_kdgaransi'		=>	'',
+            'fn_id_customer'   => $this->session->userdata('id_customer'),
+            'fn_idkriteria'        => '1',
+            'fn_point'     => $rating1,
+            'fn_bobot'   => $bobotKTG1,
+            'fn_iddepartment' => '',
+            'fv_kritik_saran'   => $kritik_saran
+        );
+
+        $data2 = array(
+            'fn_idpo'		=>	$idpo,
+            'fc_kdpo'		=>	$kdpo,
+            'fc_kdsj'		=>	'',
+            'fc_kdgaransi'		=>	'',
+            'fn_id_customer'   => $this->session->userdata('id_customer'),
+            'fn_idkriteria'        => '2',
+            'fn_point'     => $rating2,
+            'fn_bobot'   => $bobotKTG2,
+            'fn_iddepartment' => '',
+            'fv_kritik_saran'   => $kritik_saran
+        );
+
+        $this->penilaian->insert_penilaian_garansi($data1, $data2);
+        redirect('Garansi');
+    }
       
 }	

@@ -39,11 +39,11 @@
                         </div>
                         <div class="input-group col-sm-5">
                             <label class="col-sm-6">Target Tanggal Kirim</label>
-                            <p class="col-sm-6">: <?php echo $po_data->fd_target_tglkirim ?></p>
+                            <p class="col-sm-6">: <?php echo date('d-m-Y', strtotime($po_data->fd_target_tglkirim)) ?></p>
                         </div>
                         <div class="input-group col-sm-4">
                             <label class="col-sm-6">Tanggal PO</label>
-                            <p class="col-sm-6">: <?php echo $po_data->fd_tglpo ?></p>
+                            <p class="col-sm-6">: <?php echo date('d-m-Y', strtotime($po_data->fd_tglpo)) ?></p>
                         </div>
 
                         <div class="input-group col-sm-3">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="input-group col-sm-4">
                             <label class="col-sm-6">Tanggal SJ</label>
-                            <p class="col-sm-6">: <?php echo $po_data->fd_tglsj ?></p>
+                            <p class="col-sm-6">: <?php echo date('d-m-Y', strtotime($po_data->fd_tglsj)) ?></p>
                         </div>
 
                         <div class="input-group col-sm-3">
@@ -69,7 +69,7 @@
                         </div>
                         <div class="input-group col-sm-4">
                             <label class="col-sm-6">Tanggal Muat</label>
-                            <p class="col-sm-6">: <?php echo $po_data->fd_tglmuat ?></p>
+                            <p class="col-sm-6">: <?php echo date('d-m-Y', strtotime($po_data->fd_tglmuat)) ?></p>
                         </div>
 
                         <div class="input-group col-sm-3">
@@ -82,7 +82,7 @@
                         </div>
                         <div class="input-group col-sm-4">
                             <label class="col-sm-6">Tanggal Sampai</label>
-                            <p class="col-sm-6">: <?php echo $po_data->fd_target_tglsampai ?></p>
+                            <p class="col-sm-6">: <?php echo date('d-m-Y', strtotime($po_data->fd_target_tglsampai)) ?></p>
                         </div>
 
                         <div class="input-group col-sm-3">
@@ -95,7 +95,7 @@
                         </div>
                         <div class="input-group col-sm-4">
                             <label class="col-sm-6">Tanggal Terima</label>
-                            <p class="col-sm-6">: <?php echo $po_data->fd_tgl_konfirmasi_terima_barang ?></p>
+                            <p class="col-sm-6">: <?php echo date('d-m-Y', strtotime($po_data->fd_tgl_konfirmasi_terima_barang)) ?></p>
                         </div>
 
                         <div class="input-group col-sm-3">
@@ -108,7 +108,7 @@
                         </div>
                         <div class="input-group col-sm-4">
                             <label class="col-sm-6">Tanggal Penilaian</label>
-                            <p class="col-sm-6">: <?php echo $po_data->fd_tgl_penilaian ?></p>
+                            <p class="col-sm-6">: <?php echo date('d-m-Y', strtotime($po_data->fd_tgl_penilaian)) ?></p>
                         </div>
 
                         <div class="input-group col-sm-3">
@@ -124,8 +124,10 @@
                     <thead>
                         <tr>
                             <th scope="col" style="text-align:center;">No</th>
+                            <th scope="col" style="text-align:center;">ID Barang</th>
                             <th scope="col" style="text-align:center;">Nama Barang</th>
                             <th scope="col" style="text-align:center;">Qty</th>
+                            <th scope="col" style="text-align:center;">Satuan</th>
                             <th scope="col" style="text-align:center;">Qty (Kg)</th>
                         </tr>
                     </thead>
@@ -134,8 +136,10 @@
                         <?php foreach ($barang_po as $items) : ?>
                             <tr>
                                 <th style="text-align:center;"><?php echo $i; ?></th>
-                                <th style="text-align:center;"><?= $items->fv_nmbarang; ?></th>
+                                <th style="text-align:center;"><?php echo $items->fn_id_barang; ?></th>
+                                <th style="text-align:center;"><?php echo $items->fv_nmbarang; ?></th>
                                 <th style="text-align:center;"><?php echo $items->fn_qty ?></th>
+                                <th style="text-align:center;"><?php echo $items->fv_satuan ?></th>
                                 <th style="text-align:center;"><?php echo number_format($items->fn_qty_kg); ?></th>
                             </tr>
                             <?php $i++; ?>
