@@ -41,9 +41,14 @@
                 <?php echo form_open_multipart('PO/barang_cart');?>
                     <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
                     <div class="row">
-                        <div class="input-group mb-3 col-sm-12">
-                          <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" data-toggle="modal" data-target="#boostrapModal-1"><i class="fa fa-fw fa-upload"></i> Import Excel</button>
+                        <div class="col-sm-12">
+                          <div class="input-group mb-3 col-sm-6">
+                            <button type="button" class="btn btn-primary btn-xs waves-effect waves-light" data-toggle="modal" data-target="#boostrapModal-1"><i class="fa fa-fw fa-upload"></i> Import Excel</button>
+                            <a href="<?php echo base_url('PO/download_format') ?>" class="btn btn-danger btn-xs waves-effect waves-light"><i class="fa fa-fw fa-download"></i> Download Format</a>
+                          </div>
+                         
                         </div>
+                       
                         <div class="input-group mb-3 col-sm-6">
                           <label class="col-sm-4 mt-2">No. PO & No. SJ</label>
                             <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?php echo $this->session->userdata('nopo'); ?>" required>

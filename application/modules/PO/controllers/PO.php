@@ -330,6 +330,7 @@ class PO extends MY_Admin {
             $tgl_kirim = date('Y-m-d', PHPExcel_Shared_Date::ExcelToPHP(str_replace("/","-",$rowData[0][3])));
             $alamat_lokasi_kirim = $rowData[0][4];
             $barang = $rowData[0][5];
+            $customer = $rowData[0][6];
           //  $databarang = array();
 
             //$check = $this->M_barang->checkBarang(@$kode_barang)->num_rows();
@@ -341,7 +342,8 @@ class PO extends MY_Admin {
                     'fc_kdpo'     =>  @$no_po,
                     'fd_tglpo'     =>  $tgl_po,
                     'fd_target_tglkirim'     =>  $tgl_kirim,
-                    'fv_alamat_kirim'     =>  @$alamat_lokasi_kirim
+                    'fv_alamat_kirim'     =>  @$alamat_lokasi_kirim,
+                    'fn_id_customer' => $customer
                 );
                 // //$where = ['kode_barcode_varian' => $barcode]; 
 
@@ -382,6 +384,14 @@ class PO extends MY_Admin {
         // echo "<script>
         // window.history.back();
         // </script>"; 
+    }
+
+    public function download_format()
+    {
+        force_download('./assets/download/BookFormat.xlsx', NULL);
+        echo "<script>
+        window.history.back();
+        </script>"; 
     }
       
 }	
