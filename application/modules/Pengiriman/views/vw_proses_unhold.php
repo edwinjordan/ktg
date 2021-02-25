@@ -29,12 +29,12 @@ input[type="file"] {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Proses Unhold</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="#">List Pengiriman</a></li>
+              <li class="breadcrumb-item active">Proses Unhold</li>
             </ol>
           </div>
         </div>
@@ -71,6 +71,7 @@ input[type="file"] {
                 <label class="col-sm-1"><?php echo $bp->fn_qty ?> X</label><label class="col-sm-9"><?php echo $bp->fv_nmbarang ?></label><label class="col-sm-2"><?php echo $bp->fn_qty_kg ?> Kg</label>
               </div>
               <?php } ?>
+              <textarea type="text" name="alasan_hold" class="form-control" placeholder="Alasan Di Hold" required readonly><?php echo $po_data->fv_alasan_hold ?></textarea>
               <div class="button-wrap">
                 <a href="<?php echo base_url('Pengiriman/update_proses_pengiriman/'.$po_data->fn_idpo) ?>" class="btn btn-primary" style="width: 80%">Unhold</a>
               </div>
@@ -78,9 +79,7 @@ input[type="file"] {
           </div>
         </div>
         <!-- /.card-body -->
-        <div class="card-footer">
-          Footer
-        </div>
+
         <!-- /.card-footer-->
       </div>
       <!-- /.card -->

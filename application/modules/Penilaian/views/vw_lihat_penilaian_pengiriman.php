@@ -60,12 +60,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Penilaian Pengiriman</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="#">List Pengiriman</a></li>
+              <li class="breadcrumb-item active">Lihat Penilaian</li>
             </ol>
           </div>
         </div>
@@ -160,9 +160,7 @@
             </div>
           </div>
           <!-- /.card-body -->
-          <div class="card-footer">
-            <!-- <button type="submit" class="btn btn-success"> Kirim</button> -->
-          </div>
+
           <!-- /.card-footer-->
         <?php echo form_close(); ?>
       </div>

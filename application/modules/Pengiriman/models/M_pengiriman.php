@@ -8,13 +8,16 @@ class M_pengiriman extends CI_Model {
         return $this->db->update('tm_po', $dataInsert);
     }
 
-    public function get_ekspedisi_pengiriman_data($id_ekspedisi = '') {
+    public function get_ekspedisi_pengiriman_data($id_ekspedisi = '', $id_customer = '') {
         $this->db->select('*');
         $this->db->from('tm_po a');
         $this->db->join('td_po_ekspedisi b', 'a.fn_idpo=b.fn_idpo');
 
         if($id_ekspedisi) {
             $this->db->where('b.fn_idekspedisi', $id_ekspedisi);
+        }
+        if($id_customer) {
+            $this->db->where('a.fn_id_customer', $id_customer);
         }
         
         $this->db->where('a.fn_status_po > 4');

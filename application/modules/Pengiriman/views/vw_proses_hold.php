@@ -29,12 +29,12 @@ input[type="file"] {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Proses Hold</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="#">List Pengiriman</a></li>
+              <li class="breadcrumb-item active">Proses Hold</li>
             </ol>
           </div>
         </div>
@@ -57,6 +57,8 @@ input[type="file"] {
           </div>
         </div>
         <div class="card-body">
+        <?php echo form_open_multipart('Pengiriman/update_proses_hold/'.$po_data->fn_idpo);?>
+        <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
           <div class="card" style="width: 50%; margin: auto; border-radius: 15px">
             <div class="card-body">
               <div class="card" style="width: 80%; margin: auto; border-radius: 10px">
@@ -71,16 +73,16 @@ input[type="file"] {
                 <label class="col-sm-1"><?php echo $bp->fn_qty ?> X</label><label class="col-sm-9"><?php echo $bp->fv_nmbarang ?></label><label class="col-sm-2"><?php echo $bp->fn_qty_kg ?> Kg</label>
               </div>
               <?php } ?>
+              <textarea type="text" name="alasan_hold" class="form-control" placeholder="Alasan Di Hold" required></textarea>
               <div class="button-wrap">
-                <a href="<?php echo base_url('Pengiriman/update_proses_hold/'.$po_data->fn_idpo) ?>" class="btn btn-primary" style="width: 80%">Hold</a>
+                <button type="submit" class="btn btn-primary" style="width: 80%">Hold</button>
               </div>
             </div>
           </div>
+        <?php echo form_close(); ?>
         </div>
         <!-- /.card-body -->
-        <div class="card-footer">
-          Footer
-        </div>
+
         <!-- /.card-footer-->
       </div>
       <!-- /.card -->

@@ -20,9 +20,12 @@ class Pengiriman extends MY_Admin {
 	public function index()
 	{
                 $id_ekspedisi = $this->session->userdata('id_ekspedisi');
+                $id_customer = $this->session->userdata('id_customer');
 
                 if($id_ekspedisi) {
                         $data['list_pengiriman_po'] = $this->Pengiriman->get_ekspedisi_pengiriman_data($id_ekspedisi);
+                } elseif($id_customer) {
+                        $data['list_pengiriman_po'] = $this->Pengiriman->get_ekspedisi_pengiriman_data('', $id_customer);
                 } else {
                         $data['list_pengiriman_po'] = $this->Pengiriman->get_ekspedisi_pengiriman_data();
                 }
@@ -125,8 +128,11 @@ class Pengiriman extends MY_Admin {
 
         public function update_proses_hold($idpo) {
 
+                $alasanHold = $this->input->post('alasan_hold');
+
                 $data = array(
-                        'fn_status_po'  => '10'
+                        'fv_alasan_hold'        => $alasanHold,
+                        'fn_status_po'          => '10'
                 );
 
                 $this->po->update_status_po($idpo, $data);

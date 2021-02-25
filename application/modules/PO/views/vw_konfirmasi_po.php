@@ -21,7 +21,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Penawaran Harga Ekspedisi</h3>
+          <h3 class="card-title">Konfirmasi PO</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">

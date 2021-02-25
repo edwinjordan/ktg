@@ -48,7 +48,10 @@
                                 <th scope="row"><?php echo $b['fn_id_barang']; ?></th>
                                 <td><?php echo $b['fc_kdbarang']; ?></td>
                                 <td><?php echo $b['fv_nmbarang']; ?></td>
-                                <td><?php echo $b['fn_garansi']; ?></td>
+                                <td>
+                                    
+                                    <?php echo $b['fn_garansi']; ?>
+                                </td>
                                 <td><?php echo $b['fv_garansi_detail']; ?></td>
                                 <td><?php echo $b['fn_garansi_masa']; ?></td>
                                 <td>
