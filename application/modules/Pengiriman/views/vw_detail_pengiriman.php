@@ -121,6 +121,10 @@
                         </div>
 
                     </div>
+                    <div class="input-group mb-3 mt-3">
+                        <label class="col-sm-2 mt-3">Alasan Di Hold</label>
+                        <textarea type="text" name="persyaratan_ekspedisi" class="form-control" placeholder="Tidak Ada" required disabled><?php echo $po_data->fv_alasan_hold ?></textarea>
+                    </div>
                     <thead>
                         <tr>
                             <th scope="col" style="text-align:center;">No</th>
