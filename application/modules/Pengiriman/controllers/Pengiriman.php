@@ -35,6 +35,15 @@ class Pengiriman extends MY_Admin {
                 $this->template->render();
         }
 
+        public function tracking_pengiriman($idpo) {
+
+                $data['tracking'] = $this->Pengiriman->get_tracking_data($idpo)->result();
+
+                $this->template->set_layout('Template/view_admin');
+                $this->template->set_content('Pengiriman/vw_tracking', $data);
+                $this->template->render();
+        }
+
         public function loading_po($idpo) {
 
                 $config['upload_path'] = realpath('assets/public/themes/admin-lte/img-proses-loading/');
@@ -50,7 +59,7 @@ class Pengiriman extends MY_Admin {
                 $this->upload->initialize($config);
 
                 if(!$this->upload->do_upload('img-loading')){
-                        $data = array (
+                        $data1 = array (
                                 'fd_tglmuat'    => date('Y-m-d'),
                                 'fv_img_load'   => $this->input->post('img_loading'),
                                 'fn_status_po'  => '5'
@@ -59,14 +68,21 @@ class Pengiriman extends MY_Admin {
                         $get_name = $this->upload->data();
                         $nama_foto = $get_name['file_name'];
                         $gambar1 = $nama_foto;
-                        $data = array (
+                        $data1 = array (
                                 'fd_tglmuat'    => date('Y-m-d'),
                                 'fv_img_load'   => $gambar1,
                                 'fn_status_po'  => '5'
                         );
                 }
 
-                $this->Pengiriman->update_load_po($idpo, $data);
+                $data2 = array (
+                        'fn_idpo'               => $idpo,
+                        'fd_tgl_tracking'       => date('Y-m-d'),
+                        'fv_status'             => 'Loading (Muat)',
+                        'fv_keterangan'         => ''
+                );
+
+                $this->Pengiriman->update_load_po($idpo, $data1, $data2);
                 redirect(base_url('PO/list_po'));
         }
         
@@ -108,11 +124,18 @@ class Pengiriman extends MY_Admin {
 
         public function update_proses_pengiriman($idpo) {
 
-                $data = array(
+                $data1 = array(
                         'fn_status_po'  => '6'
                 );
 
-                $this->po->update_status_po($idpo, $data);
+                $data2 = array (
+                        'fn_idpo'               => $idpo,
+                        'fd_tgl_tracking'       => date('Y-m-d'),
+                        'fv_status'             => 'Kirim',
+                        'fv_keterangan'         => ''
+                );
+
+                $this->Pengiriman->update_status_pengiriman($idpo, $data1, $data2);
                 redirect('Pengiriman');
         }
 
@@ -130,12 +153,19 @@ class Pengiriman extends MY_Admin {
 
                 $alasanHold = $this->input->post('alasan_hold');
 
-                $data = array(
+                $data1 = array(
                         'fv_alasan_hold'        => $alasanHold,
                         'fn_status_po'          => '10'
                 );
 
-                $this->po->update_status_po($idpo, $data);
+                $data2 = array (
+                        'fn_idpo'               => $idpo,
+                        'fd_tgl_tracking'       => date('Y-m-d'),
+                        'fv_status'             => 'Hold',
+                        'fv_keterangan'         => $alasanHold
+                );
+
+                $this->Pengiriman->update_status_pengiriman($idpo, $data1, $data2);
                 redirect('Pengiriman');
         }
 
@@ -147,6 +177,22 @@ class Pengiriman extends MY_Admin {
                 $this->template->set_layout('Template/view_admin');
                 $this->template->set_content('Pengiriman/vw_proses_unhold', $data);
                 $this->template->render();
+        }
+
+        public function update_proses_unhold($idpo) {
+
+                $data1 = array(
+                        'fn_status_po'          => '6'
+                );
+
+                $data2 = array (
+                        'fn_idpo'               => $idpo,
+                        'fd_tgl_tracking'       => date('Y-m-d'),
+                        'fv_status'             => 'Unhold',
+                );
+
+                $this->Pengiriman->update_status_pengiriman($idpo, $data1, $data2);
+                redirect('Pengiriman');
         }
 
         //Proses Transit
@@ -163,11 +209,18 @@ class Pengiriman extends MY_Admin {
 
                 $transit = $this->input->post('transit');
 
-                $data = array(
+                $data1 = array(
                         'fv_transit'  => $transit 
                 );
 
-                $this->po->update_status_po($idpo, $data);
+                $data2 = array (
+                        'fn_idpo'               => $idpo,
+                        'fd_tgl_tracking'       => date('Y-m-d'),
+                        'fv_status'             => 'Transit',
+                        'fv_keterangan'         => $transit
+                );
+
+                $this->Pengiriman->update_status_pengiriman($idpo, $data1, $data2);
                 redirect('Pengiriman');
         }
 
@@ -183,12 +236,19 @@ class Pengiriman extends MY_Admin {
 
         public function update_proses_unloading($idpo) {
 
-                $data = array(
+                $data1 = array(
                         'fd_target_tglsampai'   => date('Y-m-d'),
                         'fn_status_po'  => '7'
                 );
 
-                $this->po->update_status_po($idpo, $data);
+                $data2 = array (
+                        'fn_idpo'               => $idpo,
+                        'fd_tgl_tracking'       => date('Y-m-d'),
+                        'fv_status'             => 'Unloading',
+                        'fv_keterangan'         => ''
+                );
+
+                $this->Pengiriman->update_status_pengiriman($idpo, $data1, $data2);
                 redirect('Pengiriman');
         }
 
@@ -204,11 +264,18 @@ class Pengiriman extends MY_Admin {
 
         public function update_proses_barang_diterima($idpo) {
 
-                $data = array(
+                $data1 = array(
                         'fn_status_po'  => '8'
                 );
+                
+                $data2 = array (
+                        'fn_idpo'               => $idpo,
+                        'fd_tgl_tracking'       => date('Y-m-d'),
+                        'fv_status'             => 'Barang Sudah Diterima',
+                        'fv_keterangan'         => ''
+                );
 
-                $this->po->update_status_po($idpo, $data);
+                $this->Pengiriman->update_status_pengiriman($idpo, $data1, $data2);
                 redirect('Pengiriman');
         }
 

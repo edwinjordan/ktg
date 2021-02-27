@@ -66,6 +66,7 @@
                             <th scope="col" style="text-align:center;">No</th>
                             <th scope="col" style="text-align:center;">Nama Barang</th>
                             <th scope="col" style="text-align:center;">Qty</th>
+                            <th scope="col" style="text-align:center;">Satuan</th>
                             <th scope="col" style="text-align:center;">Qty (Kg)</th>
                         </tr>
                     </thead>
@@ -76,6 +77,7 @@
                                 <th style="text-align:center;"><?php echo $i; ?></th>
                                 <th style="text-align:center;"><?= $items->fv_nmbarang; ?></th>
                                 <th style="text-align:center;"><?php echo $items->fn_qty ?></th>
+                                <th style="text-align:center;"><?php echo $items->fv_satuan ?></th>
                                 <th style="text-align:center;"><?php echo number_format($items->fn_qty_kg); ?></th>
                             </tr>
                             <?php $i++; ?>
@@ -87,7 +89,7 @@
                     <textarea type="text" name="persyaratan_ekspedisi" class="form-control" placeholder="Persyaratan Ekspedisi Yang Harus Di Penuhi" required disabled><?php echo $po_data->fv_syarat_ekspedisi ?></textarea>
                   </div>
                   <div class="input-group mb-3 col-sm-6 float-sm-right">
-                    <label class="col-sm-4 mt-2">Harga PenawaranM</label>
+                    <label class="col-sm-4 mt-2">Harga Penawaran</label>
                     <input type="text" name="harga_penawaran" class="form-control" placeholder="Masukkan Harga" value="<?php echo $po_data->fm_harga_ekspedisi ?>" required disabled>
                   </div>
             

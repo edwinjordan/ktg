@@ -38,7 +38,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="foto-customer" class="form-label">Foto Customer</label>
-                        <input type="file" class="form-control" name="foto-customer" id="foto-customer">
+                        <input type="text" class="form-control" name="foto-customer" id="foto-customer">
                     </div>
                     <div class="mb-3">
                         <label for="alamat-customer" class="form-label">Alamat Customer</label>

@@ -73,7 +73,7 @@ input[type="file"] {
               <?php } ?>
               <textarea type="text" name="alasan_hold" class="form-control" placeholder="Alasan Di Hold" required readonly><?php echo $po_data->fv_alasan_hold ?></textarea>
               <div class="button-wrap">
-                <a href="<?php echo base_url('Pengiriman/update_proses_pengiriman/'.$po_data->fn_idpo) ?>" class="btn btn-primary" style="width: 80%">Unhold</a>
+                <a href="<?php echo base_url('Pengiriman/update_proses_unhold/'.$po_data->fn_idpo) ?>" class="btn btn-primary" style="width: 80%">Unhold</a>
               </div>
             </div>
           </div>

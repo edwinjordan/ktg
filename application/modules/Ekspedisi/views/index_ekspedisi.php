@@ -70,7 +70,8 @@
                             <td scope="row"><?= $i++; ?></td>
                             <td><?= $e['fv_email']; ?></td>
                             <td><?= $e['fv_nama_ekspedisi']; ?></td>
-                            <td><img src="../assets/public/themes/admin-lte/img-ekspedisi/<?php echo $e['fv_pic_ekspedisi']; ?>" style="width: 65px;"></td>
+                            <!-- <td><img src="../assets/public/themes/admin-lte/img-ekspedisi/<?php echo $e['fv_pic_ekspedisi']; ?>" style="width: 65px;"></td> -->
+                            <td><?= $e['fv_pic_ekspedisi']; ?></td>
                             <td><?= $e['fv_alamat_ekspedisi']; ?></td>
                             <td><?= $e['fv_kecamatan']; ?></td>
                             <td><?= $e['fv_kota']; ?></td>
@@ -95,7 +96,7 @@
                                     </div>
                                     </button>
                                 </div> -->
-                                <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Ekspedisi/edit/<?php echo $e['fn_idekspedisi'] ?>">Edit</a>    
+                                <a class="btn btn-block btn-primary" href="<?php echo base_url()?>Ekspedisi/ubah/<?php echo $e['fn_idekspedisi'] ?>">Edit</a>    
                                 <a class="btn btn-block btn-danger" href="<?php echo base_url()?>Ekspedisi/delete/<?php echo $e['fn_idekspedisi'] ?>">Hapus</a>  
                             </td>
                         </tr>

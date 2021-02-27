@@ -76,7 +76,8 @@ class Customer extends MY_Admin
                 'fv_username' => $this->input->post('username'),
                 'fv_password' => md5($this->input->post('password')),
                 'fv_view_password' => $this->input->post('password'),
-                'fn_idlevel' => 2
+                'fn_idlevel' => 2,
+                'fv_pic_customer' => $this->input->post('foto-customer')
             );
             }else{
                 //unlink('../assets/galeri/'.$this->input->post('terserah'));
@@ -164,7 +165,8 @@ class Customer extends MY_Admin
                 'fv_username' => $this->input->post('username'),
                 'fv_password' => md5($this->input->post('password')),
                 'fv_view_password' => $this->input->post('password'),
-                'fn_idlevel' => 2
+                'fn_idlevel' => 2,
+                'fv_pic_customer' => $this->input->post('foto-customer')
             );
             }else{
                 //unlink('../assets/galeri/'.$this->input->post('terserah'));

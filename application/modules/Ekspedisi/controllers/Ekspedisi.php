@@ -79,7 +79,8 @@ class Ekspedisi extends MY_Admin
                 'fv_username' => $this->input->post('username'),
                 'fv_password' => md5($this->input->post('password')),
                 'fv_view_password' => $this->input->post('password'),
-                'fn_idlevel' => 3
+                'fn_idlevel' => 3,
+                'fv_pic_ekspedisi' => $this->input->post('foto-ekspedisi')
             );
             }else{
                 //unlink('../assets/galeri/'.$this->input->post('terserah'));
@@ -176,7 +177,8 @@ class Ekspedisi extends MY_Admin
                 'fv_username' => $this->input->post('username'),
                 'fv_password' => md5($this->input->post('password')),
                 'fv_view_password' => $this->input->post('password'),
-                'fn_idlevel' => 3
+                'fn_idlevel' => 3,
+                'fv_pic_ekspedisi' => $this->input->post('foto-ekspedisi')
             );
             }else{
                 //unlink('../assets/galeri/'.$this->input->post('terserah'));

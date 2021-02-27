@@ -38,7 +38,7 @@
                         <div class="input-group mb-3 col-sm-6">
                             <label class="col-sm-4 mt-2">No. PO & No. SJ</label>
                             <input type="text" name="nopo" class="form-control" placeholder="No. PO" value="<?php echo $po_data->fc_kdpo ?>" required disabled>
-                            <input type="text" name="nosj" class="form-control" placeholder="No. SJ" value="<?php echo $po_data->fc_kdsj ?>" required disabled>
+                            <input type="text" name="nosj" class="form-control" placeholder="No. SJ" value="<?php echo $po_data->fc_kdsj ?>" >
                         </div>
                         <div class="input-group mb-3 col-sm-6">
                             <label class="col-sm-4 mt-2">Target Tanggal Kirim</label>

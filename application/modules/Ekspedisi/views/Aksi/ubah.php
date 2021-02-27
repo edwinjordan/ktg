@@ -52,13 +52,13 @@
                                 <div class="mb-3 row">
                                     <label for="picEks" class="col-sm-2 col-form-label">PIC Ekspedisi</label>
                                     <div class="col-sm-10">
-                                    <input type="file" class="form-control" name="foto-ekspedisi" id="foto-ekspedisi" >
+                                    <input type="text" class="form-control" name="foto-ekspedisi" id="foto-ekspedisi" value="<?php echo $e['fv_pic_ekspedisi'] ?>">
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <img src="<?php echo base_url() ?>assets/public/themes/admin-lte/img-ekspedisi/<?php echo $e['fv_pic_ekspedisi'] ?>" style="height:150px;width:200px;">
-                            </div>
+                            </div> -->
                             <div class="col my-4">
                                 <div class="mb-3 row">
                                     <label for="alamatEks" class="col-sm-2 col-form-label">Alamat Ekspedisi</label>

@@ -70,7 +70,8 @@
                             <th scope="row"><?php echo $c['fn_id_customer']; ?></th>
                             <td><?php echo $c['fv_email']; ?></td>
                             <td><?php echo $c['fv_nmcustomer']; ?></td>
-                            <td><img src="../assets/public/themes/admin-lte/img-customer/<?php echo $c['fv_pic_customer']; ?>" style="width: 65px;"></td>
+                            <!-- <td><img src="../assets/public/themes/admin-lte/img-customer/<?php echo $c['fv_pic_customer']; ?>" style="width: 65px;"></td> -->
+                            <td><?php echo $c['fv_pic_customer']; ?></td>
                             <td><?php echo $c['fv_alamat_customer']; ?></td>
                             <td><?php echo $c['fv_kecamatan']; ?></td>
                             <td><?php echo $c['fv_kota']; ?></td>

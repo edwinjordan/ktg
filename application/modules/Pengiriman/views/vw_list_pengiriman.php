@@ -57,21 +57,34 @@
                             <?php if($this->session->userdata('level_user') == '1') { ?>
 
                               <?php if($items->fn_status_po == '5') { ?>
+
                                   <th style="text-align:center;">Proses Loading</th>
                                   <th style="text-align:center;">
                                       <a href="<?php echo site_url('Pengiriman/proses_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-primary">Proses Pengiriman</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                   </th>
+
                               <?php } elseif($items->fn_status_po == '6') { ?>
+
                                   <th style="text-align:center;">Proses Pengiriman</th>
                                   <th style="text-align:center;">
                                       <a href="<?php echo site_url('Pengiriman/proses_hold/'.$items->fn_idpo); ?>" class="btn btn-danger">Hold</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                   </th>
+
                               <?php } elseif($items->fn_status_po == '7') { ?>
+
                                   <th style="text-align:center;">Barang Sampai di Kota Tujuan</th>
-                                  <th style="text-align:center;"></th>
+                                  <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
+                                  </th>
+                              
                               <?php } elseif($items->fn_status_po == '8') { ?>
                                   <th style="text-align:center;">Barang Telah Diterima Customer</th>
-                                  <th style="text-align:center;"><a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a></th>
+                                  <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                    <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
+                                  </th>
                               <?php } elseif($items->fn_status_po == '9') { ?>
                                   
                                   <th style="text-align:center;">Barang Telah Diterima Customer</th>
@@ -80,37 +93,55 @@
                                     <th style="text-align:center;">
                                       <a href="<?php echo site_url('Penilaian/lihat_penilaian_pengiriman/'.$items->fn_idpo.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Lihat Penilaian</a>
                                       <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                     </th>
                                   <?php } else { ?>
                                     <th style="text-align:center;">
                                       <a>Belum Dinilai</a>
                                       <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                     </th>
                                   <?php } ?>
 
                               <?php } elseif($items->fn_status_po == '10') { ?>
+
                                   <th style="text-align:center;">Pengiriman di Hold</th>
                                   <th style="text-align:center;">
                                       <a href="<?php echo site_url('Pengiriman/proses_unhold/'.$items->fn_idpo); ?>" class="btn btn-success">Unhold</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                   </th>
+
                               <?php } ?>
 
                             <?php } elseif($this->session->userdata('level_user') == '2') { ?>
 
                               <?php if($items->fn_status_po == '5') { ?>
+
                                   <th style="text-align:center;">Proses Loading</th>
-                                  <th style="text-align:center;"></th>
+                                  <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
+                                  </th>
+                              
                               <?php } elseif($items->fn_status_po == '6') { ?>
+
                                   <th style="text-align:center;">Proses Pengiriman</th>
-                                  <th style="text-align:center;"></th>
+                                  <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
+                                  </th>
+
                               <?php } elseif($items->fn_status_po == '7') { ?>
+
                                   <th style="text-align:center;">Barang Sampai di Kota Tujuan</th>
-                                  <th style="text-align:center;"></th>
+                                  <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
+                                  </th>
+
                               <?php } elseif($items->fn_status_po == '8') { ?>
                                   <th style="text-align:center;">Barang Telah Diterima Customer</th>
                                   <th style="text-align:center;">
                                     <a href="<?php echo site_url('Penilaian/konfirmasi_terima_barang/'.$items->fn_idpo); ?>" class="btn btn-primary">Konfirmasi Barang Diterima</a>
                                     <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                    <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                   </th>
                               <?php } elseif($items->fn_status_po == '9') { ?>
 
@@ -120,39 +151,56 @@
                                     <th style="text-align:center;">
                                       <a href="<?php echo site_url('Penilaian/lihat_penilaian_pengiriman/'.$items->fn_idpo.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Lihat Penilaian</a>
                                       <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                     </th>
                                   <?php } else { ?>
                                     <th style="text-align:center;">
                                       Belum Dinilai
-                                      <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>  
+                                      <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                     </th>
                                   <?php } ?>
 
                               <?php } elseif($items->fn_status_po == '10') { ?>
                                   <th style="text-align:center;">Pengiriman di Hold</th>
-                                  <th style="text-align:center;"></th>
+                                  <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
+                                  </th>
                               <?php } ?>
 
                             <?php } else { ?>
 
                               <?php if($items->fn_status_po == '5') { ?>
+
                                   <th style="text-align:center;">Proses Loading</th>
-                                  <th style="text-align:center;"></th>
+                                  <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
+                                  </th>
+                              
                               <?php } elseif($items->fn_status_po == '6') { ?>
+
                                   <th style="text-align:center;">Proses Pengiriman</th>
                                   <th style="text-align:center;">
                                       <a href="<?php echo site_url('Pengiriman/proses_hold/'.$items->fn_idpo); ?>" class="btn btn-danger">Hold</a>
-                                      <a href="<?php echo site_url('Pengiriman/proses_transit/'.$items->fn_idpo); ?>" class="btn btn-warning">Transit</a>
+                                      <a href="<?php echo site_url('Pengiriman/proses_transit/'.$items->fn_idpo); ?>" class="btn btn-success">Transit</a>
                                       <a href="<?php echo site_url('Pengiriman/proses_unloading/'.$items->fn_idpo); ?>" class="btn btn-primary">Unloading</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                   </th>
+
                               <?php } elseif($items->fn_status_po == '7') { ?>
+
                                   <th style="text-align:center;">Barang Sampai di Kota Tujuan</th>
                                   <th style="text-align:center;">
                                       <a href="<?php echo site_url('Pengiriman/proses_barang_diterima/'.$items->fn_idpo); ?>" class="btn btn-primary">Barang Diterima</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                   </th>
+
                               <?php } elseif($items->fn_status_po == '8') { ?>
                                   <th style="text-align:center;">Barang Telah Diterima Customer</th>
-                                  <th style="text-align:center;"><a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a></th>
+                                  <th style="text-align:center;">
+                                    <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                    <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
+                                  </th>
                               <?php } elseif($items->fn_status_po == '9') { ?>
 
                                   <th style="text-align:center;">Barang Telah Diterima Customer</th>
@@ -161,11 +209,13 @@
                                     <th style="text-align:center;">
                                       <a href="<?php echo site_url('Penilaian/lihat_penilaian_pengiriman/'.$items->fn_idpo.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Lihat Penilaian</a>
                                       <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                     </th>
                                   <?php } else { ?>
                                     <th style="text-align:center;">
                                       Belum Dinilai
-                                      <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>  
+                                      <a href="<?php echo site_url('Pengiriman/Detail_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                     </th>
                                   <?php } ?>
 
@@ -173,6 +223,7 @@
                                   <th style="text-align:center;">Pengiriman di Hold</th>
                                   <th style="text-align:center;">
                                       <a href="<?php echo site_url('Pengiriman/proses_unhold/'.$items->fn_idpo); ?>" class="btn btn-success">Unhold</a>
+                                      <a href="<?php echo site_url('Pengiriman/tracking_pengiriman/'.$items->fn_idpo); ?>" class="btn btn-warning">Tracking</a>
                                   </th>
                               <?php } ?>
                             <?php } ?>

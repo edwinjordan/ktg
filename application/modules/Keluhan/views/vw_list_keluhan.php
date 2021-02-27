@@ -78,12 +78,11 @@
                               <?php } elseif($items->fc_approval == '4') { ?>
                                   <th style="text-align:center;">Selesai</th>
                                   
-                                  <th style="text-align:center;">
-                                  <?php if($cek_penilaian > 0) { ?>
-                                      <a href="<?php echo site_url('Penilaian/lihat_penilaian_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Lihat Penilaian</a>
-                                      <a href="<?php echo site_url('Keluhan/detail_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
-                                  <?php } else { ?>
                                     <th style="text-align:center;">
+                                    <?php if($cek_penilaian > 0) { ?>
+                                        <a href="<?php echo site_url('Penilaian/lihat_penilaian_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo.'/'.$items->fc_kdpo.'/'.$items->fc_kdsj); ?>" class="btn btn-primary">Lihat Penilaian</a>
+                                        <a href="<?php echo site_url('Keluhan/detail_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>
+                                    <?php } else { ?>
                                         Belum Dinilai
                                         <a href="<?php echo site_url('Keluhan/detail_keluhan/'.$items->fc_kdkeluhan.'/'.$items->fn_idpo); ?>" class="btn btn-success">Detail</a>    
                                     </th>

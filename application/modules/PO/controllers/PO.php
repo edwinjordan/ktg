@@ -178,15 +178,17 @@ class PO extends MY_Admin {
 
     public function add_offer_ekspedisi($idpo) {
     
+        $nosj = $this->input->post('nosj');
         $jenisAngkutan = $this->input->post('jenis_angkutan');
         $jaminanEkspedisi = $this->input->post('jaminan_ekspedisi');
         $persyaratan = $this->input->post('persyaratan_ekspedisi');
 
         $data = array(
-            'fv_jns_angkutan'		=>	$jenisAngkutan,
-            'fv_jmn_ekspedisi'   => $jaminanEkspedisi,
-            'fv_syarat_ekspedisi'        => $persyaratan,
-            'fn_status_po'     => '2'
+            'fc_kdsj'               => $nosj,
+            'fv_jns_angkutan'		=> $jenisAngkutan,
+            'fv_jmn_ekspedisi'      => $jaminanEkspedisi,
+            'fv_syarat_ekspedisi'   => $persyaratan,
+            'fn_status_po'          => '2'
         );
 
         $this->po->insert_offer_ekspedisi($idpo, $data);

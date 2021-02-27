@@ -46,7 +46,7 @@
                         <tr>
                             <th style="text-align:center;"><?= $items->fv_nama_ekspedisi; ?></th>
                             <th style="text-align:center;"><?= $items->fd_tgl_penawaran; ?></th>
-                            <th style="text-align:center;"><?= $items->fm_harga_ekspedisi; ?></th>
+                            <th style="text-align:center;">Rp. <?= number_format($items->fm_harga_ekspedisi, 0, ",", "."); ?></th>
                             <th style="text-align:center;">
                               <a href="<?php echo site_url('PO/approve_penawaran/'.$items->fn_idpo.'/'.$items->fn_idpo_ekspedisi); ?>" class="btn btn-primary">Approve</a>
                             </th>

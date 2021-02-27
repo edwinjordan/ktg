@@ -66,6 +66,7 @@
                             <th scope="col" style="text-align:center;">No</th>
                             <th scope="col" style="text-align:center;">Nama Barang</th>
                             <th scope="col" style="text-align:center;">Qty</th>
+                            <th scope="col" style="text-align:center;">Satuan</th>
                             <th scope="col" style="text-align:center;">Qty (Kg)</th>
                         </tr>
                     </thead>
@@ -76,6 +77,7 @@
                                 <th style="text-align:center;"><?php echo $i; ?></th>
                                 <th style="text-align:center;"><?= $items->fv_nmbarang; ?></th>
                                 <th style="text-align:center;"><?php echo $items->fn_qty ?></th>
+                                <th style="text-align:center;"><?php echo $items->fv_satuan ?></th>
                                 <th style="text-align:center;"><?php echo number_format($items->fn_qty_kg); ?></th>
                             </tr>
                             <?php $i++; ?>

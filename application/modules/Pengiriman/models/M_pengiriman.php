@@ -2,10 +2,33 @@
 
 class M_pengiriman extends CI_Model {
 
-    public function update_load_po($idpo, $dataInsert) {
+    public function update_load_po($idpo, $data1, $data2) {
 
         $this->db->where('fn_idpo', $idpo);
-        return $this->db->update('tm_po', $dataInsert);
+        $this->db->update('tm_po', $data1);
+
+        $this->update_tracking_po($data2);
+
+        return true;
+    }
+
+    public function update_tracking_po($data2) {
+        $this->db->insert('td_po_tracking', $data2);
+    }
+
+    public function get_tracking_data($idpo) {
+        $this->db->where('fn_idpo', $idpo);
+        return $this->db->get('td_po_tracking');
+    }
+
+    public function update_status_pengiriman($idpo, $data1, $data2) {
+        
+        $this->db->where('fn_idpo', $idpo);
+        $this->db->update('tm_po', $data1);
+
+        $this->update_tracking_po($data2);
+
+        return true;
     }
 
     public function get_ekspedisi_pengiriman_data($id_ekspedisi = '', $id_customer = '') {

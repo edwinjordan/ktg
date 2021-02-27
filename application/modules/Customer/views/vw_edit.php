@@ -39,11 +39,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="foto-customer" class="form-label">Pic Customer</label>
-                        <input type="file" class="form-control" name="foto-customer" id="foto-customer" >
+                        <input type="text" class="form-control" name="foto-customer" id="foto-customer" value="<?php echo $c['fv_pic_customer']; ?>">
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <img src="<?php echo base_url() ?>assets/public/themes/admin-lte/img-customer/<?php echo $c['fv_pic_customer'] ?>" style="height:150px;width:200px;">
-                    </div>    
+                    </div>     -->
                     <div class="mb-3">
                         <label for="alamat-customer" class="form-label">Alamat Customer</label>
                         <input type="text" class="form-control" name="alamat-customer" id="alamat-customer" value="<?php echo $c['fv_alamat_customer']; ?>">

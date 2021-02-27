@@ -2,12 +2,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Customer</h1>
+                <h1>Barang</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-                    <li class="breadcrumb-item active">Form Customer</li>
+                    <li class="breadcrumb-item active">Form Barang</li>
                 </ol>
             </div>
         </div>
@@ -21,7 +21,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Form Customer</h3>
+                    <h3 class="card-title">Form Barang</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="detail-garansi" class="form-label">Detail Garansi</label>
-                        <textarea type="text" class="form-control" name="detail-garansi" id="detail-garansi"></textarea>
+                        <textarea type="text" class="form-control" name="detail-garansi" id="detail-garansi"><?php echo $b['fv_garansi_detail']; ?></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="masa-garansi" class="form-label">Masa Garansi</label>
